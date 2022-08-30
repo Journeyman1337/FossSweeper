@@ -72,7 +72,7 @@ jobs:
             /build/modules/desktop_view/${{ matrix.platform.executable }}
             CHANGES
           type: "zip"
-          filename: "FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip"
+          filename: "FossSweeper-${{ matrix.platform.os }}-${{ github.event.inputs.commitTag }}.zip"
           exclusions: "*.git* /*node_modules/* .editorconfig /build/*"
       - name: release the windows exe zip
         uses: softprops/action-gh-release@v1
