@@ -21,7 +21,7 @@ on: [workflow_dispatch]
   inputs:
     commitTag:
       description: 'Tag'     
-        required: true
+      required: true
 jobs:
   build:
     runs-on: ${{ matrix.platform.os }}
