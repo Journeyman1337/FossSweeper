@@ -63,7 +63,7 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v2
         with:
-          ref: 'commitTag'
+          ref: ${{ github.event.inputs.commitTag }}
       - name: log CMake version
         shell: bash
         run: cmake --version
