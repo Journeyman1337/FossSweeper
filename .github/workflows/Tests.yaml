@@ -88,7 +88,6 @@ jobs:
         working-directory: ${{github.workspace}}
         run: |
           cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
-        continue-on-error: true
       - name: run auto tests
         shell: bash
         working-directory: ${{github.workspace}}/build/modules/test/
