@@ -64,13 +64,12 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
-      - name: zip the release
-        uses: vimtor/action-zip@v1
+      - name: release the windows exe zip
+        uses: thedoctor0/zip-release@main
         with:
-          files: ${{ github.workspace }}/build/modules/desktop_view/${{ matrix.platform.executable }} ${{ github.workspace }}/CHANGES
-          dest: FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip
-      - name: add the release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip
-          draft: true
+          files: |
+            ${{ github.workspace }}/build/modules/desktop_view/${{ matrix.platform.executable }}
+            ${{ github.workspace }}/CHANGES
+          type: "zip"
+          filename: "FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip"
+          exclusions: "*.git* /*node_modules/* .editorconfig /build/*"
