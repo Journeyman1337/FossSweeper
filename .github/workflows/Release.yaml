@@ -94,9 +94,7 @@ jobs:
       - name: zip the release
         uses: vimtor/action-zip@v1
         with:
-          files: |
-            build/modules/desktop_view/${{ matrix.platform.executable }}
-            CHANGES
+          files: build/modules/desktop_view/${{ matrix.platform.executable }} CHANGES
           dest: FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip
       - name: add the release
         uses: softprops/action-gh-release@v1
