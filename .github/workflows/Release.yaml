@@ -77,5 +77,5 @@ jobs:
       - name: release the windows exe zip
         uses: softprops/action-gh-release@v1
         with:
-          files: FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip
+          files: FossSweeper-${{ matrix.platform.os }}-${{ github.event.inputs.commitTag }}.zip
           draft: true
