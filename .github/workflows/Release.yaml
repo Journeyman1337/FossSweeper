@@ -67,6 +67,7 @@ jobs:
       - name: create the windows exe zip
         uses: thedoctor0/zip-release@main
         with:
+          directory: ${{ github.workspace }}
           path: |
             /build/modules/desktop_view/${{ matrix.platform.executable }}
             CHANGES
