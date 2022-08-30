@@ -17,7 +17,7 @@
 #Compile automatic tests and run them, outputting errors
 
 name: Release
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ${{ matrix.platform.os }}
