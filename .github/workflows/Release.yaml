@@ -68,8 +68,8 @@ jobs:
         uses: thedoctor0/zip-release@main
         with:
           path: |
-            ${{ github.workspace }}/build/modules/desktop_view/${{ matrix.platform.executable }}
-            ${{ github.workspace }}/CHANGES
+            /build/modules/desktop_view/${{ matrix.platform.executable }}
+            CHANGES
           type: "zip"
           filename: "FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip"
           exclusions: "*.git* /*node_modules/* .editorconfig /build/*"
