@@ -64,7 +64,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
-      - name: release the windows exe zip
+      - name: create the windows exe zip
         uses: thedoctor0/zip-release@main
         with:
           path: |
@@ -73,3 +73,8 @@ jobs:
           type: "zip"
           filename: "FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip"
           exclusions: "*.git* /*node_modules/* .editorconfig /build/*"
+      - name: release the windows exe zip
+        uses: softprops/action-gh-release@v1
+        with:
+          files: FossSweeper-${{ matrix.platform-os }}-${{ github.event.inputs.commitTag }}.zip
+          draft: true
