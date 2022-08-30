@@ -38,22 +38,6 @@ jobs:
               cxx: cl.exe,
               arch: "x64-windows",
             }
-          - {
-              Name: Linux GCC,
-              os: ubuntu-20.04,
-              executable: FossSweeper,
-              cc: gcc-10,
-              cxx: g++-10,
-              arch: "x64-linux",
-            }
-          - {
-              Name: MacOS Clang,
-              os: macos-10.15,
-              executable: FossSweeper,
-              cc: clang,
-              cxx: clang++,
-              arch: "x64-osx",
-            }
         build_type: [Release]
     env:
       buildDir: '${{ github.workspace }}\build'
