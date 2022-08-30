@@ -1,0 +1,102 @@
+# SPDX-FileCopyrightText: 2022 Daniel Valcour <fosssweeper@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+#
+# Copyright (c) 2022 Daniel Valcour
+#
+# This file is part of FossSweeper.
+#
+# FossSweeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# FossSweeper is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
+#
+
+#Compile automatic tests and run them, outputting errors
+
+name: Tests
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ${{ matrix.platform.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - {
+              Name: Windows VS2019,
+              os: windows-2019,
+              cc: cl.exe,
+              cxx: cl.exe,
+              arch: "x64-windows",
+            }
+          - {
+              Name: Linux GCC,
+              os: ubuntu-20.04,
+              cc: gcc-10,
+              cxx: g++-10,
+              arch: "x64-linux",
+            }
+          - {
+              Name: Linux Clang,
+              os: ubuntu-20.04,
+              cc: clang-12,
+              cxx: clang++-12,
+              arch: "x64-linux",
+            }
+          - {
+              Name: MacOS Clang,
+              os: macos-10.15,
+              cc: clang,
+              cxx: clang++,
+              arch: "x64-osx",
+            }
+        build_type: [Release, Debug]
+    env:
+      buildDir: '${{ github.workspace }}\build'
+      CC: ${{ matrix.platform.cc }}
+      CXX: ${{ matrix.platform.cxx }}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+      - name: log CMake version
+        shell: bash
+        run: cmake --version
+      - name: create build enviornment
+        shell: bash
+        working-directory: ${{ github.workspace }}
+        run: cmake -E make_directory $GITHUB_WORKSPACE/build
+      - name: xcode update
+        if: ${{ runner.os == 'macOS'}}
+        run: softwareupdate --install -a
+      - name: apt update
+        if: ${{ runner.os == 'Linux' }}
+        shell: bash
+        run: sudo apt-get update
+      - name: add linux system packages
+        if: ${{ runner.os == 'Linux' }}
+        shell: bash
+        run: bash ./scripts/install_ubuntu_packages.bash
+      - name: generate CMake project
+        shell: bash
+        working-directory: ${{ github.workspace }}
+        run: bash ./scripts/generate_with_tests.bash
+      - name: build CMake project
+        shell: bash
+        working-directory: ${{github.workspace}}
+        run: |
+          cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
+        continue-on-error: true
+      - name: run auto tests
+        shell: bash
+        working-directory: ${{github.workspace}}/build/modules/test/
+        run: ctest -C ${{ matrix.build_type }}
+        continue-on-error: true
+      - name: JUnit report
+        uses: mikepenz/action-junit-report@v2.4.3
+        with:
+          report_paths: "**/unittests.*.xml"
+          require_tests: true
+          fail_on_failure: true
