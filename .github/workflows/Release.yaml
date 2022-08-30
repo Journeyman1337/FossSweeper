@@ -67,7 +67,7 @@ jobs:
       - name: release the windows exe zip
         uses: thedoctor0/zip-release@main
         with:
-          files: |
+          path: |
             ${{ github.workspace }}/build/modules/desktop_view/${{ matrix.platform.executable }}
             ${{ github.workspace }}/CHANGES
           type: "zip"
