@@ -92,7 +92,7 @@ jobs:
             CHANGES
           dest: FossSweeper-${{ matrix.platform-os }}-${{ github.ref_name }}.zip
       - name: add the release
-        uses: softprops/action-gh-release@latest
+        uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: FossSweeper-${{ matrix.platform-os }}-${{ github.ref_name }}.zip
