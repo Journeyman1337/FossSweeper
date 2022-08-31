@@ -66,12 +66,11 @@ jobs:
           cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
       - name: create the windows exe zip
         if: ${{ runner.os == 'Windows' }}
-        shell: bash
+        shell: powershell
         working-directory: ${{ github.workspace }}
         run:  |
-          7za
           ZIP_FILE='FossSweeper-${{ runner.os }}-${{ github.event.inputs.commitTag }}.zip'
-          7za a -tzip "$ZIP_FILE" "${{ env.buildDir }}/modules/desktop_view/FossSweeper.exe" "CHANGES"
+          Compress-Archive -DestinationPath "$ZIP_FILE" -Path "${{ env.buildDir }}/modules/desktop_view/FossSweeper.exe" "CHANGES"
       - name: release the windows exe zip
         uses: softprops/action-gh-release@v1
         with:
