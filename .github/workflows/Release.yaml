@@ -69,10 +69,10 @@ jobs:
         shell: powershell
         working-directory: ${{ github.workspace }}
         run:  |
-          ZIP_FILE='FossSweeper-${{ runner.os }}-${{ github.event.inputs.commitTag }}.zip'
+          ZIP_FILE='FossSweeper-${{ matrix.platform.arch }}-${{ github.event.inputs.commitTag }}.zip'
           Compress-Archive -DestinationPath "$ZIP_FILE" -Path "${{ env.buildDir }}/modules/desktop_view/FossSweeper.exe" "CHANGES"
       - name: release the windows exe zip
         uses: softprops/action-gh-release@v1
         with:
-          files: FossSweeper-${{ runner.os }}-${{ github.event.inputs.commitTag }}.zip
+          files: FossSweeper-${{ matrix.platform.arch }}-${{ github.event.inputs.commitTag }}.zip
           draft: true
