@@ -87,7 +87,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/build/
         run: |
-          cmake --build . --config ${{ matrix.build_type }} --target package
+          cmake --build . --config ${{ matrix.build_type }}
       - name: run CPack to make a tar.gz
         shell: bash
         working-directory: ${{ github.workspace }}/build/
