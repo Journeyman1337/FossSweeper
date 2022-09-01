@@ -85,9 +85,9 @@ jobs:
         run: bash ./scripts/generate_no_tests.bash
       - name: build CMake project
         shell: bash
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}/build/
         run: |
-          cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
+          cmake --build . --config ${{ matrix.build_type }}
       - name: run CPack to make a tar.gz
         shell: bash
         working-directory: ${{ github.workspace }}/build/
