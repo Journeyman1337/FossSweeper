@@ -75,22 +75,14 @@ jobs:
         if: ${{ runner.os == 'Linux' }}
         shell: bash
         run: sudo apt-get update
-      - name: add macos packages
-        if: ${{ runner.os == 'macOS'}}
-        shell: bash
-        run: brew install ninja
       - name: add linux system packages
         if: ${{ runner.os == 'Linux' }}
         shell: bash
-        run: |
-          bash ./scripts/install_ubuntu_packages.bash
-          sudo apt-get install -y ninja-build
+        run: bash ./scripts/install_ubuntu_packages.bash
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: |
-          bash ./scripts/add_extern_submodules.bash
-          cmake -S . -B ./build/ -G Ninja -D FSWEEP_INSTALL_DESKTOP=OFF
+        run: bash ./scripts/generate_with_tests.bash
       - name: build CMake project
         shell: bash
         working-directory: ${{github.workspace}}
