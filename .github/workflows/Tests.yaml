@@ -85,10 +85,6 @@ jobs:
         run: |
           bash ./scripts/install_ubuntu_packages.bash
           sudo apt-get install -y ninja-build
-      - name: add windows packages
-        if: ${{ runner.os == 'Windows' }}
-        shell: bash
-        run: choco install ninja
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
