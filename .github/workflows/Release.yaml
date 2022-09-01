@@ -71,18 +71,22 @@ jobs:
       - name: xcode update
         if: ${{ runner.os == 'macOS'}}
         run: softwareupdate --install -a
-      - name: apt update
-        if: ${{ runner.os == 'Linux' }}
+      - name: add macos packages
+        if: ${{ runner.os == 'macOS'}}
         shell: bash
-        run: sudo apt-get update
+        run: brew install ninja
       - name: add linux system packages
         if: ${{ runner.os == 'Linux' }}
         shell: bash
-        run: bash ./scripts/install_ubuntu_packages.bash
+        run: |
+          bash ./scripts/install_ubuntu_packages.bash
+          sudo apt-get install -y ninja-build
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: bash ./scripts/generate_no_tests.bash
+        run: |
+          bash ./scripts/add_extern_submodules.bash
+          cmake -S . -B ./build/ -G Ninja -D FSWEEP_BUILD_TESTS=OFF
       - name: build CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
