@@ -53,7 +53,7 @@ jobs:
               cxx: clang++,
               arch: "x64-osx",
             }
-        build_type: [Release, Debug]
+        build_type: Release
     env:
       buildDir: '${{ github.workspace }}\build'
       CC: ${{ matrix.platform.cc }}
