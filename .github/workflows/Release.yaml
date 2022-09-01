@@ -33,10 +33,23 @@ jobs:
           - {
               Name: Windows VS2019,
               os: windows-2019,
-              executable: FossSweeper.exe,
               cc: cl.exe,
               cxx: cl.exe,
               arch: "x64-windows",
+            }
+          - {
+              Name: Linux GCC,
+              os: ubuntu-20.04,
+              cc: gcc-10,
+              cxx: g++-10,
+              arch: "x64-linux",
+            }
+          - {
+              Name: MacOS Clang,
+              os: macos-10.15,
+              cc: clang,
+              cxx: clang++,
+              arch: "x64-osx",
             }
         build_type: [Release]
     env:
@@ -55,6 +68,17 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: cmake -E make_directory $GITHUB_WORKSPACE/build
+      - name: xcode update
+        if: ${{ runner.os == 'macOS'}}
+        run: softwareupdate --install -a
+      - name: apt update
+        if: ${{ runner.os == 'Linux' }}
+        shell: bash
+        run: sudo apt-get update
+      - name: add linux system packages
+        if: ${{ runner.os == 'Linux' }}
+        shell: bash
+        run: bash ./scripts/install_ubuntu_packages.bash
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
@@ -64,13 +88,12 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
-      - name: create the windows exe zip
-        if: ${{ runner.os == 'Windows' }}
-        shell: powershell
-        working-directory: ${{ github.workspace }}
-        run: Compress-Archive -DestinationPath "FossSweeper-${{ matrix.platform.arch }}-${{ github.event.inputs.commitTag }}.zip" -Path "${{ env.buildDir }}\modules\desktop_view\FossSweeper.exe"
-      - name: release the windows exe zip
+      - name: run CPack to make a tar.gz
+        shell: bash
+        run: |
+          cpack --config CPackConfig.cmake -G TGZ
+      - name: release the zip
         uses: softprops/action-gh-release@v1
         with:
-          files: FossSweeper-${{ matrix.platform.arch }}-${{ github.event.inputs.commitTag }}.zip
+          files: ${{ github.workspace }}/build/*.tar.gz
           draft: true
