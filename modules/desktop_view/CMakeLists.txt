@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-
 set(FSWEEP_DESKTOP_SOURCES
     "AboutDialog.cpp"
     "AboutDialog.hpp"
