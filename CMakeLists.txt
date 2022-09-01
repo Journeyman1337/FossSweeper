@@ -34,8 +34,10 @@ endif()
 option(FSWEEP_MONOLITHIC "Find wxWidgets in the extern folder and add catch2 via CMake fetch_content." ${FSWEEP_MAIN_PROJECT})
 option(FSWEEP_BUILD_DESKTOP "Build the desktop application." ON)
 option(FSWEEP_BUILD_TESTS "Enable the automatic test framework." ON)
+option(FSWEEP_INSTALL_DESKTOP "Install the desktop application." ON)
 
 if (FSWEEP_MONOLITHIC)
     add_subdirectory(extern)
 endif()
+
 add_subdirectory(modules)

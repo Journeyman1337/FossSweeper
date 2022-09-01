@@ -76,3 +76,8 @@ set_target_properties(fsweep_desktop_view
     CXX_STANDARD ${FSWEEP_CXX_STANDARD}
     CXX_STANDARD_REQUIRED TRUE
 )
+if(FSWEEP_INSTALL_DESKTOP)
+    include(GNUInstallDirs)
+    install(TARGETS fsweep_desktop_view DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(FILES "${CMAKE_SOURCE_DIR}/COPYING" DESTINATION ${CMAKE_INSTALL_BINDIR})
+endif()
