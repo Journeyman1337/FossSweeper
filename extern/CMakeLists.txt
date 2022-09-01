@@ -17,5 +17,6 @@
 # wxWidgets
 if (FSWEEP_BUILD_DESKTOP)
     set(wxBUILD_SHARED FALSE)
+    set(wxBUILD_INSTALL FALSE)
     add_subdirectory(wxWidgets)
 endif()
