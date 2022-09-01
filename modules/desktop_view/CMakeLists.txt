@@ -67,7 +67,7 @@ target_link_libraries(fsweep_desktop_view
 )
 target_include_directories(fsweep_desktop_view
     PUBLIC
-        "${CMAKE_SOURCE_DIR}/extern/wxWidgets/include"
+        "${FSWEEP_SOURCE_DIR}/extern/wxWidgets/include"
 )
 set_target_properties(fsweep_desktop_view
     PROPERTIES
@@ -78,8 +78,8 @@ set_target_properties(fsweep_desktop_view
 if(FSWEEP_INSTALL_DESKTOP)
     include(GNUInstallDirs)
     install(TARGETS fsweep_desktop_view DESTINATION ${CMAKE_INSTALL_BINDIR})
-    install(FILES "${CMAKE_SOURCE_DIR}/COPYING" DESTINATION ${CMAKE_INSTALL_BINDIR})
-    set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
+    install(FILES "${FSWEEP_SOURCE_DIR}/COPYING" DESTINATION ${CMAKE_INSTALL_BINDIR})
+    set(CPACK_RESOURCE_FILE_LICENSE "${FSWEEP_SOURCE_DIR}/COPYING")
     set(CPACK_STRIP_FILES TRUE)
     set(CPACK_THREADS 0)
     include(CPack)
