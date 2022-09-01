@@ -92,7 +92,7 @@ jobs:
         shell: bash
         run: |
           cpack --config CPackConfig.cmake -G TGZ
-      - name: release the zip
+      - name: release the tar.gz
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ github.workspace }}/build/*.tar.gz
