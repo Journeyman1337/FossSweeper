@@ -33,6 +33,7 @@ jobs:
           - {
               Name: Windows VS2019,
               os: windows-2019,
+              cpack_generator: ZIP,
               cc: cl.exe,
               cxx: cl.exe,
               arch: "x64-windows",
@@ -40,6 +41,7 @@ jobs:
           - {
               Name: Linux GCC,
               os: ubuntu-20.04,
+              cpack_generator: TGZ,
               cc: gcc-10,
               cxx: g++-10,
               arch: "x64-linux",
@@ -47,6 +49,7 @@ jobs:
           - {
               Name: MacOS Clang,
               os: macos-10.15,
+              cpack_generator: TGZ,
               cc: clang,
               cxx: clang++,
               arch: "x64-osx",
@@ -92,7 +95,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/build/
         run: |
-          cpack --config CPackConfig.cmake -G TGZ
+          cpack --config CPackConfig.cmake -G ${{ matrix.platform.cpack_generator }}
       - name: release the tar.gz
         uses: softprops/action-gh-release@v1
         with:
