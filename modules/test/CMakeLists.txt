@@ -40,7 +40,7 @@ list(
     PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/"
 )
 source_group("sources"
-    FILES ${MPBP_TEST_SOURCESs}
+    FILES ${MPBP_TEST_SOURCES}
 )
 add_executable(fsweep_test_auto
     ${FSWEEP_TEST_SOURCES}
