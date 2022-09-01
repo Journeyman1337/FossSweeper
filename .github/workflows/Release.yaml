@@ -88,15 +88,13 @@ jobs:
         working-directory: ${{ github.workspace }}/build/
         run: |
           cmake --build . --config ${{ matrix.build_type }}
-      - name: run CPack to make a tar.gz and a zip
+      - name: run CPack to make a tar.gz
         shell: bash
         working-directory: ${{ github.workspace }}/build/
         run: |
-          cpack --config CPackConfig.cmake -G TGZ;ZIP
-      - name: release the tar.gz and zip
+          cpack --config CPackConfig.cmake -G TGZ
+      - name: release the tar.gz
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            ${{ github.workspace }}/build/*.tar.gz
-            ${{ github.workspace }}/build/*.zip
+          files: ${{ github.workspace }}/build/*.tar.gz
           draft: true
