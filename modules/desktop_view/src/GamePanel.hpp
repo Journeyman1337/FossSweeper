@@ -43,6 +43,7 @@ namespace fsweep
     std::array<wxBitmap, static_cast<std::size_t>(fsweep::Sprite::Count)> scaled_bitmaps;
     bool left_down = false;
     bool right_down = false;
+    bool buttons_locked = false;
     bool hover_face = false;
     bool mouse_hover = true;
     int pixel_scale = 1;
@@ -89,7 +90,7 @@ namespace fsweep
     bool TryChangePixelScale(int new_pixel_scale);
     int GetPixelScale() const noexcept;
     void DrawAll();
-    void DrawChanged();
+    void DrawChanged(bool timer_only = false);
 
     static wxSize GetPixelDimensions(int pixel_scale,
                                      const fsweep::GameConfiguration& configuration) noexcept;
