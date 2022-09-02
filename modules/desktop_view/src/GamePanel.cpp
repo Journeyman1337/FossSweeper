@@ -352,23 +352,23 @@ void fsweep::GamePanel::OnLeftRelease(wxMouseEvent& WXUNUSED(e))
 
 void fsweep::GamePanel::OnRightDown(wxMouseEvent& WXUNUSED(e))
 {
-  this->right_down = true;
-  this->DrawChanged();
-}
-
-void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
-{
   auto& model = this->model.get();
+  this->right_down = true;
   if (model.GetGameState() == fsweep::GameState::Playing)
   {
     model.UpdateTime(this->getDeltaTime());
   }
-  this->right_down = false;
   if (!this->left_down && this->hover_button_o.has_value())
   {
     auto& hover_button = this->hover_button_o.value();
     model.AltClickButton(hover_button.x, hover_button.y);
   }
+  this->DrawChanged();
+}
+
+void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
+{
+  this->right_down = false;
   this->DrawChanged();
 }
 
