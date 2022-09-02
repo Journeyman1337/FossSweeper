@@ -108,12 +108,13 @@ unsigned long fsweep::GamePanel::getDeltaTime()
 }
 
 const int MILLISECONDS_PER_SECOND = 1000;
+const int TIMER_INTERVAL = MILLISECONDS_PER_SECOND / 15;
 
 void fsweep::GamePanel::startClock()
 {
   this->stopwatch.Start(0);
   this->last_time = 0;
-  this->timer.Start(MILLISECONDS_PER_SECOND);
+  this->timer.Start(TIMER_INTERVAL);
 }
 
 void fsweep::GamePanel::stopClock()
