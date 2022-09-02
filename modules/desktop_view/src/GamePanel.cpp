@@ -111,8 +111,7 @@ const int MILLISECONDS_PER_SECOND = 1000;
 
 void fsweep::GamePanel::startClock()
 {
-  this->stopwatch = wxStopWatch();
-  this->stopwatch.Start();
+  this->stopwatch.Start(0);
   this->last_time = 0;
   this->timer.Start(MILLISECONDS_PER_SECOND);
 }
