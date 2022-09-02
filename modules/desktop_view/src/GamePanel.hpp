@@ -43,6 +43,7 @@ namespace fsweep
     std::array<wxBitmap, static_cast<std::size_t>(fsweep::Sprite::Count)> scaled_bitmaps;
     bool left_down = false;
     bool right_down = false;
+    bool buttons_locked = false;
     bool hover_face = false;
     bool mouse_hover = true;
     int pixel_scale = 1;

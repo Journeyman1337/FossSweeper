@@ -181,11 +181,12 @@ fsweep::Sprite fsweep::GamePanel::getButtonSprite(int x, int y)
   {
     if (button.GetButtonState() != fsweep::ButtonState::Flagged &&
         button.GetButtonState() != fsweep::ButtonState::Down && this->left_down &&
-        this->hover_button_o.has_value())
+        this->hover_button_o.has_value() && !this->buttons_locked)
     {
       const auto& hover_button = this->hover_button_o.value();
       if ((hover_button == button_position) ||
-          (model.GetGameState() == fsweep::GameState::Playing && this->right_down && hover_button.IsNear(button_position)))
+          (model.GetGameState() == fsweep::GameState::Playing && this->right_down &&
+           hover_button.IsNear(button_position)))
       {
         if (fsweep::ButtonState() == fsweep::ButtonState::Questioned)
         {
@@ -320,31 +321,39 @@ void fsweep::GamePanel::OnLeftRelease(wxMouseEvent& WXUNUSED(e))
   {
     model.UpdateTime(this->getDeltaTime());
   }
-  auto initially_playing = model.GetGameState() == fsweep::GameState::Playing;
-  if (this->hover_button_o.has_value())
+  if (!this->buttons_locked)
   {
-    auto& hover_button = this->hover_button_o.value();
-    if (this->right_down)
+    auto initially_playing = model.GetGameState() == fsweep::GameState::Playing;
+    if (this->hover_button_o.has_value())
     {
-      model.AreaClickButton(hover_button.x, hover_button.y);
+      auto& hover_button = this->hover_button_o.value();
+      if (this->right_down)
+      {
+        model.AreaClickButton(hover_button.x, hover_button.y);
+        this->buttons_locked = true;
+      }
+      else
+      {
+        model.ClickButton(hover_button.x, hover_button.y);
+      }
+      if (model.GetGameState() == fsweep::GameState::Playing && !initially_playing)
+      {
+        this->startClock();
+      }
+      else if (model.GetGameState() == fsweep::GameState::Dead && initially_playing)
+      {
+        this->stopClock();
+      }
     }
-    else
+    else if (this->hover_face)
     {
-      model.ClickButton(hover_button.x, hover_button.y);
-    }
-    if (model.GetGameState() == fsweep::GameState::Playing && !initially_playing)
-    {
-      this->startClock();
-    }
-    else if (model.GetGameState() == fsweep::GameState::Dead && initially_playing)
-    {
+      model.NewGame();
       this->stopClock();
     }
   }
-  else if (this->hover_face)
+  else if (!this->right_down)
   {
-    model.NewGame();
-    this->stopClock();
+    this->buttons_locked = false;
   }
   this->left_down = false;
   this->DrawChanged();
@@ -358,7 +367,7 @@ void fsweep::GamePanel::OnRightDown(wxMouseEvent& WXUNUSED(e))
   {
     model.UpdateTime(this->getDeltaTime());
   }
-  if (!this->left_down && this->hover_button_o.has_value())
+  if (!this->left_down && this->hover_button_o.has_value() && !this->buttons_locked)
   {
     auto& hover_button = this->hover_button_o.value();
     model.AltClickButton(hover_button.x, hover_button.y);
@@ -368,7 +377,21 @@ void fsweep::GamePanel::OnRightDown(wxMouseEvent& WXUNUSED(e))
 
 void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
 {
+  auto& model = this->model.get();
   this->right_down = false;
+  if (this->left_down && model.GetGameState() == fsweep::GameState::Playing)
+  {
+    this->buttons_locked = true;
+    if (this->hover_button_o.has_value())
+    {
+      auto& hover_button = this->hover_button_o.value();
+      model.AreaClickButton(hover_button.x, hover_button.y);
+    }
+  }
+  else
+  {
+    this->buttons_locked = false;
+  }
   this->DrawChanged();
 }
 
