@@ -388,7 +388,7 @@ void fsweep::GamePanel::OnTimer(wxTimerEvent& WXUNUSED(e))
 {
   auto& model = this->model.get();
   model.UpdateTime(this->getDeltaTime());
-  this->DrawChanged();
+  this->DrawChanged(true);
 }
 
 bool fsweep::GamePanel::TryChangePixelScale(int new_pixel_scale)
@@ -501,21 +501,11 @@ void fsweep::GamePanel::DrawAll()
   }
 }
 
-void fsweep::GamePanel::DrawChanged()
+void fsweep::GamePanel::DrawChanged(bool timer_only)
 {
   const auto& model = this->model.get();
   const auto buttons_wide = model.GetGameConfiguration().GetButtonsWide();
   [[maybe_unused]] wxClientDC dc(this);
-  auto score_lcd = fsweep::LcdNumber(model.GetBombsLeft());
-  for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
-  {
-    const auto lcd_sprite = fsweep::getSpriteFromDigit(score_lcd[digit_i]);
-    if (this->game_panel_state.score_lcd[digit_i] != lcd_sprite)
-    {
-      dc.DrawBitmap(this->getBitmap(lcd_sprite), this->getScorePoint(digit_i), false);
-      this->game_panel_state.score_lcd[digit_i] = lcd_sprite;
-    }
-  }
   const auto time_lcd = fsweep::LcdNumber(this->getTimerSeconds());
   for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
   {
@@ -526,6 +516,18 @@ void fsweep::GamePanel::DrawChanged()
       this->game_panel_state.time_lcd[digit_i] = lcd_sprite;
     }
   }
+  if (timer_only) return;
+  auto score_lcd = fsweep::LcdNumber(model.GetBombsLeft());
+  for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
+  {
+    const auto lcd_sprite = fsweep::getSpriteFromDigit(score_lcd[digit_i]);
+    if (this->game_panel_state.score_lcd[digit_i] != lcd_sprite)
+    {
+      dc.DrawBitmap(this->getBitmap(lcd_sprite), this->getScorePoint(digit_i), false);
+      this->game_panel_state.score_lcd[digit_i] = lcd_sprite;
+    }
+  }
+
   const auto face_sprite = this->getFaceSprite();
   if (face_sprite != this->game_panel_state.face_sprite)
   {

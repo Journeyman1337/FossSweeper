@@ -89,7 +89,7 @@ namespace fsweep
     bool TryChangePixelScale(int new_pixel_scale);
     int GetPixelScale() const noexcept;
     void DrawAll();
-    void DrawChanged();
+    void DrawChanged(bool timer_only = false);
 
     static wxSize GetPixelDimensions(int pixel_scale,
                                      const fsweep::GameConfiguration& configuration) noexcept;
