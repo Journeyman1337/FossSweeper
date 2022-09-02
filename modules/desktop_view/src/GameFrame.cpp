@@ -48,10 +48,11 @@ void fsweep::GameFrame::resizeGamePanel(wxSize size)
 }
 
 fsweep::GameFrame::GameFrame(fsweep::DesktopView& view)
-    : view(std::ref(view)), wxFrame(nullptr, fsweep::ID::Main, "FossSweeper")
+    : view(std::ref(view))
+    , wxFrame(NULL, wxID_ANY, "FossSweeper", wxDefaultPosition, wxDefaultSize,
+              wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX))
 {
   this->SetIcon(wxIcon(fsweep::ICON_XPM_DATA));
-  this->SetWindowStyle(wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX));
 
   // create top menu bar
   auto menu_bar = new wxMenuBar;
