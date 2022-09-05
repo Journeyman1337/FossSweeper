@@ -67,6 +67,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.inputs.commitTag }}
+          submodules: 'recursive'
       - name: log CMake version
         shell: bash
         run: cmake --version
@@ -84,22 +85,20 @@ jobs:
       - name: add linux system packages
         if: ${{ runner.os == 'Linux' }}
         shell: bash
-        run: bash ./scripts/install_ubuntu_packages.bash
+        run: sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: bash ./scripts/generate_no_tests.bash
+        run: cmake -S . -B ./build/ -D FSWEEP_BUILD_TESTS=OFF
       - name: build CMake project
         shell: bash
         working-directory: ${{ github.workspace }}/build/
-        run: |
-          cmake --build . --config ${{ matrix.build_type }}
+        run: cmake --build . --config ${{ matrix.build_type }}
       - name: run CPack to make a tar.gz
         shell: bash
         working-directory: ${{ github.workspace }}/build/
-        run: |
-          cpack --config CPackConfig.cmake -G ${{ matrix.platform.cpack_generator }}
-      - name: release the tar.gz
+        run: cpack --config CPackConfig.cmake -G ${{ matrix.platform.cpack_generator }}
+      - name: release the archive
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ github.workspace }}/build/*.${{ matrix.platform.package_extension }}
