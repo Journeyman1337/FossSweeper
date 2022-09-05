@@ -16,8 +16,9 @@
 
 #!/bin/bash
 wxwidgets_dir='./extern/wxWidgets'
-if [[ -d ${wxwidgets_dir} ]]; then
-	git submodule deinit -f -- ./extern/wxWidgets/
-	rm -rf .git/modules/extern/wxWidgets
-	git rm -f ./extern/wxWidgets
+if [[ ! -d ${wxwidgets_dir} ]]; then
+	git clone https://github.com/wxWidgets/wxWidgets extern/wxWidgets/
+	cd extern/wxWidgets
+	git submodule update --init --recursive
+	cd ../../
 fi

@@ -15,6 +15,6 @@
 #
 
 #!/bin/bash
-bash ./scripts/add_extern_submodules.bash
+bash ./scripts/clone_extern_repositories.bash
 rm -rf ./build/
 cmake -S . -B ./build/
