@@ -26,7 +26,3 @@ Use the scripts "generate_with_test.bash" and "generate_no_tests.bash" in order 
 ## Linux package installer scripts
 
 To build on Linux, multiple development packages need to be pre-installed on your system. Use the "install_ubuntu_packages.bash" or "install_fedora_packages.bash" scripts to install packages on either the Ubuntu or Fedora Linux distributions.
-
-## Script for reseting the project to factory state
-
-Call the "reset.bash" script in order to reset everything within the repository back to the state it is in the official fork hosted on GitHub. This will delete the build folder and remove all git submodules.
