@@ -61,6 +61,8 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
       - name: log CMake version
         shell: bash
         run: cmake --version
@@ -78,16 +80,15 @@ jobs:
       - name: add linux system packages
         if: ${{ runner.os == 'Linux' }}
         shell: bash
-        run: bash ./scripts/install_ubuntu_packages.bash
+        run: sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: bash ./scripts/generate_with_tests.bash
+        run: cmake -S . -B ./build/
       - name: build CMake project
         shell: bash
         working-directory: ${{github.workspace}}
-        run: |
-          cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
+        run: cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
       - name: run auto tests
         shell: bash
         working-directory: ${{github.workspace}}/build/modules/test/
