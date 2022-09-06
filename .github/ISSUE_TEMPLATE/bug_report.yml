@@ -38,13 +38,13 @@ body:
       label: Observed Behaviour
       description: What was the behaviour that you observed?
       placeholder: I observed that...
-   validations:
-     required: true
-   - type: textarea
-     id: steps
-     attributes:
-       label: Steps
-       description: If reproducatble, what steps do you need to take to reproduce this problem?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: If reproducatble, what steps do you need to take to reproduce this problem?
     validations:
       required: false
   - type: input
