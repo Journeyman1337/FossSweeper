@@ -18,7 +18,7 @@ NOTICE:
 
 This is a template for an issue thread. Please replace the text in each section with your own explanations.
 
-This template is intended for bug reports. For more information about the bug reporting process of our project, please view our Contributing Guidelines in the CONTRIBUTING.md file in the root directory of the code repository.
+This template is intended for build system issues. For more information about the bug reporting process of our project, please view our Contributing Guidelines in the CONTRIBUTING.md file in the root directory of the code repository.
 
 While you participate in our community, you must follow our Code of Conduct in the CODE_OF_CONDUCT.md file in the root directory of the code repository.
 
