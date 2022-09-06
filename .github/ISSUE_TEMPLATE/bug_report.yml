@@ -6,7 +6,7 @@ name: "Bug Report"
 description: "Report a run-time problem"
 title: "[Bug]: "
 labels: ["bug"]
-assignees: 
+assignees: ""
 body:
 - type: markdown
   attributes:
