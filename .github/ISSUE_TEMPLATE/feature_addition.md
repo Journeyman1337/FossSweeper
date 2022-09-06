@@ -5,13 +5,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
 ---
-
 name: Feature Addition
 about: Describe a feature to be implemented.
 title: ''
 labels: 'enhancement'
 assignees: ''
-
 ---
 
 <!--
