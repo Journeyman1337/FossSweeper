@@ -32,7 +32,7 @@ Many aspects of FossSweeper are tested automatically using the [Catch2](https://
 
 ### Manual Integration Testing
 
-Unit tests are not enough to catch everything that can go wrong with FossSweeper. Depending on what code you modify, you may be told that you need to run FossSweeper on one or more platforms to ensure that there are no visible bugs. You can emulate a different operating system than your own using [virtual machine](https://en.wikipedia.org/wiki/Virtual_machine) software such as [Virtual Box](https://www.virtualbox.org/). If you don't want to do this yourself, add the `help-needed` tag to your pull request and for someone else to do it for you.
+Unit tests are not enough to catch everything that can go wrong with FossSweeper. Depending on what code you modify, you may be told that you need to run FossSweeper on one or more platforms to ensure that there are no visible bugs. You can emulate a different operating system than your own using [virtual machine](https://en.wikipedia.org/wiki/Virtual_machine) software such as [Virtual Box](https://www.virtualbox.org/). If you don't want to do this yourself, add the `help-needed` tag to your pull request and ask for someone else to do it for you.
 
 ### Linting with Trunk
 
