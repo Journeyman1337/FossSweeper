@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contributing Guidelines
+    url: https://github.com/Journeyman-dev/FossSweeper/blob/main/CONTRIBUTING.md
+    about: Please read our project's guidelines here.
+  - name: Code of Conduct
+    url: https://github.com/Journeyman-dev/FossSweeper/blob/main/CODE_OF_CONDUCT.md
+    about: Please read our standard's of behaviour here.
+  - Q&A:
+    url: https://github.com/Journeyman-dev/FossSweeper/discussions/categories/q-a
+    about: If you wish to ask a question, make a post here instead of making an issue template.
+  - name: Markdown Syntax
+    url: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+    about: Look here for how to format your text with Markdown.
