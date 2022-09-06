@@ -36,10 +36,8 @@ Unit tests are not enough to catch everything that can go wrong with FossSweeper
 
 ### Linting with Trunk
 
-A consistent coding style is maintained throughout the FossSweeper project. This is done through the use of multiple [code linting tools](https://en.wikipedia.org/wiki/Lint_(software)). To make it easier to manage the various linters used in the project, we use the [Trunk](https://trunk.io/products/check) amalgimated linting tool. If you have trunk installed on your machine, you can run the run all linters across all files using the bash command `trunk fmt -a`.
+A consistent coding style is maintained throughout the FossSweeper project. This is done through the use of multiple [code linting tools](<https://en.wikipedia.org/wiki/Lint_(software)>). To make it easier to manage the various linters used in the project, we use the [Trunk](https://trunk.io/products/check) amalgimated linting tool. If you have trunk installed on your machine, you can run the run all linters across all files using the bash command `trunk fmt -a`.
 
 ### Licensing with REUSE
 
 The FossSweeper project is a propoenent of the [REUSE Specification](https://reuse.software/spec/). This means that all files in the repository must be adequatly licensed for the your fork to be considered [REUSE-compliant](https://reuse.software/tutorial/). If you have the [REUSE Tool](https://github.com/fsfe/reuse-tool) installed on your computer, you can check your fork to see if it is compliant using the bash command `reuse lint`.
-
-
