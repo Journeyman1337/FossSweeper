@@ -5,13 +5,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
 ---
-
-name: Ask a Question
-about: A template that you should _NOT_ use to ask a question
-title: ''
-labels: ''
-assignees: ''
-
+name: "Ask a Question"
+about: "A template that you should _NOT_ use to ask a question"
+title: ""
+labels: ""
+assignees: ""
 ---
 
 <!--

@@ -5,11 +5,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
 ---
-name: Build Problem
-about: Report a problem with building FossSweeper
-title: ''
-labels: 'tooling, bug'
-assignees: ''
+name: "Build Problem"
+about: "Report a problem with building FossSweeper"
+title: ""
+labels: "tooling, bug"
+assignees: ""
 ---
 
 <!--

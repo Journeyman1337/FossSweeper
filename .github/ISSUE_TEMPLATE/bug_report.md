@@ -5,11 +5,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
 ---
-name: Bug Report
-about: Report a run-time problem
-title: ''
-labels: 'bug'
-assignees: ''
+name: "Bug Report"
+about: "Report a run-time problem"
+title: ""
+labels: "bug"
+assignees: ""
 ---
 
 <!--
