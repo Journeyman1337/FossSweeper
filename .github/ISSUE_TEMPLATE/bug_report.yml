@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 name: "Bug Report"
-about: "Report a run-time problem"
+description: "Report a run-time problem"
 title: "[Bug]: <title>"
 labels: ["bug"]
 assignees: 
