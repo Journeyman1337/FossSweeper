@@ -131,7 +131,7 @@ fsweep::Sprite fsweep::GamePanel::getFaceSprite()
   if (model.GetGameState() == fsweep::GameState::None ||
       model.GetGameState() == fsweep::GameState::Playing)
   {
-    if (this->left_down&& !this->buttons_locked && this->hover_face)
+    if (this->left_down && !this->buttons_locked && this->hover_face)
     {
       return fsweep::Sprite::ButtonSmileDown;
     }
