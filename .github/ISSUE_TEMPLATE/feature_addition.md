@@ -30,7 +30,7 @@ https://docs.github.com/en/get-started/writing-on-github/getting-started-with-wr
 
 -->
 
-## Feature Explanation
+# Feature Addition
 
 Replace this text with a clear and concise description of the feature. Describe how it should be implemented in enough detail so that there should be no question as to what is expected.
 

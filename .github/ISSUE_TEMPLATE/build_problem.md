@@ -30,7 +30,7 @@ https://docs.github.com/en/get-started/writing-on-github/getting-started-with-wr
 
 -->
 
-## Description of the Issue
+# Build Problem
 
 Replace this text with a clear and concise description of the build issue.
 
