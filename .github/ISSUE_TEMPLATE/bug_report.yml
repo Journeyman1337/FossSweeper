@@ -7,7 +7,6 @@ description: "Report a run-time problem"
 title: "[Bug]: "
 labels: ["bug"]
 assignees: 
-- Journeyman-dev
 body:
 - type: markdown
   attributes:
