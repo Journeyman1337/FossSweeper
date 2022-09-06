@@ -71,30 +71,40 @@ body:
     options:
       - 32 bit (x64)
       - 64 bit (x86)
+  validations:
+    required: true
 - type: input
   id: linux-desktop
   attributes:
     label: Linux Desktop
     description: If using Linux, what desktop do you use?
     placeholder: ex. Mate 1.26, GNOME 42, KDE Plasma 5, etc
+  validations:
+    required: false
 - type: input
   id: linux-theme
   attributes:
     label: Linux Desktop Theme
     description: If using Linux, what desktop theme do you use?
     placeholder: ex. Adwaita, Nordic, Macuntu, etc
+  validations:
+    required: false
 - type: input
   id: linux-gtk-version
   attributes:
     label: Linux GTK Version
     description: If using Linux, what version of GTK do you have on your machine? You can use the bash command `gtk-launch --version` to get this.  
     placeholder: ex. 3.24.34   
+  validations:
+    required: false
 - type: input
   id: linux-gdk-version
   attributes:
     label: Linux GDK
     description: If using Linux, what GDK do you use?
     placeholder: ex. Wayland, Xorg
+  validations:
+    required: false
 - type: checkboxes
   id: terms
   attributes:
