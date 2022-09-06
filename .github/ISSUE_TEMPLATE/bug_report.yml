@@ -51,9 +51,8 @@ body:
   id: fosssweeper-version
   attributes:
     label: FossSweeper Version
-    description: What version of FossSweeper were you using when the bug occured?
+    description: What version of FossSweeper were you using when the bug occured? You can find the version number in the About dialog, which you can access from the help drop down menu.
     placeholder: ex. 1.0.0
-    tip: You can find the version number in the About dialog, which you can access from the help drop down menu.
   validations:
     required: true
 - type: input
@@ -88,9 +87,8 @@ body:
   id: linux-gtk-version
   attributes:
     label: Linux GTK Version
-    description: If using Linux, what version of GTK do you have on your machine?
-    placeholder: ex. 3.24.34
-    tip: You can use the bash command `gtk-launch --version` to get this.    
+    description: If using Linux, what version of GTK do you have on your machine? You can use the bash command `gtk-launch --version` to get this.  
+    placeholder: ex. 3.24.34   
 - type: input
   id: linux-gdk-version
   attributes:
@@ -104,4 +102,4 @@ body:
     description: By submitting this issue, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
     options:
     - label: I agree to follow this project's Code of Conduct.
-      required: true
+        required: true
