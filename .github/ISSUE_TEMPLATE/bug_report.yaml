@@ -1,0 +1,108 @@
+# SPDX-FileCopyrightText: 2022 Daniel Valcour <fosssweeper@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: "Bug Report"
+about: "Report a run-time problem"
+title: "[Bug]: <title>"
+labels: ["bug"]
+assignees: 
+  - Journeyman-dev
+body:
+ - type: markdown
+   attributes:
+     value: |
+       Before you continue, make sure that noone else has reported your issue before you. You can read more information about creating bug reports in our [Contributing Guidelines](CONTRIBUTING.md).
+       
+       While writing this report, remember to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+     
+       Thank you for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Describe the bug.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Expected Behaviour
+      description: What was the behaviour that you expected?
+      placeholder: I expected that...
+    validations:
+      required: true
+  - type: textarea
+    id: observed-behaviour
+    attributes:
+      label: Observed Behaviour
+      description: What was the behaviour that you observed?
+      placeholder: I observed that...
+   validations:
+     required: true
+   - type: textarea
+     id: steps
+     attributes:
+       label: Steps
+       description: If reproducatble, what steps do you need to take to reproduce this problem?
+    validations:
+      required: false
+  - type: input
+    id: fosssweeper-version
+    attributes:
+      label: FossSweeper Version
+      description: What version of FossSweeper were you using when the bug occured?
+      placeholder: ex. 1.0.0
+      tip: You can find the version number in the About dialog, which you can access from the help drop down menu.
+    validations:
+      required: true
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating System
+      description: What operating system were you running FossSweeper on when the bug occured?
+      placeholder: ex. Windows 10, macOS Mojave, Linux Mint 21, etc
+    validations:
+      required: true
+  - type: dropdown
+    id: system-configuration
+    attributes:
+      label: System Configuration
+      description: What is the configuration of the operating system?
+      options:
+        - 32 bit (x64)
+        - 64 bit (x86)
+  - type: input
+    id: linux-desktop
+    attributes:
+      label: Linux Desktop
+      description: If using Linux, what desktop do you use?
+      placeholder: ex. Mate 1.26, GNOME 42, KDE Plasma 5, etc
+  - type: input
+    id: linux-theme
+    attributes:
+      label: Linux Desktop Theme
+      description: If using Linux, what desktop theme do you use?
+      placeholder: ex. Adwaita, Nordic, Macuntu, etc
+  - type: input
+    id: linux-gtk-version
+    attributes:
+      label: Linux GTK Version
+      description: If using Linux, what version of GTK do you have on your machine?
+      placeholder: ex. 3.24.34
+      tip: You can use the bash command `gtk-launch --version` to get this.    
+  - type: input
+    id: linux-gdk-version
+    attributes:
+      label: Linux GDK
+      description: If using Linux, what GDK do you use?
+      placeholder: ex. Wayland, Xorg
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true
+      
