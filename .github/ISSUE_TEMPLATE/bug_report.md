@@ -51,15 +51,15 @@ If applicable, replace this text with any screenshots or videos that show the bu
 ## Platform and Version Information
 
  - FossSweeper Version: Replace this text with the version of FossSweeper you are using. If you are not sure, you can find the version in the About dialog, which you can open from the help drop down menu.
- - Operating System: Replace this text with the operating system of the computer that the bug occured on (e.g. Windows 10, macOS Mojave, Linux Mint 21, etc)
- - System Configuration: Replace this with the configuration of your system (e.g. 32 bit, 64 bit)
+ - Operating System: Replace this text with the operating system of the computer that the bug occured on. (e.g. Windows 10, macOS Mojave, Linux Mint 21, etc)
+ - System Configuration: Replace this with the configuration of your system. (e.g. 32 bit, 64 bit)
  
 ## Linux Specific Information
 
 If not using a Linux operating system, delete this section entirely. Otherwise, fill out the following:
 
- - Desktop: Replace this text with the desktop you use including version (e.g. Mate 1.26, GNOME 42, KDE Plasma 5, etc)
- - Desktop Theme: Replace this text with the current desktop theme
- - GTK Version: Replace this text with the version of GTK. Use the command `gtk-launch --version` in a bash terminal to determine this
- - GDK Backend: Replace this text with the GDK backed you use (e.g. Wayland or X11)
+ - Desktop: Replace this text with the desktop you use including version. (e.g. Mate 1.26, GNOME 42, KDE Plasma 5, etc)
+ - Desktop Theme: Replace this text with the current desktop theme.
+ - GTK Version: Replace this text with the version of GTK. Use the command `gtk-launch --version` in a bash terminal to determine this.
+ - GDK Backend: Replace this text with the GDK backed you use. (e.g. Wayland or X11)
 

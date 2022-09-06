@@ -56,9 +56,9 @@ If applicable, replace this text with any screenshots or videos that show the bu
 ## Platform and Version Information
 
  - FossSweeper Version: Replace this text with the version of FossSweeper you are using. If you are not sure, you can find the version in the About dialog, which you can open from the help drop down menu.
- - Operating System: Replace this text with the operating system of the computer that the bug occured on (e.g. Windows 10, macOS Mojave, Linux Mint 21, etc)
- - System Configuration: Replace this with the configuration of your system (e.g. 32 bit, 64 bit)
+ - Operating System: Replace this text with the operating system of the computer that the bug occured on. (e.g. Windows 10, macOS Mojave, Linux Mint 21, etc)
+ - System Configuration: Replace this with the configuration of your system. (e.g. 32 bit, 64 bit)
  - CMake Version: Replace this text with the version of CMake installed on your machine. You can retrieve this with the bash commmand `cmake --version`.
- - C++ Build Tool: Replace this text with the C++ build tool you used when the error occured along with its version (e.g. Ninja 1.10.2, GNU Make 4.3, etc)
- - C++ Compiler: Replace this text with the C++ compiler you used when the error occured along with its version (e.g. MSVC 2022, gcc 12.1, etc)
+ - C++ Build Tool: Replace this text with the C++ build tool you used when the error occured along with its version. (e.g. Ninja 1.10.2, GNU Make 4.3, etc)
+ - C++ Compiler: Replace this text with the C++ compiler you used when the error occured along with its version. (e.g. MSVC 2022, gcc 12.1, etc)
 
