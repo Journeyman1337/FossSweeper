@@ -9,14 +9,14 @@ labels: ["bug"]
 assignees: 
   - Journeyman-dev
 body:
- - type: markdown
-   attributes:
-     value: |
-       Before you continue, make sure that noone else has reported your issue before you. You can read more information about creating bug reports in our [Contributing Guidelines](CONTRIBUTING.md).
+  - type: markdown
+    attributes:
+      value: |
+        Before you continue, make sure that noone else has reported your issue before you. You can read more information about creating bug reports in our [Contributing Guidelines](CONTRIBUTING.md).
        
-       While writing this report, remember to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+        While writing this report, remember to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
      
-       Thank you for taking the time to fill out this bug report!
+        Thank you for taking the time to fill out this bug report!
   - type: textarea
     id: description
     attributes:
