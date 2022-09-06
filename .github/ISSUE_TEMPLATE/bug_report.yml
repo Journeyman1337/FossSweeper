@@ -12,11 +12,7 @@ body:
 - type: markdown
   attributes:
     value: |
-      Before you continue, make sure that noone else has reported your issue before you. You can read more information about creating bug reports in our [Contributing Guidelines](CONTRIBUTING.md).
-      
-      While writing this report, remember to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
-      
-      Many of the following fields accept Markdown formated text. You can read about Markdown syntax in the [GitHub Documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+      Before you continue, make sure that noone else has reported your issue before you. You can read more information about creating bug reports in our [Contributing Guidelines](https://github.com/Journeyman-dev/FossSweeper/blob/main/CONTRIBUTING.md). While writing this report, remember to follow our [Code of Conduct](https://github.com/Journeyman-dev/FossSweeper/blob/main/CODE_OF_CONDUCT.md). Many of the following fields accept Markdown formated text. You can read about Markdown syntax in the [GitHub Documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
     
       Thank you for taking the time to fill out this bug report!
 - type: textarea
