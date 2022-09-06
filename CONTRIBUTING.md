@@ -38,7 +38,7 @@ Unit tests are not enough to catch everything that can go wrong with FossSweeper
 
 ### Linting with Trunk
 
-A consistent coding style is maintained throughout the FossSweeper project. This is done through the use of multiple [code linting tools](https://en.wikipedia.org/wiki/Lint_(software)). To make it easier to manage the various linters used in the project, we use the [Trunk](https://trunk.io/products/check) amalgimated linting tool. If you have trunk installed on your machine, you can run the run the linter using the bash command `trunk fmt -a`.
+A consistent coding style is maintained throughout the FossSweeper project. This is done through the use of multiple [code linting tools](https://en.wikipedia.org/wiki/Lint_(software)). To make it easier to manage the various linters used in the project, we use the [Trunk](https://trunk.io/products/check) amalgimated linting tool. If you have trunk installed on your machine, you can run the run all linters across all files using the bash command `trunk fmt -a`.
 
 ### Licensing with REUSE
 
