@@ -8,8 +8,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 This file explains how to contribute to the FossSweeper project. For standards of behaviour, look at our [Code of Conduct](CODE_OF_CONDUCT.md).
 
-TODO table of contents
-
 ## How to Report a Bug
 
 Report bugs in the [issues board](https://www.github.com/Journeyman-dev/FossSweeper/issues). Before posting your own issue thread, [search if someone already reported the bug before you](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, [create a new issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) in the board with the `Bug Report` template and follow the instructions.
