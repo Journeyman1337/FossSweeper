@@ -16,7 +16,7 @@
 
 name: "Report a Build Problem"
 description: "Report a problem with building FossSweeper"
-title: "[Build Problem]: "
+title: ""
 labels: ["tooling", "bug"]
 assignees: []
 body:
