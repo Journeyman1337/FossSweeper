@@ -138,6 +138,12 @@ body:
       placeholder: ex. Wayland, Xorg
     validations:
       required: false
+  - type: input
+    id: credits-name
+    attributes:
+      label: Credits Name
+      description: If your name gets added to the credits, what name do you want us to use? Leave this field blank if you don't want credit. If you like, you can include both your real name and an online alias.
+      placeholder: ex. John Doe (johndoeminesweeper)
   - type: checkboxes
     id: terms
     attributes:
