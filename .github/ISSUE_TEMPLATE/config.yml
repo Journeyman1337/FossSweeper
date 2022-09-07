@@ -6,7 +6,7 @@ blank_issues_enabled: true
 contact_links:
   - name: Ask a Question
     url: https://github.com/Journeyman-dev/FossSweeper/discussions/categories/q-a
-    about: If you wish to ask a question, make a post here instead of making an issue template.
+    about: If you wish to ask a question, make a post here.
   - name: Suggest a Feature
     url: https://github.com/Journeyman-dev/FossSweeper/discussions/categories/ideas
     about: If you wish to discuss potential features to be worked on in the future, make a post here.
