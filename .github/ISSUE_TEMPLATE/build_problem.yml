@@ -1,0 +1,148 @@
+# SPDX-FileCopyrightText: 2022 Daniel Valcour <fosssweeper@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+#
+# Copyright (c) 2022 Daniel Valcour
+#
+# This file is part of FossSweeper.
+#
+# FossSweeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# FossSweeper is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
+#
+
+name: "Build Problem"
+description: "Report a problem with building FossSweeper"
+title: "[Build Problem]: "
+labels: ["tooling", "bug"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You can read more information about creating reporting build problems in our [Contributing Guidelines](https://github.com/Journeyman-dev/FossSweeper/blob/main/CONTRIBUTING.md). While writing this issue, remember to follow our [Code of Conduct](https://github.com/Journeyman-dev/FossSweeper/blob/main/CODE_OF_CONDUCT.md). Many of the following fields accept Markdown formated text. You can read about Markdown syntax in the [GitHub Documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+
+        Thank you for taking the time to fill out this build problem report!
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Describe the build problem.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: What steps did you take when trying to build the application?
+      placeholder: |
+        1. Do something
+        2. Do something else
+        3. The build problem occurs
+    validations:
+      required: false
+  - type: input
+    id: fosssweeper-version
+    attributes:
+      label: FossSweeper Version
+      description: What version of FossSweeper were you trying to build? You can find the version pass into the `VERSION` argument of the `project()` function in the CMakeLists.txt file in the top level folder of the repository.
+      placeholder: ex. 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating System
+      description: What operating system were you building FossSweeper on when the bug occured?
+      placeholder: ex. Windows 10, macOS Mojave, Linux Mint 21, etc
+    validations:
+      required: true
+  - type: dropdown
+    id: system-configuration
+    attributes:
+      label: System Configuration
+      description: What is the configuration of the operating system?
+      options:
+        - 32 bit (x64)
+        - 64 bit (x86)
+    validations:
+      required: true
+  - type: dropdown
+    id: build-configuration
+    attributes:
+      label: Build Configuration
+      description: What build configuration were you trying to build FossSweeper with?
+      option:
+        - Debug
+        - Release
+        - MinSizedRelease
+        - Other
+      validations:
+        required: true
+  - type: input
+    id: cmake-version
+    attributes:
+      label: CMake Version
+      description: What version of CMake did you use to generate the project? You can retrieve the version of CMake installed on your computer with the bash command 'cmake --version'.
+      placeholder: ex. 3.22.2
+    validations:
+      required: true
+  - type: input
+    id: build-tool
+    attributes:
+      label: C++ Build Tool
+      description: What is the C++ build tool you used along with its version?
+      placeholder: ex. Ninja 1.10.2, GNU Make 4.3, Visual Studio 2019, etc
+    validations:
+      required: true
+  - type: input
+    id: compiler
+    attributes:
+      label: C++ Compiler
+      description: What is the C++ compiler you used along with its version?
+      placeholder: ex. MSVC 2022, gcc 12.1, etc
+    validations:
+      required: true
+  - type: input
+    id: linux-desktop
+    attributes:
+      label: Linux Desktop
+      description: If using Linux, what desktop do you use?
+      placeholder: ex. Mate 1.26, GNOME 42, KDE Plasma 5, etc
+    validations:
+      required: false
+  - type: input
+    id: linux-theme
+    attributes:
+      label: Linux Desktop Theme
+      description: If using Linux, what desktop theme do you use?
+      placeholder: ex. Adwaita, Nordic, Macuntu, etc
+    validations:
+      required: false
+  - type: input
+    id: linux-gtk-version
+    attributes:
+      label: Linux GTK Version
+      description: If using Linux, what version of GTK do you have on your machine? You can use the bash command `gtk-launch --version` to get this.
+      placeholder: ex. 3.24.34
+    validations:
+      required: false
+  - type: input
+    id: linux-gdk-version
+    attributes:
+      label: Linux GDK
+      description: If using Linux, what GDK do you use?
+      placeholder: ex. Wayland, Xorg
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true
