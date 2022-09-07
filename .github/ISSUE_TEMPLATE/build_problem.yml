@@ -75,13 +75,13 @@ body:
     attributes:
       label: Build Configuration
       description: What build configuration were you trying to build FossSweeper with?
-      option:
+      options:
         - Debug
         - Release
         - MinSizedRelease
         - Other
-      validations:
-        required: true
+    validations:
+      required: true
   - type: input
     id: cmake-version
     attributes:
