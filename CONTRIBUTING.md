@@ -14,7 +14,7 @@ Report bugs in the [issues board](https://www.github.com/Journeyman-dev/FossSwee
 
 ## How to Suggest a Feature
 
-Suggest features in the [Ideas](https://www.github.com/Journeyman-dev/FossSweeper/discussions/categories/ideas) category of the discussions board.
+Suggest features in the [Ideas](https://www.github.com/Journeyman-dev/FossSweeper/discussions/categories/ideas) category of the discussions board. When it is deemed that an adequate discussion has been completed, a thread in the issues board may be created to request the implementation of the feature.
 
 ## How to Ask a Question
 
