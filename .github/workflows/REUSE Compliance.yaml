@@ -18,7 +18,7 @@
 # About the REUSE Specification: https://reuse.software/
 
 name: REUSE Compliance Check
-on: [push, pull_request]
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
