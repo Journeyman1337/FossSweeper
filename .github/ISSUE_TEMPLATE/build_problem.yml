@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 #
 
-name: "Build Problem"
+name: "Report a Build Problem"
 description: "Report a problem with building FossSweeper"
 title: "[Build Problem]: "
 labels: ["tooling", "bug"]

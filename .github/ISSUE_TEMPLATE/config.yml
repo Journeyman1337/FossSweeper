@@ -10,13 +10,13 @@ contact_links:
   - name: Suggest a Feature
     url: https://github.com/Journeyman-dev/FossSweeper/discussions/categories/ideas
     about: If you wish to discuss potential features to be worked on in the future, make a post here.
-  - name: Contributing Guidelines
+  - name: Look at our Contributing Guidelines
     url: https://github.com/Journeyman-dev/FossSweeper/blob/main/CONTRIBUTING.md
     about: Please read our project's guidelines here.
-  - name: Code of Conduct
+  - name: Look at our Code of Conduct
     url: https://github.com/Journeyman-dev/FossSweeper/blob/main/CODE_OF_CONDUCT.md
     about: Please read our standard's of behaviour here.
-  - name: Markdown Syntax
+  - name: Read about Markdown Syntax
     url: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
     about: Look here for how to format your text with Markdown.
     
