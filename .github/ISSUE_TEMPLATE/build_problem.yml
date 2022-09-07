@@ -28,8 +28,8 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Bug Description
-      description: Describe the build problem.
+      label: Build Problem Description
+      description: Describe the build problem. You can attach console log text files by clicking this text area to highlight it and then dragging the files in.
     validations:
       required: true
   - type: textarea
