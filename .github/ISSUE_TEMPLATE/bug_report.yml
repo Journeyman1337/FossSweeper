@@ -16,7 +16,6 @@
 
 name: "Report a Bug"
 description: "Report a bug with the FossSweeper application."
-title: ""
 labels: ["bug"]
 assignees: []
 body:
