@@ -15,7 +15,7 @@
 #
 
 name: "Report a Bug Report"
-description: "Report a run-time problem"
+description: "Report a bug with the FossSweeper application."
 title: "[Bug]: "
 labels: ["bug"]
 assignees: []
