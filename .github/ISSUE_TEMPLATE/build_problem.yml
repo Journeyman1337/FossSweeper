@@ -55,7 +55,7 @@ body:
     id: operating-system
     attributes:
       label: Operating System
-      description: What operating system were you building FossSweeper on when the bug occured?
+      description: What operating system were you building FossSweeper on when the build problem occured?
       placeholder: ex. Windows 10, macOS Mojave, Linux Mint 21, etc
     validations:
       required: true
