@@ -10,7 +10,7 @@ This file explains how to contribute to the FossSweeper project. For standards o
 
 ## How to Report a Bug
 
-Report bugs in the [issues board](https://www.github.com/Journeyman-dev/FossSweeper/issues). Before posting your own issue thread, [search if someone already reported the bug before you](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, [create a new issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) with the `Bug Report` template and follow the instructions.
+Report bugs in the [issues board](https://www.github.com/Journeyman-dev/FossSweeper/issues). [Create a new issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) with the `Bug Report` template and fill out the form.
 
 ## How to Suggest a Feature
 
