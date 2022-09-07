@@ -7,6 +7,9 @@ contact_links:
   - name: Ask a Question
     url: https://github.com/Journeyman-dev/FossSweeper/discussions/categories/q-a
     about: If you wish to ask a question, make a post here instead of making an issue template.
+  - name: Suggest a Feature
+    url: https://github.com/Journeyman-dev/FossSweeper/discussions/categories/ideas
+    about: If you wish to discuss potential features to be worked on in the future, make a post here.
   - name: Contributing Guidelines
     url: https://github.com/Journeyman-dev/FossSweeper/blob/main/CONTRIBUTING.md
     about: Please read our project's guidelines here.
@@ -16,3 +19,4 @@ contact_links:
   - name: Markdown Syntax
     url: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
     about: Look here for how to format your text with Markdown.
+    
