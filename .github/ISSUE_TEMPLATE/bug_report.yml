@@ -18,7 +18,7 @@ body:
   id: description
   attributes:
     label: Bug Description
-    description: Describe the bug.
+    description: Describe the bug. You can attach images and text files by clicking this text area to highlight it and then dragging the files in.
   validations:
     required: true
 - type: textarea
