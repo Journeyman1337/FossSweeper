@@ -2,115 +2,127 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+#
+# Copyright (c) 2022 Daniel Valcour
+#
+# This file is part of FossSweeper.
+#
+# FossSweeper is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# FossSweeper is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
+#
+
 name: "Bug Report"
 description: "Report a run-time problem"
 title: "[Bug]: "
 labels: ["bug"]
 assignees: []
 body:
-- type: markdown
-  attributes:
-    value: |
-      You can read more information about creating bug reports in our [Contributing Guidelines](https://github.com/Journeyman-dev/FossSweeper/blob/main/CONTRIBUTING.md). While writing this report, remember to follow our [Code of Conduct](https://github.com/Journeyman-dev/FossSweeper/blob/main/CODE_OF_CONDUCT.md). Many of the following fields accept Markdown formated text. You can read about Markdown syntax in the [GitHub Documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-    
-      Thank you for taking the time to fill out this bug report!
-- type: textarea
-  id: description
-  attributes:
-    label: Bug Description
-    description: Describe the bug. You can attach images and text files by clicking this text area to highlight it and then dragging the files in.
-  validations:
-    required: true
-- type: textarea
-  id: expected-behaviour
-  attributes:
-    label: Expected Behaviour
-    description: What was the behaviour that you expected?
-    placeholder: I expected that...
-  validations:
-    required: true
-- type: textarea
-  id: observed-behaviour
-  attributes:
-    label: Observed Behaviour
-    description: What was the behaviour that you observed?
-    placeholder: I observed that...
-  validations:
-    required: true
-- type: textarea
-  id: steps
-  attributes:
-    label: Steps
-    description: If reproducable, what steps do you need to take to reproduce this problem?
-    placeholder: |
-     1. Do something
-     2. Do something else
-     3. The bug occurs
-  validations:
-    required: false
-- type: input
-  id: fosssweeper-version
-  attributes:
-    label: FossSweeper Version
-    description: What version of FossSweeper were you using when the bug occured? You can find the version number in the About dialog, which you can access from the help drop down menu.
-    placeholder: ex. 1.0.0
-  validations:
-    required: true
-- type: input
-  id: operating-system
-  attributes:
-    label: Operating System
-    description: What operating system were you running FossSweeper on when the bug occured?
-    placeholder: ex. Windows 10, macOS Mojave, Linux Mint 21, etc
-  validations:
-    required: true
-- type: dropdown
-  id: system-configuration
-  attributes:
-    label: System Configuration
-    description: What is the configuration of the operating system?
-    options:
-      - 32 bit (x64)
-      - 64 bit (x86)
-  validations:
-    required: true
-- type: input
-  id: linux-desktop
-  attributes:
-    label: Linux Desktop
-    description: If using Linux, what desktop do you use?
-    placeholder: ex. Mate 1.26, GNOME 42, KDE Plasma 5, etc
-  validations:
-    required: false
-- type: input
-  id: linux-theme
-  attributes:
-    label: Linux Desktop Theme
-    description: If using Linux, what desktop theme do you use?
-    placeholder: ex. Adwaita, Nordic, Macuntu, etc
-  validations:
-    required: false
-- type: input
-  id: linux-gtk-version
-  attributes:
-    label: Linux GTK Version
-    description: If using Linux, what version of GTK do you have on your machine? You can use the bash command `gtk-launch --version` to get this.  
-    placeholder: ex. 3.24.34   
-  validations:
-    required: false
-- type: input
-  id: linux-gdk-version
-  attributes:
-    label: Linux GDK
-    description: If using Linux, what GDK do you use?
-    placeholder: ex. Wayland, Xorg
-  validations:
-    required: false
-- type: checkboxes
-  id: terms
-  attributes:
-    label: Code of Conduct
-    description: By submitting this issue, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
-    options:
-    - label: I agree to follow this project's Code of Conduct.
+  - type: markdown
+    attributes:
+      value: |
+        You can read more information about creating bug reports in our [Contributing Guidelines](https://github.com/Journeyman-dev/FossSweeper/blob/main/CONTRIBUTING.md). While writing this report, remember to follow our [Code of Conduct](https://github.com/Journeyman-dev/FossSweeper/blob/main/CODE_OF_CONDUCT.md). Many of the following fields accept Markdown formated text. You can read about Markdown syntax in the [GitHub Documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+
+        Thank you for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Describe the bug. You can attach images and text files by clicking this text area to highlight it and then dragging the files in.
+    validations:
       required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Expected Behaviour
+      description: What was the behaviour that you expected?
+      placeholder: I expected that...
+    validations:
+      required: true
+  - type: textarea
+    id: observed-behaviour
+    attributes:
+      label: Observed Behaviour
+      description: What was the behaviour that you observed?
+      placeholder: I observed that...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: If reproducable, what steps do you need to take to reproduce this problem?
+      placeholder: |
+        1. Do something
+        2. Do something else
+        3. The bug occurs
+    validations:
+      required: false
+  - type: input
+    id: fosssweeper-version
+    attributes:
+      label: FossSweeper Version
+      description: What version of FossSweeper were you using when the bug occured? You can find the version number in the About dialog, which you can access from the help drop down menu.
+      placeholder: ex. 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating System
+      description: What operating system were you running FossSweeper on when the bug occured?
+      placeholder: ex. Windows 10, macOS Mojave, Linux Mint 21, etc
+    validations:
+      required: true
+  - type: dropdown
+    id: system-configuration
+    attributes:
+      label: System Configuration
+      description: What is the configuration of the operating system?
+      options:
+        - 32 bit (x64)
+        - 64 bit (x86)
+    validations:
+      required: true
+  - type: input
+    id: linux-desktop
+    attributes:
+      label: Linux Desktop
+      description: If using Linux, what desktop do you use?
+      placeholder: ex. Mate 1.26, GNOME 42, KDE Plasma 5, etc
+    validations:
+      required: false
+  - type: input
+    id: linux-theme
+    attributes:
+      label: Linux Desktop Theme
+      description: If using Linux, what desktop theme do you use?
+      placeholder: ex. Adwaita, Nordic, Macuntu, etc
+    validations:
+      required: false
+  - type: input
+    id: linux-gtk-version
+    attributes:
+      label: Linux GTK Version
+      description: If using Linux, what version of GTK do you have on your machine? You can use the bash command `gtk-launch --version` to get this.
+      placeholder: ex. 3.24.34
+    validations:
+      required: false
+  - type: input
+    id: linux-gdk-version
+    attributes:
+      label: Linux GDK
+      description: If using Linux, what GDK do you use?
+      placeholder: ex. Wayland, Xorg
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true
