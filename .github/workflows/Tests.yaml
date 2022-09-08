@@ -75,20 +75,17 @@ jobs:
         run: |
           softwareupdate --install -a
           brew install ninja
-          ninja --version
       - name: install linux packages
         if: ${{ runner.os == 'Linux' }}
         shell: bash
         run: |
           sudo apt-get update
           sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev ninja-build
-          ninja --version
       - name: install windows packages
         if: ${{ runner.os == 'Windows' }}
         shell: bash
         run: |
           choco install ninja
-          ninja --version
       - name: set windows compiler to enviornment variable
         if: ${{ runner.os == 'Windows' }}
         uses: ilammy/msvc-dev-cmd@v1.3.0
