@@ -74,7 +74,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev ninja-build
-      - name: Log Ninja version
+      - name: Log Ninja version on non-Windows platforms
         if: ${{ runner.os != 'Windows' }}
         shell: bash
         run: ninja --version
