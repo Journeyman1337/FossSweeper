@@ -61,7 +61,6 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.commitTag }}
           submodules: "recursive"
       - name: log CMake version
         shell: bash
