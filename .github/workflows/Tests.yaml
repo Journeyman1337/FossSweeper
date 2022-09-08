@@ -88,7 +88,7 @@ jobs:
           choco install ninja
       - name: set windows compiler to enviornment variable
         if: ${{ runner.os == 'Windows' }}
-        uses: ilammy/msvc-dev-cmd@v1.3.0
+        uses: microsoft/setup-msbuild@v1.0.1
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
