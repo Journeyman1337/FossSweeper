@@ -63,34 +63,32 @@ jobs:
       CC: ${{ matrix.platform.cc }}
       CXX: ${{ matrix.platform.cxx }}
     steps:
-      - name: checkout repository
+      - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.inputs.commitTag }}
           submodules: "recursive"
-      - name: log CMake version
+      - name: Log CMake version
         shell: bash
         run: cmake --version
-      - name: create build enviornment
+      - name: Create build enviornment
         shell: bash
         working-directory: ${{ github.workspace }}
         run: cmake -E make_directory $GITHUB_WORKSPACE/build
-      - name: xcode update
+      - name: Update and install MacOS packages
         if: ${{ runner.os == 'macOS'}}
         run: softwareupdate --install -a
-      - name: apt update
+      - name: Update and install Ubuntu packages
         if: ${{ runner.os == 'Linux' }}
         shell: bash
-        run: sudo apt-get update
-      - name: add linux system packages
-        if: ${{ runner.os == 'Linux' }}
-        shell: bash
-        run: sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev
-      - name: generate CMake project
+        run: |
+          sudo apt-get update
+          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev
+      - name: Generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
         run: cmake -S . -B ./build/ -D FSWEEP_BUILD_TESTS=OFF
-      - name: build CMake project
+      - name: Build CMake project
         shell: bash
         working-directory: ${{ github.workspace }}/build/
         run: cmake --build . --config ${{ matrix.build_type }}
@@ -98,7 +96,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/build/
         run: cpack --config CPackConfig.cmake -G ${{ matrix.platform.cpack_generator }}
-      - name: release the archive
+      - name: Release the archive
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ github.workspace }}/build/*.${{ matrix.platform.package_extension }}
