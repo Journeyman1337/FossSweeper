@@ -66,10 +66,6 @@ jobs:
       - name: Log CMake version
         shell: bash
         run: cmake --version
-      - name: Create build enviornment
-        shell: bash
-        working-directory: ${{ github.workspace }}
-        run: cmake -E make_directory $GITHUB_WORKSPACE/build
       - name: Install MacOS packages
         if: ${{ runner.os == 'macOS'}}
         run: |
