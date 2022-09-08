@@ -30,6 +30,8 @@ jobs:
               os: windows-2019,
               cc: cl.exe,
               cxx: cl.exe,
+              cc-path: cl,
+              cxx-path: cl,
               arch: "x64-windows",
             }
           - {
@@ -37,6 +39,8 @@ jobs:
               os: ubuntu-20.04,
               cc: gcc-10,
               cxx: g++-10,
+              cc-path: gcc,
+              cxx-path: g++,
               arch: "x64-linux",
             }
           - {
@@ -44,6 +48,8 @@ jobs:
               os: ubuntu-20.04,
               cc: clang-12,
               cxx: clang++-12,
+              cc-path: cl,
+              cxx-path: cl,
               arch: "x64-linux",
             }
           - {
@@ -51,6 +57,8 @@ jobs:
               os: macos-10.15,
               cc: clang,
               cxx: clang++,
+              cc-path: cl,
+              cxx-path: cl,
               arch: "x64-osx",
             }
         build_type: [Release]
@@ -85,7 +93,7 @@ jobs:
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: cmake -S . -B ./build/ -G Ninja
+        run: cmake -S . -B ./build/ -G Ninja -D CMAKE_C_COMPILER=${{ matrix.cc-path }} -D CMAKE_CXX_COMPILER=${{ matrix.cxx-path }}
       - name: build CMake project
         shell: bash
         working-directory: ${{github.workspace}}
