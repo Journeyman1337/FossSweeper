@@ -28,8 +28,8 @@ jobs:
           - {
               Name: Windows VS2019,
               os: windows-2019,
-              cc: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\MSBuild\\Current\\Bin\\cl.exe",
-              cxx: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\MSBuild\\Current\\Bin\\cl.exe",
+              cc: gcc-10,
+              cxx: g++-10,
               arch: "x64-windows",
             }
           - {
