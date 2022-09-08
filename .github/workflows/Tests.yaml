@@ -63,8 +63,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: "recursive"
-      - name: setup ninja
-        uses: seanmiddleditch/gha-setup-ninja@master
       - name: log CMake version
         shell: bash
         run: cmake --version
@@ -91,6 +89,9 @@ jobs:
         run: |
           choco install ninja
           ninja --version
+      - name: set windows compiler to enviornment variable
+        if: ${{ runner.os == 'Windows' }}
+        uses: ilammy/msvc-dev-cmd@v1.3.0
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
