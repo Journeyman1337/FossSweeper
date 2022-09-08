@@ -74,7 +74,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev ninja-build
-      - name: Update and install Windows packages
         if: ${{ runner.os == 'Windows' }}
         shell: bash
         run: |
