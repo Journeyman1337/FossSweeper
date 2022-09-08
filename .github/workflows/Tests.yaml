@@ -87,7 +87,7 @@ jobs:
         if: ${{ runner.os == 'Windows' }}
         shell: bash
       - run: |
-          choco install ninja
+	  choco install ninja
           ninja --version
       - name: generate CMake project
         shell: bash
