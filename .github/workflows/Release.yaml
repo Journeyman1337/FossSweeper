@@ -17,12 +17,7 @@
 # Build and deploy FossSweeper to distribution platforms.
 
 name: Release
-on:
-  workflow_dispatch:
-    inputs:
-      commitTag:
-        description: "Tag"
-        required: true
+on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ${{ matrix.platform.os }}
@@ -66,7 +61,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.commitTag }}
           submodules: "recursive"
       - name: Create build enviornment
         shell: bash
