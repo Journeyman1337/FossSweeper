@@ -63,9 +63,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: "recursive"
-      - name: Log CMake version
-        shell: bash
-        run: cmake --version
       - name: Install MacOS packages
         if: ${{ runner.os == 'macOS'}}
         run: |
@@ -85,6 +82,9 @@ jobs:
       - name: Log Ninja version
         shell: bash
         run: ninja --version
+      - name: Log CMake version
+        shell: bash
+        run: cmake --version
       - name: Generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
