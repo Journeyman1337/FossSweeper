@@ -94,7 +94,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/build/
         run: cmake --build . --config ${{ matrix.build_type }}
-      - name: run CPack to make a tar.gz
+      - name: run CPack to make the archive
         shell: bash
         working-directory: ${{ github.workspace }}/build/
         run: cpack --config CPackConfig.cmake -G ${{ matrix.platform.cpack_generator }}
