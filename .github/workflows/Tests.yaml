@@ -28,8 +28,8 @@ jobs:
           - {
               Name: Windows VS2019,
               os: windows-2019,
-              cc: clang,
-              cxx: clang++,
+              cc: gcc,
+              cxx: g++,
               arch: "x64-windows",
             }
           - {
