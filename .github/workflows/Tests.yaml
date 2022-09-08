@@ -86,6 +86,9 @@ jobs:
         shell: bash
         run: |
           choco install ninja
+      - name: log ninja version
+        shell: bash
+        run: ninja --version
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
