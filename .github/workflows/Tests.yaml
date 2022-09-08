@@ -63,8 +63,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: "recursive"
-      - name: setup ninja
-        uses: seanmiddleditch/gha-setup-ninja@master
       - name: log CMake version
         shell: bash
         run: cmake --version
@@ -76,12 +74,21 @@ jobs:
         if: ${{ runner.os == 'macOS'}}
         run: |
           softwareupdate --install -a
+          brew install ninja
+          ninja --version
       - name: install linux packages
         if: ${{ runner.os == 'Linux' }}
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev
+          sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev ninja-build
+          ninja --version
+      - name: install windows packages
+        if: ${{ runner.os == 'Windows' }}
+        shell: bash
+      - run: |
+	  choco install ninja
+          ninja --version
       - name: generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
