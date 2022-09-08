@@ -59,50 +59,50 @@ jobs:
       CC: ${{ matrix.platform.cc }}
       CXX: ${{ matrix.platform.cxx }}
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v2
         with:
           submodules: "recursive"
-      - name: log CMake version
+      - name: Log CMake version
         shell: bash
         run: cmake --version
-      - name: create build enviornment
+      - name: Create build enviornment
         shell: bash
         working-directory: ${{ github.workspace }}
         run: cmake -E make_directory $GITHUB_WORKSPACE/build
-      - name: install macos packages
+      - name: Install MacOS packages
         if: ${{ runner.os == 'macOS'}}
         run: |
           softwareupdate --install -a
           brew install ninja
-      - name: install linux packages
+      - name: Install Ubuntu packages
         if: ${{ runner.os == 'Linux' }}
         shell: bash
         run: |
           sudo apt-get update
           sudo apt install libxinerama-dev libxcursor-dev xorg-dev libgtk-3-dev ninja-build
-      - name: install windows packages
+      - name: Install Windows packages
         if: ${{ runner.os == 'Windows' }}
         shell: bash
         run: |
           choco install ninja
-      - name: log ninja version
+      - name: Log Ninja version
         shell: bash
         run: ninja --version
-      - name: generate CMake project
+      - name: Generate CMake project
         shell: bash
         working-directory: ${{ github.workspace }}
         run: cmake -S . -B ./build/ -G Ninja
-      - name: build CMake project
+      - name: Build CMake project
         shell: bash
         working-directory: ${{github.workspace}}
         run: cmake --build $GITHUB_WORKSPACE/build --config ${{ matrix.build_type }}
-      - name: run auto tests
+      - name: Run auto tests
         shell: bash
         working-directory: ${{github.workspace}}/build/modules/test/
         run: ctest -C ${{ matrix.build_type }}
         continue-on-error: true
-      - name: JUnit report
+      - name: Process JUnit report
         uses: mikepenz/action-junit-report@v2.4.3
         with:
           report_paths: "**/unittests.*.xml"
