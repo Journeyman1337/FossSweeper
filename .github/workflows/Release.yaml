@@ -17,12 +17,7 @@
 # Build and deploy FossSweeper to distribution platforms.
 
 name: Release
-on:
-  workflow_dispatch:
-    inputs:
-      commitTag:
-        description: "Tag"
-        required: true
+on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ${{ matrix.platform.os }}
