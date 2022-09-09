@@ -23,8 +23,9 @@
 #ifndef FSWEEP_TEXT_DIALOG_HPP
 #define FSWEEP_TEXT_DIALOG_HPP
 
-#include "wx_include.hpp"
 #include <string>
+
+#include "wx_include.hpp"
 
 namespace fsweep
 {

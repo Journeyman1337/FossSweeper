@@ -30,6 +30,6 @@ namespace fsweep
   extern const char* const CREDITS_TEXT;
 
   fsweep::TextDialog createCreditsDialog(wxWindow* parent);
-}
+}  // namespace fsweep
 
 #endif

@@ -20,10 +20,11 @@
  *
  */
 
-#include <string>
 #include "TextDialog.hpp"
 
 #include <wx/hyperlink.h>
+
+#include <string>
 
 #include "license.hpp"
 #include "wx_include.hpp"

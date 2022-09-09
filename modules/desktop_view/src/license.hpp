@@ -31,6 +31,6 @@ namespace fsweep
   extern const char* const LICENSE_TEXT;
 
   fsweep::TextDialog createLicenseDialog(wxWindow* parent);
-}
+}  // namespace fsweep
 
 #endif

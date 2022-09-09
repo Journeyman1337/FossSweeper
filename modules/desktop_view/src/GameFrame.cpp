@@ -29,10 +29,10 @@
 #include "ConfigDialog.hpp"
 #include "DesktopView.hpp"
 #include "GamePanel.hpp"
-#include "license.hpp"
-#include "credits.hpp"
 #include "PixelScaleDialog.hpp"
+#include "credits.hpp"
 #include "icon.hpp"
+#include "license.hpp"
 #include "wx_id.hpp"
 #include "wx_include.hpp"
 
