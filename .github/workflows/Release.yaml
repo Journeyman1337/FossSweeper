@@ -26,8 +26,8 @@ jobs:
       matrix:
         platform:
           - {
-              Name: Windows VS2019,
-              os: windows-2019,
+              Name: Windows VS2022,
+              os: windows-2022,
               cpack_generator: ZIP,
               package_extension: zip,
               cc: cl.exe,
@@ -36,7 +36,7 @@ jobs:
             }
           - {
               Name: Linux GCC,
-              os: ubuntu-20.04,
+              os: ubuntu-22.04,
               cpack_generator: TGZ,
               package_extension: tar.gz,
               cc: gcc-10,
@@ -45,7 +45,7 @@ jobs:
             }
           - {
               Name: MacOS Clang,
-              os: macos-10.15,
+              os: macos-12,
               cpack_generator: TGZ,
               package_extension: tar.gz,
               cc: clang,
