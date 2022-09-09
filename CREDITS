@@ -12,19 +12,17 @@
 # FossSweeper is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
-# 
+#
 
-function(embed_string VAR_NAME TEXT_FILE IN_FILE OUT_FILE)
-    set(SOURCE "\"")
-    file(STRINGS "${TEXT_FILE}" LINES)
-    foreach(LINE ${LINES})   
-        string(FIND "${LINE}" "#" HASH_I)
-        if(NOT HASH_I EQUAL 0)
-            string(REPLACE "\"" "\\\"" FORMATED_LINE ${LINE})
-            set(SOURCE "${SOURCE}${FORMATED_LINE}\\n\"\n\"")
-        endif()
-    endforeach()
-    set(SOURCE "${SOURCE}\"")
-    set(${VAR_NAME} "${SOURCE}")
-    configure_file("${IN_FILE}"  "${OUT_FILE}")
-endfunction()
+# The text of this file is embeded into the application using CMake.
+# Lines that start with a number sign are ignored. 
+# Lines need at least one character to be copied, so blank lines must have at least a space.
+
+FossSweeper Credits
+ 
+Thanks to all who have helped to make FossSweeper what it is today!
+ 
+Each contributor name is followed by their GitHub profile in parenthesis.
+ 
+Code Contributors:
+Daniel Valcour (@Journeyman-dev)

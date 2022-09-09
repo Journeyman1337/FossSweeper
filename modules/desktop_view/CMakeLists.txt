@@ -16,10 +16,13 @@
 
 include(${FSWEEP_SOURCE_DIR}/CMake/embed_string.CMake)
 embed_string("FSWEEP_LICENSE_TEXT" "${FSWEEP_SOURCE_DIR}/COPYING" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp")
+embed_string("FSWEEP_CREDITS_TEXT" "${FSWEEP_SOURCE_DIR}/CREDITS" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp")
 
 set(FSWEEP_DESKTOP_SOURCES
     "AboutDialog.cpp"
     "AboutDialog.hpp"
+    "credits.cpp"
+    "credits.hpp"
     "ConfigDialog.cpp"
     "ConfigDialog.hpp"
     "DesktopApp.cpp"
@@ -35,13 +38,13 @@ set(FSWEEP_DESKTOP_SOURCES
     "icon.hpp"
     "license.cpp"
     "license.hpp"
-    "LicenseDialog.cpp"
-    "LicenseDialog.hpp"
     "main.cpp"
     "PixelScaleDialog.cpp"
     "PixelScaleDialog.hpp"
     "spritesheet.cpp"
     "spritesheet.hpp"
+    "TextDialog.cpp"
+    "TextDialog.hpp"
     "wx_id.hpp"
     "wx_include.hpp"
 )

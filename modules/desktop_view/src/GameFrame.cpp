@@ -29,9 +29,10 @@
 #include "ConfigDialog.hpp"
 #include "DesktopView.hpp"
 #include "GamePanel.hpp"
-#include "LicenseDialog.hpp"
 #include "PixelScaleDialog.hpp"
+#include "credits.hpp"
 #include "icon.hpp"
+#include "license.hpp"
 #include "wx_id.hpp"
 #include "wx_include.hpp"
 
@@ -104,14 +105,17 @@ fsweep::GameFrame::GameFrame(fsweep::DesktopView& view)
   game_menu->Append(exit_item);
 
   // create help menu items
+  auto* const credits_item = new wxMenuItem(help_menu, wxID_ANY, "&Credits...");
   auto* const license_item = new wxMenuItem(help_menu, wxID_ANY, "&License...");
   auto* const about_item = new wxMenuItem(help_menu, wxID_ABOUT, "&About...");
 
   // bind help menu items
+  Bind(wxEVT_MENU, &fsweep::GameFrame::OnCredits, this, credits_item->GetId());
   Bind(wxEVT_MENU, &fsweep::GameFrame::OnLicense, this, license_item->GetId());
   Bind(wxEVT_MENU, &fsweep::GameFrame::OnAbout, this, about_item->GetId());
 
   // append menu items to help menu
+  help_menu->Append(credits_item);
   help_menu->Append(license_item);
   help_menu->Append(about_item);
 
@@ -214,9 +218,15 @@ void fsweep::GameFrame::OnPixelScale(wxCommandEvent& e)
 
 void fsweep::GameFrame::OnExit(wxCommandEvent& WXUNUSED(e)) { this->Close(); }
 
+void fsweep::GameFrame::OnCredits(wxCommandEvent& e)
+{
+  auto credits_dialog = fsweep::createCreditsDialog(this);
+  credits_dialog.ShowModal();
+}
+
 void fsweep::GameFrame::OnLicense(wxCommandEvent& WXUNUSED(e))
 {
-  fsweep::LicenseDialog license_dialog(this);
+  auto license_dialog = fsweep::createLicenseDialog(this);
   license_dialog.ShowModal();
 }
 

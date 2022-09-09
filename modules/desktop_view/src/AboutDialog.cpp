@@ -27,7 +27,7 @@
 #include <fsweep/version.hpp>
 #include <sstream>
 
-#include "LicenseDialog.hpp"
+#include "license.hpp"
 #include "wx_include.hpp"
 
 fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, "About FossSweeper")
@@ -103,6 +103,6 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
 
 void fsweep::AboutDialog::OnLicense(wxCommandEvent& WXUNUSED(e))
 {
-  fsweep::LicenseDialog license_dialog(this);
+  auto license_dialog = fsweep::createLicenseDialog(this);
   license_dialog.ShowModal();
 }

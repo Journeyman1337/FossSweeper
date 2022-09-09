@@ -55,6 +55,7 @@ namespace fsweep
     void OnPixelScale(wxCommandEvent& e);
     void OnQuestionMarks(wxCommandEvent& e);
     void OnExit(wxCommandEvent& e);
+    void OnCredits(wxCommandEvent& e);
     void OnLicense(wxCommandEvent& e);
     void OnAbout(wxCommandEvent& e);
 
