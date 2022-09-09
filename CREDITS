@@ -13,7 +13,11 @@
 # 
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 #
- 
+
+# The text of this file is embeded into the application using CMake.
+# Lines that are commented are ignored. 
+# Lines need at least one character to be copied, so blank newlines must have at least a space.
+
 FossSweeper Credits
  
 Thanks to all who have helped to make FossSweeper what it is today!
