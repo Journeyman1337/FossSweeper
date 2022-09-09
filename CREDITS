@@ -15,8 +15,8 @@
 #
 
 # The text of this file is embeded into the application using CMake.
-# Lines that are commented are ignored. 
-# Lines need at least one character to be copied, so blank newlines must have at least a space.
+# Lines that start with a number sign are ignored. 
+# Lines need at least one character to be copied, so blank lines must have at least a space.
 
 FossSweeper Credits
  
