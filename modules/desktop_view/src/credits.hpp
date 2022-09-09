@@ -23,9 +23,13 @@
 #ifndef FSWEEP_CREDITS_HPP
 #define FSWEEP_CREDITS_HPP
 
+#include "TextDialog.hpp"
+
 namespace fsweep
 {
   extern const char* const CREDITS_TEXT;
+
+  fsweep::TextDialog createCreditsDialog(wxWindow* parent);
 }
 
 #endif

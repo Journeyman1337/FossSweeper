@@ -21,6 +21,12 @@
  */
 
 #include "credits.hpp"
+#include "TextDialog.hpp"
 
 const char* const fsweep::CREDITS_TEXT =
 @FSWEEP_CREDITS_TEXT@;
+
+fsweep::TextDialog fsweep::createCreditsDialog(wxWindow* parent)
+{
+    return fsweep::TextDialog(parent, "FossSweeper Credits", fsweep::CREDITS_TEXT);
+}

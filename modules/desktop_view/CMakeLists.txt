@@ -21,6 +21,8 @@ embed_string("FSWEEP_CREDITS_TEXT" "${FSWEEP_SOURCE_DIR}/CREDITS" "${CMAKE_CURRE
 set(FSWEEP_DESKTOP_SOURCES
     "AboutDialog.cpp"
     "AboutDialog.hpp"
+    "credits.cpp"
+    "credits.hpp"
     "ConfigDialog.cpp"
     "ConfigDialog.hpp"
     "DesktopApp.cpp"
