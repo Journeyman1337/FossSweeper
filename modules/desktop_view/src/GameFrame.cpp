@@ -29,7 +29,7 @@
 #include "ConfigDialog.hpp"
 #include "DesktopView.hpp"
 #include "GamePanel.hpp"
-#include "LicenseDialog.hpp"
+#include "license.hpp"
 #include "PixelScaleDialog.hpp"
 #include "icon.hpp"
 #include "wx_id.hpp"
@@ -216,7 +216,7 @@ void fsweep::GameFrame::OnExit(wxCommandEvent& WXUNUSED(e)) { this->Close(); }
 
 void fsweep::GameFrame::OnLicense(wxCommandEvent& WXUNUSED(e))
 {
-  fsweep::LicenseDialog license_dialog(this);
+  auto license_dialog = fsweep::createLicenseDialog(this);
   license_dialog.ShowModal();
 }
 

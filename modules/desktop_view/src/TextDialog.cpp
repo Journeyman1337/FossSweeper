@@ -20,17 +20,18 @@
  *
  */
 
-#include "LicenseDialog.hpp"
+#include <string>
+#include "TextDialog.hpp"
 
 #include <wx/hyperlink.h>
 
 #include "license.hpp"
 #include "wx_include.hpp"
 
-fsweep::LicenseDialog::LicenseDialog(wxWindow* parent)
-    : wxDialog(parent, wxID_ANY, "FossSweeper License")
+fsweep::TextDialog::TextDialog(wxWindow* parent, std::string_view title, std::string_view text)
+    : wxDialog(parent, wxID_ANY, title.data())
 {
   this->SetSize(768, 512);
-  new wxTextCtrl(this, wxID_ANY, fsweep::LICENSE_TEXT, wxDefaultPosition, wxDefaultSize,
+  new wxTextCtrl(this, wxID_ANY, text.data(), wxDefaultPosition, wxDefaultSize,
                  wxTE_READONLY | wxTE_MULTILINE | wxTE_AUTO_URL | wxTE_CENTER | wxTE_BESTWRAP);
 }

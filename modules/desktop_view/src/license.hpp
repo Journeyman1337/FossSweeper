@@ -23,9 +23,14 @@
 #ifndef FSWEEP_LICENSE_HPP
 #define FSWEEP_LICENSE_HPP
 
+#include "TextDialog.hpp"
+#include "wx_include.hpp"
+
 namespace fsweep
 {
   extern const char* const LICENSE_TEXT;
+
+  fsweep::TextDialog createLicenseDialog(wxWindow* parent);
 }
 
 #endif

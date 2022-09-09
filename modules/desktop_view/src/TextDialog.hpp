@@ -20,17 +20,18 @@
  *
  */
 
-#ifndef FSWEEP_LICENSE_DIALOG_HPP
-#define FSWEEP_LICENSE_DIALOG_HPP
+#ifndef FSWEEP_TEXT_DIALOG_HPP
+#define FSWEEP_TEXT_DIALOG_HPP
 
 #include "wx_include.hpp"
+#include <string>
 
 namespace fsweep
 {
-  class LicenseDialog : public wxDialog
+  class TextDialog : public wxDialog
   {
    public:
-    LicenseDialog(wxWindow* parent);
+    TextDialog(wxWindow* parent, std::string_view title, std::string_view text);
   };
 }  // namespace fsweep
 

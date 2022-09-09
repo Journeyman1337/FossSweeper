@@ -21,6 +21,12 @@
  */
 
 #include "license.hpp"
+#include "TextDialog.hpp"
 
 const char* const fsweep::LICENSE_TEXT =
 @FSWEEP_LICENSE_TEXT@;
+
+fsweep::TextDialog fsweep::createLicenseDialog(wxWindow* parent)
+{
+    return fsweep::TextDialog(parent, "FossSweeper License", fsweep::LICENSE_TEXT);
+}
