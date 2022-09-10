@@ -56,7 +56,7 @@ source_group("sources"
 if (WIN32)
     # windows resource file with the file icon for the exe
     set(FSWEEP_DESKTOP_RESOURCES
-        "appicon.rc"
+        "fosssweeper.rc"
     )
     list(
         TRANSFORM FSWEEP_DESKTOP_RESOURCES
@@ -70,7 +70,7 @@ if (WIN32)
 	${FSWEEP_DESKTOP_RESOURCES}
     )
 elseif(APPLE)
-    set(MACOSX_BUNDLE_ICON_FILE "appicon.icns")
+    set(MACOSX_BUNDLE_ICON_FILE "fosssweeper.icns")
     set(FSWEEP_DESKTOP_OSX_ICON "${CMAKE_CURRENT_SOURCE_DIR}/rc/${MACOSX_BUNDLE_ICON_FILE}")
     set_source_file_properties(FSWEEP_DESKTOP_OSX_ICON 
         PROPERTIES
