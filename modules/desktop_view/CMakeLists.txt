@@ -55,9 +55,21 @@ source_group("sources"
     FILES ${FSWEEP_DESKTOP_SOURCES}
 )
 if (WIN32)
-    # wxWidgets requires this for win32.
+	# windows resource files with the file icon for the exe
+	set(FSWEEP_DESKTOP_RESOURCES
+		"appicon.rc"
+	)
+	list(
+		TRANSFORM FSWEEP_DESKTOP_RESOURCES
+		 PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/rc/")
+	source_group("resources"
+		FILES ${FSWEEP_DESKTOP_RESOURCES}
+	)
+	
+    # wxWidgets requires main to be WinMain in Win32
     add_executable(fsweep_desktop_view WIN32
         ${FSWEEP_DESKTOP_SOURCES}
+		${FSWEEP_DESKTOP_RESOURCES}
     )
 else()
     add_executable(fsweep_desktop_view
