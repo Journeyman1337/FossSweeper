@@ -69,10 +69,23 @@ if (WIN32)
         ${FSWEEP_DESKTOP_SOURCES}
 	${FSWEEP_DESKTOP_RESOURCES}
     )
-else()
+elseif(APPLE)
+    set(MACOSX_BUNDLE_ICON_FILE "appicon.icns")
+    set(FSWEEP_DESKTOP_OSX_ICON "${CMAKE_CURRENT_SOURCE_DIR}/rc/${MACOSX_BUNDLE_ICON_FILE}")
+    set_source_file_properties(FSWEEP_DESKTOP_OSX_ICON 
+        PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources"
+    )
+    add_executable(fswseep_desktop_view MACOSX_BUNDLE
+        ${FSWEEP_DESKTOP_SOURCES}
+	${FSWEEP_DESKTOP_OSX_ICON}
+    )
+elseif(UNIX)
     add_executable(fsweep_desktop_view
         ${FSWEEP_DESKTOP_SOURCES}
     )
+else()
+    message(FATAL_ERROR "Unsupported platform for fsweep::desktop_view.")
 endif()
 target_link_libraries(fsweep_desktop_view
     PUBLIC
