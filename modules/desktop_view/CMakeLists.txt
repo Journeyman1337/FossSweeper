@@ -76,7 +76,7 @@ elseif(APPLE)
         PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources"
     )
-    add_executable(fswseep_desktop_view MACOSX_BUNDLE
+    add_executable(fsweep_desktop_view MACOSX_BUNDLE
         ${FSWEEP_DESKTOP_SOURCES}
 	${FSWEEP_DESKTOP_OSX_ICON}
     )
