@@ -67,7 +67,7 @@ if (WIN32)
     # wxWidgets requires main to be WinMain in Win32
     add_executable(fsweep_desktop_view WIN32
         ${FSWEEP_DESKTOP_SOURCES}
-	${FSWEEP_DESKTOP_RESOURCES}
+        ${FSWEEP_DESKTOP_RESOURCES}
     )
 elseif(APPLE)
     set(MACOSX_BUNDLE_ICON_FILE "fosssweeper.icns")
@@ -78,7 +78,7 @@ elseif(APPLE)
     )
     add_executable(fsweep_desktop_view MACOSX_BUNDLE
         ${FSWEEP_DESKTOP_SOURCES}
-	${FSWEEP_DESKTOP_OSX_ICON}
+        ${FSWEEP_DESKTOP_OSX_ICON}
     )
 elseif(UNIX)
     add_executable(fsweep_desktop_view
