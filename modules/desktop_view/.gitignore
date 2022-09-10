@@ -16,3 +16,5 @@
 
 src/license.cpp
 src/credits.cpp
+rc/fosssweeper.aps
+rc/fosssweeper.desktop

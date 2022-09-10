@@ -17,7 +17,6 @@
 include(${FSWEEP_SOURCE_DIR}/CMake/embed_string.CMake)
 embed_string("FSWEEP_LICENSE_TEXT" "${FSWEEP_SOURCE_DIR}/COPYING" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp")
 embed_string("FSWEEP_CREDITS_TEXT" "${FSWEEP_SOURCE_DIR}/CREDITS" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp")
-
 set(FSWEEP_DESKTOP_SOURCES
     "AboutDialog.cpp"
     "AboutDialog.hpp"
@@ -50,19 +49,43 @@ set(FSWEEP_DESKTOP_SOURCES
 )
 list(
     TRANSFORM FSWEEP_DESKTOP_SOURCES
-     PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+    PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 source_group("sources"
     FILES ${FSWEEP_DESKTOP_SOURCES}
 )
 if (WIN32)
-    # wxWidgets requires this for win32.
+    # windows resource file with the file icon for the exe
+    set(FSWEEP_DESKTOP_RESOURCES
+        "fosssweeper.rc"
+    )
+    list(
+        TRANSFORM FSWEEP_DESKTOP_RESOURCES
+        PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/rc/")
+    source_group("resources"
+        FILES ${FSWEEP_DESKTOP_RESOURCES}
+    )
+    # wxWidgets requires main to be WinMain in Win32
     add_executable(fsweep_desktop_view WIN32
         ${FSWEEP_DESKTOP_SOURCES}
+        ${FSWEEP_DESKTOP_RESOURCES}
     )
-else()
+elseif(APPLE)
+    set(MACOSX_BUNDLE_ICON_FILE "fosssweeper.icns")
+    set(FSWEEP_DESKTOP_OSX_ICON "${CMAKE_CURRENT_SOURCE_DIR}/rc/${MACOSX_BUNDLE_ICON_FILE}")
+    set_source_files_properties(FSWEEP_DESKTOP_OSX_ICON 
+        PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources"
+    )
+    add_executable(fsweep_desktop_view MACOSX_BUNDLE
+        ${FSWEEP_DESKTOP_SOURCES}
+        ${FSWEEP_DESKTOP_OSX_ICON}
+    )
+elseif(UNIX)
     add_executable(fsweep_desktop_view
         ${FSWEEP_DESKTOP_SOURCES}
     )
+else()
+    message(FATAL_ERROR "Unsupported platform for fsweep::desktop_view.")
 endif()
 target_link_libraries(fsweep_desktop_view
     PUBLIC
@@ -85,6 +108,11 @@ if(FSWEEP_INSTALL_DESKTOP)
     include(GNUInstallDirs)
     install(TARGETS fsweep_desktop_view DESTINATION ${CMAKE_INSTALL_BINDIR})
     install(FILES "${FSWEEP_SOURCE_DIR}/COPYING" DESTINATION ${CMAKE_INSTALL_BINDIR})
+    if(UNIX AND NOT APPLE)
+      install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/20x20/apps")
+      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop.in" "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop")
+      install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+    endif()
     set(CPACK_RESOURCE_FILE_LICENSE "${FSWEEP_SOURCE_DIR}/COPYING")
     set(CPACK_STRIP_FILES TRUE)
     set(CPACK_THREADS 0)

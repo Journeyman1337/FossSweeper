@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=@PROJECT_VERSION@
+Terminal=false
+name=FossSweeper
+GenericName=Minesweeper Clone
+Comment=An open source clone of a popular mine avoidance game.
+Keywords=games;minesweeper;
+Icon=fosssweeper
+Categories=Game;Puzzle;
