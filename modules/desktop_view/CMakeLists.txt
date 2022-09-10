@@ -17,7 +17,6 @@
 include(${FSWEEP_SOURCE_DIR}/CMake/embed_string.CMake)
 embed_string("FSWEEP_LICENSE_TEXT" "${FSWEEP_SOURCE_DIR}/COPYING" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp")
 embed_string("FSWEEP_CREDITS_TEXT" "${FSWEEP_SOURCE_DIR}/CREDITS" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp")
-
 set(FSWEEP_DESKTOP_SOURCES
     "AboutDialog.cpp"
     "AboutDialog.hpp"
@@ -50,26 +49,25 @@ set(FSWEEP_DESKTOP_SOURCES
 )
 list(
     TRANSFORM FSWEEP_DESKTOP_SOURCES
-     PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+    PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 source_group("sources"
     FILES ${FSWEEP_DESKTOP_SOURCES}
 )
 if (WIN32)
-	# windows resource files with the file icon for the exe
-	set(FSWEEP_DESKTOP_RESOURCES
-		"appicon.rc"
-	)
-	list(
-		TRANSFORM FSWEEP_DESKTOP_RESOURCES
-		 PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/rc/")
-	source_group("resources"
-		FILES ${FSWEEP_DESKTOP_RESOURCES}
-	)
-	
+    # windows resource file with the file icon for the exe
+    set(FSWEEP_DESKTOP_RESOURCES
+        "appicon.rc"
+    )
+    list(
+        TRANSFORM FSWEEP_DESKTOP_RESOURCES
+        PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/rc/")
+    source_group("resources"
+        FILES ${FSWEEP_DESKTOP_RESOURCES}
+    )
     # wxWidgets requires main to be WinMain in Win32
     add_executable(fsweep_desktop_view WIN32
         ${FSWEEP_DESKTOP_SOURCES}
-		${FSWEEP_DESKTOP_RESOURCES}
+	${FSWEEP_DESKTOP_RESOURCES}
     )
 else()
     add_executable(fsweep_desktop_view
