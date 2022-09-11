@@ -39,8 +39,8 @@ jobs:
               os: windows-2022,
               cpack_generator: ZIP,
               package_extension: zip,
-              cc: cl.exe,
-              cxx: cl.exe,
+              cc: cl.exe -m32,
+              cxx: cl.exe -m32,
               arch: "x86-windows",
             }
           - {
@@ -115,12 +115,12 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: cmake -S . -B ./build/ -G Ninja -D FSWEEP_ENABLE_TESTS=OFF -A ${{ matrix.platform.arch }}
+        run: cmake -S . -B ./build/ -G Ninja -D FSWEEP_ENABLE_TESTS=OFF
       - name: Generate CMake project on Windows
         if: ${{ runner.os == 'Windows' }}
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: cmake -S . -B ./build/ -D FSWEEP_ENABLE_TESTS=OFF -A ${{ matrix.platform.arch }}
+        run: cmake -S . -B ./build/ -D FSWEEP_ENABLE_TESTS=OFF
       - name: Build CMake project
         shell: bash
         working-directory: ${{ github.workspace }}/build/
