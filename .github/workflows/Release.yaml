@@ -39,8 +39,8 @@ jobs:
               os: windows-2022,
               cpack_generator: ZIP,
               package_extension: zip,
-              cc: cl.exe -m32,
-              cxx: cl.exe -m32,
+              cc: cl.exe,
+              cxx: cl.exe,
               arch: "x86-windows",
             }
           - {
