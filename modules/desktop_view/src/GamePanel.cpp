@@ -436,7 +436,7 @@ void fsweep::GamePanel::DrawAll()
 {
   const auto& model = this->model.get();
   wxClientDC dc(this);
-  dc.SetBrush(wxBrush(wxColour(198, 198, 198)));
+  dc.SetBrush(wxBrush(wxColour(142, 142, 142)));
   dc.DrawRectangle(wxRect(wxPoint(0, 0), this->GetSize()));
   dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderLeftTop), wxPoint(0, 0), false);
   dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderRightTop),
