@@ -44,7 +44,6 @@ set(FSWEEP_DESKTOP_SOURCES
     "spritesheet.hpp"
     "TextDialog.cpp"
     "TextDialog.hpp"
-    "wx_id.hpp"
     "wx_include.hpp"
 )
 list(
