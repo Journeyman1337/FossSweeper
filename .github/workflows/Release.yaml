@@ -121,12 +121,12 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: cmake -S . -B ./build/ -G Ninja -D FSWEEP_ENABLE_TESTS=OFF -D CMAKE_C_FLAGS=${{ matrix.platform.compile_flags }} -D CMAKE_CXX_FLAGS=${{ matrix.platform.compile_flags }}
+        run: cmake -S . -B ./build/ -G Ninja -D FSWEEP_BUILD_TESTS=OFF -D CMAKE_C_FLAGS=${{ matrix.platform.compile_flags }} -D CMAKE_CXX_FLAGS=${{ matrix.platform.compile_flags }}
       - name: Generate CMake project on Windows
         if: ${{ runner.os == 'Windows' }}
         shell: bash
         working-directory: ${{ github.workspace }}
-        run: cmake -S . -B ./build/ -D FSWEEP_ENABLE_TESTS=OFF -D CMAKE_C_FLAGS=${{ matrix.platform.compile_flags }} -D CMAKE_CXX_FLAGS=${{ matrix.platform.compile_flags }}
+        run: cmake -S . -B ./build/ -D FSWEEP_BUILD_TESTS=OFF -D CMAKE_C_FLAGS=${{ matrix.platform.compile_flags }} -D CMAKE_CXX_FLAGS=${{ matrix.platform.compile_flags }}
       - name: Build CMake project
         shell: bash
         working-directory: ${{ github.workspace }}/build/
