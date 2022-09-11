@@ -35,15 +35,6 @@ jobs:
               arch: "x64-windows",
             }
           - {
-              Name: Windows VS2022 x86,
-              os: windows-2022,
-              cpack_generator: ZIP,
-              package_extension: zip,
-              cc: cl.exe,
-              cxx: cl.exe,
-              arch: "x86-windows",
-            }
-          - {
               Name: Linux GCC x64,
               os: ubuntu-22.04,
               cpack_generator: TGZ,
@@ -53,15 +44,6 @@ jobs:
               arch: "x64-linux",
             }
           - {
-              Name: Linux GCC x86,
-              os: ubuntu-22.04,
-              cpack_generator: TGZ,
-              package_extension: tar.gz,
-              cc: gcc-10,
-              cxx: g++-10,
-              arch: "x86-linux",
-            }
-          - {
               Name: MacOS Clang x64,
               os: macos-12,
               cpack_generator: TGZ,
@@ -69,15 +51,6 @@ jobs:
               cc: clang,
               cxx: clang++,
               arch: "x64-osx",
-            }
-          - {
-              Name: MacOS Clang x86,
-              os: macos-12,
-              cpack_generator: TGZ,
-              package_extension: tar.gz,
-              cc: clang,
-              cxx: clang++,
-              arch: "x86-osx",
             }
         build_type: [Release]
     env:
