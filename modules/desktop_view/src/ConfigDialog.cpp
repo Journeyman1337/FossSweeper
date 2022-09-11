@@ -44,7 +44,7 @@ fsweep::ConfigDialog::ConfigDialog(wxWindow* parent)
   sizer->Add(buttons_tall_sizer, 0, wxALIGN_CENTER | wxALL, 5);
 
   auto* const bomb_count_sizer = new wxBoxSizer(wxHORIZONTAL);
-  bomb_count_sizer->Add(new wxStaticText(this, wxID_ANY, "Bomb Count: "));
+  bomb_count_sizer->Add(new wxStaticText(this, wxID_ANY, "Snake Count: "));
   this->bombs_ctrl = new wxSpinCtrl(this, wxID_ANY);
   bomb_count_sizer->Add(this->bombs_ctrl);
   sizer->Add(bomb_count_sizer, 0, wxALIGN_CENTER | wxALL, 5);
