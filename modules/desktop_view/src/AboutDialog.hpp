@@ -32,6 +32,7 @@ namespace fsweep
    public:
     AboutDialog(wxWindow* parent);
 
+    void OnCredits(wxCommandEvent& e);
     void OnLicense(wxCommandEvent& e);
   };
 }  // namespace fsweep

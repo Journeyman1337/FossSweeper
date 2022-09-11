@@ -28,6 +28,7 @@
 #include <sstream>
 
 #include "license.hpp"
+#include "credits.hpp"
 #include "wx_include.hpp"
 
 fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, "About FossSweeper")
@@ -92,6 +93,9 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   auto* const license_button = new wxButton(this, wxID_ANY, "License");
   Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnLicense, this, license_button->GetId());
   button_sizer->Add(license_button, 0, wxALIGN_CENTER | wxALL, 10);
+  auto* const credits_button = new wxButton(this, wxID_ANY, "Credits");
+  Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnCredits, this, credits_button->GetId());
+  button_sizer->Add(credits_button, 0, wxALIGN_CENTER | wxALL, 10);
   auto* const close_button = new wxButton(this, wxID_OK, "Close");
   close_button->SetDefault();
   button_sizer->Add(close_button, 0, wxALIGN_CENTER | wxALL, 10);
@@ -99,6 +103,12 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
 
   this->SetSizerAndFit(sizer);
   sizer->Layout();
+}
+
+void fsweep::AboutDialog::OnCredits(wxCommandEvent& WXUNUSED(e))
+{
+  auto credits_dialog = fsweep::createCreditsDialog(this);
+  credits_dialog.ShowModal();
 }
 
 void fsweep::AboutDialog::OnLicense(wxCommandEvent& WXUNUSED(e))
