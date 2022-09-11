@@ -607,16 +607,16 @@ SCENARIO("A Button of a Model is area clicked")
   {
     fsweep::Model model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), true,
                         fsweep::GameState::Playing, 0,
-                        "bq......"
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                        "bq...dc."
+                        "bb...b.."
+                        "..ddddd."
+                        ".bd.c.d."
+                        "ccdddd.."
+                        "b.f.c.d."
+                        "...dddbb"
+                        "ddddddbd");
 
-    WHEN("A Button is area clicked and no bombs are hit")
+    WHEN("A Button is area clicked where chording is possible and no bombs are hit")
     {
       model.AreaClickButton(4, 4);
 
@@ -625,47 +625,77 @@ SCENARIO("A Button of a Model is area clicked")
         CHECK(model.GetGameState() == fsweep::GameState::Playing);
       }
 
-      THEN("All the area clicked Button objects are down")
+      THEN("All the near Button objects have the correct state")
       {
         CHECK(model.GetButton(3, 3).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(4, 3).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(4, 3).GetButtonState() == fsweep::ButtonState::Flagged);
         CHECK(model.GetButton(5, 3).GetButtonState() == fsweep::ButtonState::Down);
         CHECK(model.GetButton(3, 4).GetButtonState() == fsweep::ButtonState::Down);
         CHECK(model.GetButton(4, 4).GetButtonState() == fsweep::ButtonState::Down);
         CHECK(model.GetButton(5, 4).GetButtonState() == fsweep::ButtonState::Down);
         CHECK(model.GetButton(3, 5).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(4, 5).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(4, 5).GetButtonState() == fsweep::ButtonState::Flagged);
         CHECK(model.GetButton(5, 5).GetButtonState() == fsweep::ButtonState::Down);
-      }
-
-      THEN("Button objects outside of the area that are bombless get flood fill clicked")
-      {
-        CHECK(model.GetButton(5, 0).GetButtonState() == fsweep::ButtonState::Down);
       }
     }
 
-    WHEN("A Button is area clicked and a bomb is hit")
+    WHEN("A Button is area clicked where chording is possible and a bomb is hit")
     {
-      model.AreaClickButton(5, 2);
+      model.AreaClickButton(2, 4);
 
       THEN("The GameState is Dead") { CHECK(model.GetGameState() == fsweep::GameState::Dead); }
 
-      THEN("All the area clicked Button objects are down")
+      THEN("All the near Button objects have the correct state")
       {
-        CHECK(model.GetButton(4, 1).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(5, 1).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(6, 1).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(4, 2).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(5, 2).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(6, 2).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(4, 3).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(5, 3).GetButtonState() == fsweep::ButtonState::Down);
-        CHECK(model.GetButton(6, 3).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(1, 3).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(2, 3).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(3, 3).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(1, 4).GetButtonState() == fsweep::ButtonState::Flagged);
+        CHECK(model.GetButton(2, 4).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(3, 4).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(1, 5).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(2, 5).GetButtonState() == fsweep::ButtonState::Flagged);
+        CHECK(model.GetButton(3, 5).GetButtonState() == fsweep::ButtonState::Down);
+      }
+    }
+
+    WHEN("A button is area clicked where chording is not possible because there are more surrounding bombs than surrounding flags")
+    {
+      model.AreaClickButton(5, 0);
+
+      THEN("The GameState is still Playing")
+      {
+        CHECK(model.GetGameState() == fsweep::GameState::Playing);
       }
 
-      THEN("Button objects outside of the area that are bombless get flood fill clicked")
+      THEN("All the near Button objects have the same state")
       {
+        CHECK(model.GetButton(4, 0).GetButtonState() == fsweep::ButtonState::None);
         CHECK(model.GetButton(5, 0).GetButtonState() == fsweep::ButtonState::Down);
+        CHECK(model.GetButton(6, 0).GetButtonState() == fsweep::ButtonState::Flagged);
+        CHECK(model.GetButton(4, 1).GetButtonState() == fsweep::ButtonState::None);
+        CHECK(model.GetButton(5, 1).GetButtonState() == fsweep::ButtonState::None);
+        CHECK(model.GetButton(6, 1).GetButtonState() == fsweep::ButtonState::None);
+      }
+    }
+
+    WHEN("A button is area clicked where chording is not possible because it is not down")
+    {
+      model.AreaClickButton(3, 0);
+
+      THEN("The GameState is still Playing")
+      {
+        CHECK(model.GetGameState() == fsweep::GameState::Playing);
+      }
+
+      THEN("All the near Button objects have the same state")
+      {
+        CHECK(model.GetButton(2, 0).GetButtonState() == fsweep::ButtonState::None);
+        CHECK(model.GetButton(3, 0).GetButtonState() == fsweep::ButtonState::None);
+        CHECK(model.GetButton(4, 0).GetButtonState() == fsweep::ButtonState::None);
+        CHECK(model.GetButton(2, 1).GetButtonState() == fsweep::ButtonState::None);
+        CHECK(model.GetButton(3, 1).GetButtonState() == fsweep::ButtonState::None);
+        CHECK(model.GetButton(4, 1).GetButtonState() == fsweep::ButtonState::None);
       }
     }
   }
