@@ -60,16 +60,6 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: system-configuration
-    attributes:
-      label: System Configuration
-      description: What is the configuration of the operating system?
-      options:
-        - 32 bit (x86)
-        - 64 bit (x64)
-    validations:
-      required: true
-  - type: dropdown
     id: build-configuration
     attributes:
       label: Build Configuration

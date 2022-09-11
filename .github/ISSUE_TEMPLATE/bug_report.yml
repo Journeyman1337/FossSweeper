@@ -75,16 +75,6 @@ body:
       placeholder: ex. Windows 10, macOS Mojave, Linux Mint 21, etc
     validations:
       required: true
-  - type: dropdown
-    id: system-configuration
-    attributes:
-      label: System Configuration
-      description: What is the configuration of the operating system?
-      options:
-        - 32 bit (x86)
-        - 64 bit (x64)
-    validations:
-      required: true
   - type: input
     id: linux-desktop
     attributes:
