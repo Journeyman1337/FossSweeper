@@ -28,6 +28,7 @@
 #include <sstream>
 
 #include "license.hpp"
+#include "credits.hpp"
 #include "wx_include.hpp"
 
 fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, "About FossSweeper")
@@ -44,7 +45,7 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   sizer->Add(header, 0, wxALIGN_CENTER | wxALL, 20);
 
   auto* const subtext = new wxStaticText(
-      this, wxID_ANY, "A clone of a popular mine avoidance game by Daniel Valcour (Journeyman).");
+      this, wxID_ANY, "An open source clone of a popular mine avoidance game.");
   auto subtext_font = subtext->GetFont();
   subtext_font.SetStyle(wxFONTSTYLE_ITALIC);
   sizer->Add(subtext, 0, wxALIGN_CENTER | wxALL, 20);
@@ -89,9 +90,12 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   sizer->Add(gnu_sizer, 0, wxALIGN_CENTER | wxALL, 5);
 
   auto* const button_sizer = new wxBoxSizer(wxHORIZONTAL);
-  auto* const license_button = new wxButton(this, wxID_ANY, "License Text");
+  auto* const license_button = new wxButton(this, wxID_ANY, "License");
   Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnLicense, this, license_button->GetId());
   button_sizer->Add(license_button, 0, wxALIGN_CENTER | wxALL, 10);
+  auto* const credits_button = new wxButton(this, wxID_ANY, "Credits");
+  Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnCredits, this, credits_button->GetId());
+  button_sizer->Add(credits_button, 0, wxALIGN_CENTER | wxALL, 10);
   auto* const close_button = new wxButton(this, wxID_OK, "Close");
   close_button->SetDefault();
   button_sizer->Add(close_button, 0, wxALIGN_CENTER | wxALL, 10);
@@ -99,6 +103,12 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
 
   this->SetSizerAndFit(sizer);
   sizer->Layout();
+}
+
+void fsweep::AboutDialog::OnCredits(wxCommandEvent& WXUNUSED(e))
+{
+  auto credits_dialog = fsweep::createCreditsDialog(this);
+  credits_dialog.ShowModal();
 }
 
 void fsweep::AboutDialog::OnLicense(wxCommandEvent& WXUNUSED(e))
