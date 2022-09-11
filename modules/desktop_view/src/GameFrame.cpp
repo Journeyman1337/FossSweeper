@@ -33,7 +33,6 @@
 #include "credits.hpp"
 #include "icon.hpp"
 #include "license.hpp"
-#include "wx_id.hpp"
 #include "wx_include.hpp"
 
 BEGIN_EVENT_TABLE(fsweep::GameFrame, wxFrame)
