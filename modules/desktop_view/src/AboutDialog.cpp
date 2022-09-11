@@ -44,7 +44,7 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   sizer->Add(header, 0, wxALIGN_CENTER | wxALL, 20);
 
   auto* const subtext = new wxStaticText(
-      this, wxID_ANY, "A clone of a popular mine avoidance game by Daniel Valcour (Journeyman).");
+      this, wxID_ANY, "A clone of a popular mine avoidance game.");
   auto subtext_font = subtext->GetFont();
   subtext_font.SetStyle(wxFONTSTYLE_ITALIC);
   sizer->Add(subtext, 0, wxALIGN_CENTER | wxALL, 20);
