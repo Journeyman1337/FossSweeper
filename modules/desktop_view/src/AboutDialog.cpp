@@ -89,7 +89,7 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   sizer->Add(gnu_sizer, 0, wxALIGN_CENTER | wxALL, 5);
 
   auto* const button_sizer = new wxBoxSizer(wxHORIZONTAL);
-  auto* const license_button = new wxButton(this, wxID_ANY, "License Text");
+  auto* const license_button = new wxButton(this, wxID_ANY, "License");
   Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnLicense, this, license_button->GetId());
   button_sizer->Add(license_button, 0, wxALIGN_CENTER | wxALL, 10);
   auto* const close_button = new wxButton(this, wxID_OK, "Close");
