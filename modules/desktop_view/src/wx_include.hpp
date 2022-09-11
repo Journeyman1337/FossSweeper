@@ -20,7 +20,7 @@
  *
  */
 
-#ifndef FFSWEEP_WX_INCLUDE_HPP
+#ifndef FSWEEP_WX_INCLUDE_HPP
 #  define FSWEEP_WX_INCLUDE_HPP
 
 #  include <wx/wxprec.h>
