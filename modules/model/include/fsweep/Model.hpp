@@ -53,6 +53,7 @@ namespace fsweep
     fsweep::Button& getButton(int x, int y);
     void pressButton(int x, int y);
     void floodFillClick(int x, int y);
+    bool choordingPossible(int x, int y);
     void surroundingButtonAction(
         const fsweep::ButtonPosition& center_position,
         std::function<void(const fsweep::Button&, const fsweep::ButtonPosition&)> action);

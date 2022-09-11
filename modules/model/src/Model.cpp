@@ -108,6 +108,23 @@ void fsweep::Model::floodFillClick(int x, int y)
   } while (!this->flood_fill_stack.empty());
 }
 
+bool fsweep::Model::choordingPossible(int x, int y)
+{
+  const auto& button = this->getButton(x, y);
+  if (button.GetButtonState() != fsweep::ButtonState::Down) return false;
+  auto surrounding_flags = 0;
+  this->surroundingButtonAction(
+      fsweep::ButtonPosition(x, y),
+      [&](const fsweep::Button& button, const fsweep::ButtonPosition position)
+      {
+        if (button.GetButtonState() == fsweep::ButtonState::Flagged)
+        {
+          surrounding_flags++;
+        }
+      });
+  return surrounding_flags == button.GetSurroundingBombs();
+}
+
 void fsweep::Model::surroundingButtonAction(
     const fsweep::ButtonPosition& center_position,
     std::function<void(const fsweep::Button&, const fsweep::ButtonPosition&)> action)
@@ -290,6 +307,7 @@ void fsweep::Model::AltClickButton(int x, int y)
 void fsweep::Model::AreaClickButton(int x, int y)
 {
   if (this->game_state != fsweep::GameState::Playing) return;
+  if (!this->choordingPossible(x, y)) return;
   const auto buttons_wide = this->game_configuration.GetButtonsWide();
   const auto buttons_tall = this->game_configuration.GetButtonsTall();
   const fsweep::ButtonPosition center_position(x, y);
