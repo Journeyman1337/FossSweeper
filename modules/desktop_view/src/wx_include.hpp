@@ -21,12 +21,12 @@
  */
 
 #ifndef FSWEEP_WX_INCLUDE_HPP
-#  define FSWEEP_WX_INCLUDE_HPP
+#define FSWEEP_WX_INCLUDE_HPP
 
-#  include <wx/wxprec.h>
+#include <wx/wxprec.h>
 
-#  ifndef WX_PRECOMP
-#    include <wx/wx.h>
-#  endif
+#ifndef WX_PRECOMP
+#  include <wx/wx.h>
+#endif
 
 #endif

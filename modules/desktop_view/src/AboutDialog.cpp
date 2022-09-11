@@ -27,8 +27,8 @@
 #include <fsweep/version.hpp>
 #include <sstream>
 
-#include "license.hpp"
 #include "credits.hpp"
+#include "license.hpp"
 #include "wx_include.hpp"
 
 fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, "About FossSweeper")
@@ -44,8 +44,8 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   header->SetFont(header_font);
   sizer->Add(header, 0, wxALIGN_CENTER | wxALL, 20);
 
-  auto* const subtext = new wxStaticText(
-      this, wxID_ANY, "An open source clone of a popular mine avoidance game.");
+  auto* const subtext =
+      new wxStaticText(this, wxID_ANY, "An open source clone of a popular mine avoidance game.");
   auto subtext_font = subtext->GetFont();
   subtext_font.SetStyle(wxFONTSTYLE_ITALIC);
   sizer->Add(subtext, 0, wxALIGN_CENTER | wxALL, 20);
