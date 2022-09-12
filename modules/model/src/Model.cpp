@@ -335,6 +335,7 @@ void fsweep::Model::AreaClickButton(int x, int y)
           this->pressButton(position.x, position.y);
         }
       });
+  this->tryWin();
 }
 
 void fsweep::Model::UpdateTime(unsigned long delta_time)
