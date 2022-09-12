@@ -59,6 +59,7 @@ namespace fsweep
         std::function<void(const fsweep::Button&, const fsweep::ButtonPosition&)> action);
     void placeBombs(int initial_x, int initial_y);
     void calculateSurroundingBombs();
+    void tryWin() noexcept;
 
    public:
     Model() noexcept;

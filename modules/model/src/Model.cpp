@@ -239,6 +239,14 @@ void fsweep::Model::calculateSurroundingBombs()
   }
 }
 
+void fsweep::Model::tryWin() noexcept
+{
+  if (this->buttons_left <= 0)
+  {
+    this->game_state = fsweep::GameState::Cool;
+  }
+}
+
 void fsweep::Model::NewGame()
 {
   std::fill(this->buttons.begin(), this->buttons.end(), fsweep::Button());
@@ -288,10 +296,7 @@ void fsweep::Model::ClickButton(int x, int y)
   {
     this->game_state = fsweep::GameState::Dead;
   }
-  else if (this->buttons_left <= 0)
-  {
-    this->game_state = fsweep::GameState::Cool;
-  }
+  this->tryWin();
 }
 
 void fsweep::Model::AltClickButton(int x, int y)
