@@ -43,7 +43,7 @@ namespace fsweep
     fsweep::GameState game_state = fsweep::GameState::Default;
     bool questions_enabled = false;
     int flag_count = 0;
-    int buttons_left = game_configuration.GetButtonCount();
+    int buttons_left = 0;
     unsigned long game_time = 0;
     std::random_device rnd = std::random_device();
     std::mt19937 rng = std::mt19937(rnd());
@@ -61,7 +61,7 @@ namespace fsweep
     void calculateSurroundingBombs();
 
    public:
-    Model() noexcept = default;
+    Model() noexcept;
     Model(fsweep::GameConfiguration game_configuration, bool questions_enabled,
           fsweep::GameState game_state, int game_time, std::string_view button_string);
 

@@ -27,6 +27,11 @@
 #include <stdexcept>
 #include <string>
 
+fsweep::Model::Model() noexcept
+{
+  this->NewGame();
+}
+
 fsweep::Model::Model(fsweep::GameConfiguration game_configuration, bool questions_enabled,
                      fsweep::GameState game_state, int game_time, std::string_view button_string)
     : game_configuration(game_configuration)
