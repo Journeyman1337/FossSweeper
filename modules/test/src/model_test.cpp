@@ -40,8 +40,9 @@ SCENARIO("A Model is constructed with its default constructor")
 
     THEN("There is a beginner difficulty amount of buttons left")
     {
-      CHECK(model.GetButtonsLeft() == fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE *
-                                          fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL);
+      CHECK(model.GetButtonsLeft() == (fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE *
+                                       fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL) -
+                                          fsweep::GameConfiguration::BEGINNER_BOMB_COUNT);
     }
 
     THEN("The GameState is None") { CHECK(model.GetGameState() == fsweep::GameState::None); }
@@ -659,7 +660,9 @@ SCENARIO("A Button of a Model is area clicked")
       }
     }
 
-    WHEN("A button is area clicked where chording is not possible because there are more surrounding bombs than surrounding flags")
+    WHEN(
+        "A button is area clicked where chording is not possible because there are more "
+        "surrounding bombs than surrounding flags")
     {
       model.AreaClickButton(5, 0);
 
