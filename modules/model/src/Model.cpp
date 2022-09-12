@@ -27,6 +27,8 @@
 #include <stdexcept>
 #include <string>
 
+fsweep::Model::Model() noexcept { this->NewGame(); }
+
 fsweep::Model::Model(fsweep::GameConfiguration game_configuration, bool questions_enabled,
                      fsweep::GameState game_state, int game_time, std::string_view button_string)
     : game_configuration(game_configuration)
@@ -234,6 +236,14 @@ void fsweep::Model::calculateSurroundingBombs()
   }
 }
 
+void fsweep::Model::tryWin() noexcept
+{
+  if (this->buttons_left <= 0)
+  {
+    this->game_state = fsweep::GameState::Cool;
+  }
+}
+
 void fsweep::Model::NewGame()
 {
   std::fill(this->buttons.begin(), this->buttons.end(), fsweep::Button());
@@ -283,10 +293,7 @@ void fsweep::Model::ClickButton(int x, int y)
   {
     this->game_state = fsweep::GameState::Dead;
   }
-  else if (this->buttons_left <= 0)
-  {
-    this->game_state = fsweep::GameState::Cool;
-  }
+  this->tryWin();
 }
 
 void fsweep::Model::AltClickButton(int x, int y)
@@ -325,6 +332,7 @@ void fsweep::Model::AreaClickButton(int x, int y)
           this->pressButton(position.x, position.y);
         }
       });
+  this->tryWin();
 }
 
 void fsweep::Model::UpdateTime(unsigned long delta_time)
