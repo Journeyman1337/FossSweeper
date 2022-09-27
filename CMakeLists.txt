@@ -16,9 +16,11 @@
 
 cmake_minimum_required(VERSION 3.19)
 
+include(CMake/fosssweeper_version.CMake)
+
 project(
     fosssweeper
-    VERSION 0.4.0
+    VERSION "${FSWEEP_VERSION_MAJOR}.${FSWEEP_VERSION_MINOR}.${FSWEEP_VERSION_PATCH}"
     DESCRIPTION "An open source clone of a popular mine avoidance game"
     LANGUAGES C CXX
 )
