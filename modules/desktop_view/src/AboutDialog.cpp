@@ -36,7 +36,7 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   auto* const sizer = new wxBoxSizer(wxVERTICAL);
 
   std::stringstream header_ss("");
-  header_ss << "FossSweeper v" << FSWEEP_VERSION;
+  header_ss << "FossSweeper " << FSWEEP_PROJECT_VERSION;
   auto* const header = new wxStaticText(this, wxID_ANY, header_ss.str().data());
   auto header_font = header->GetFont();
   header_font.SetPointSize(24);
