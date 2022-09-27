@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-set(FSWEEP_VERSION_MAJOR 1)
+set(FSWEEP_VERSION_MAJOR 0)
 set(FSWEEP_VERSION_MINOR 4)
 set(FSWEEP_VERSION_PATCH 0)
 set(FSWEEP_VERSION_PRERELEASE 0)
