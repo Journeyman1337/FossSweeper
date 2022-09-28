@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
+include("${FSWEEP_SOURCE_DIR}/CMake/get_short_hash.CMake")
+get_short_hash("${FSWEEP_SOURCE_DIR}" "FSWEEP_SHORT_HASH")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/version.hpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/include/fsweep/version.hpp")
 set(FSWEEP_MODEL_SOURCE_FILES
     "Button.cpp"
