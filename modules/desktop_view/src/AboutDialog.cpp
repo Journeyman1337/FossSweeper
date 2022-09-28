@@ -21,14 +21,12 @@
  */
 
 #include "AboutDialog.hpp"
-
+#include "TextDialog.hpp"
 #include <wx/hyperlink.h>
-
 #include <fsweep/version.hpp>
 #include <sstream>
-
-#include "credits.hpp"
-#include "license.hpp"
+#include <fsweep/credits.hpp>
+#include <fsweep/license.hpp>
 #include "wx_include.hpp"
 
 fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, "About FossSweeper")

@@ -14,9 +14,6 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-include("${FSWEEP_SOURCE_DIR}/CMake/get_short_hash.CMake")
-get_short_hash("${FSWEEP_SOURCE_DIR}" "FSWEEP_SHORT_HASH")
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/version.hpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/include/fsweep/version.hpp")
 set(FSWEEP_MODEL_SOURCE_FILES
     "Button.cpp"
     "GameConfiguration.cpp"
@@ -40,7 +37,6 @@ set(FSWEEP_MODEL_INCLUDE_FILES
     "LcdDigit.hpp"
     "LcdNumber.hpp"
     "Model.hpp"
-    "version.hpp"
 )
 list(
     TRANSFORM FSWEEP_MODEL_INCLUDE_FILES
@@ -61,6 +57,10 @@ target_precompile_headers(fsweep_model
 target_include_directories(fsweep_model
     PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/include/"
+)
+target_link_libraries(fsweep_model
+    PUBLIC
+    	fsweep::generated
 )
 set_target_properties(fsweep_model
     PROPERTIES

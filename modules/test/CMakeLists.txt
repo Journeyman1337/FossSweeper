@@ -54,6 +54,7 @@ set_target_properties(fsweep_test_auto
 target_link_libraries(fsweep_test_auto
     PRIVATE
         Catch2::Catch2WithMain
+        fsweep::generated
         fsweep::model
 )
 include(CTest)

@@ -20,17 +20,13 @@
  *
  */
 
-#ifndef FSWEEP_LICENSE_HPP
-#define FSWEEP_LICENSE_HPP
+#ifndef FSWEEP_VERSION_HPP
+#define FSWEEP_VERSION_HPP
 
-#include "TextDialog.hpp"
-#include "wx_include.hpp"
-
-namespace fsweep
-{
-  extern const char* const LICENSE_TEXT;
-
-  fsweep::TextDialog createLicenseDialog(wxWindow* parent);
-}  // namespace fsweep
+#define FSWEEP_VERSION_MAJOR 0
+#define FSWEEP_VERSION_MINOR 4
+#define FSWEEP_VERSION_PATCH 0
+#define FSWEEP_VERSION_TWEAK 0
+#define FSWEEP_VERSION "0.4.0.0"
 
 #endif

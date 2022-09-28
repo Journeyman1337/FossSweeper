@@ -17,8 +17,6 @@
 set(FSWEEP_DESKTOP_SOURCES
     "AboutDialog.cpp"
     "AboutDialog.hpp"
-    "credits.cpp"
-    "credits.hpp"
     "ConfigDialog.cpp"
     "ConfigDialog.hpp"
     "DesktopApp.cpp"
@@ -32,8 +30,6 @@ set(FSWEEP_DESKTOP_SOURCES
     "GamePanelState.hpp"
     "icon.cpp"
     "icon.hpp"
-    "license.cpp"
-    "license.hpp"
     "main.cpp"
     "PixelScaleDialog.cpp"
     "PixelScaleDialog.hpp"
@@ -85,6 +81,7 @@ else()
 endif()
 target_link_libraries(fsweep_desktop_view
     PUBLIC
+        fsweep::generated
         fsweep::model
         wx::net
         wx::core

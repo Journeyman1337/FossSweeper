@@ -34,6 +34,9 @@ namespace fsweep
    public:
     TextDialog(wxWindow* parent, std::string_view title, std::string_view text);
   };
+
+  TextDialog createLicenseDialog(wxWindow* parent);
+  TextDialog createCreditsDialog(wxWindow* parent);
 }  // namespace fsweep
 
 #endif

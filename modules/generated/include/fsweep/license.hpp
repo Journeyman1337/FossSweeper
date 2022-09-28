@@ -20,29 +20,12 @@
  *
  */
 
-#include "TextDialog.hpp"
+#ifndef FSWEEP_LICENSE_HPP
+#define FSWEEP_LICENSE_HPP
 
-#include <string>
-
-#include <fsweep/license.hpp>
-#include "wx_include.hpp"
-#include <fsweep/credits.hpp>
-
-fsweep::TextDialog::TextDialog(wxWindow* parent, std::string_view title, std::string_view text)
-    : wxDialog(parent, wxID_ANY, title.data())
+namespace fsweep
 {
-  this->SetSize(768, 512);
-  new wxTextCtrl(this, wxID_ANY, text.data(), wxDefaultPosition, wxDefaultSize,
-                 wxTE_READONLY | wxTE_MULTILINE | wxTE_AUTO_URL | wxTE_CENTER | wxTE_BESTWRAP);
-}
+  extern const char* const LICENSE_TEXT;
+}  // namespace fsweep
 
-
-fsweep::TextDialog fsweep::createLicenseDialog(wxWindow* parent)
-{
-  return fsweep::TextDialog(parent, "FossSweeper License", fsweep::LICENSE_TEXT);
-}
-
-fsweep::TextDialog fsweep::createCreditsDialog(wxWindow* parent)
-{
-  return fsweep::TextDialog(parent, "FossSweeper Credits", fsweep::CREDITS_TEXT);
-}
+#endif

@@ -20,13 +20,12 @@
  *
  */
 
-#include "license.hpp"
-#include "TextDialog.hpp"
+#ifndef FSWEEP_CREDITS_HPP
+#define FSWEEP_CREDITS_HPP
 
-const char* const fsweep::LICENSE_TEXT =
-@FSWEEP_LICENSE_TEXT@;
-
-fsweep::TextDialog fsweep::createLicenseDialog(wxWindow* parent)
+namespace fsweep
 {
-    return fsweep::TextDialog(parent, "FossSweeper License", fsweep::LICENSE_TEXT);
-}
+  extern const char* const CREDITS_TEXT;
+} // namespace fsweep
+
+#endif
