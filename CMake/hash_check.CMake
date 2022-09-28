@@ -14,5 +14,14 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-rc/fosssweeper.aps
-rc/fosssweeper.desktop
+include("${CMAKE_SCRIPT_DIR}/get_short_hash.CMake")
+get_short_hash("${GIT_SOURCE_DIR}" FSWEEP_SHORT_HASH)
+set(CACHE_FILE "${CACHE_DIR}/short_hash.cache")
+if (EXISTS "${CACHE_FILE}")
+    file(STRINGS "${CACHE_FILE}" CACHE_FILE_CONTENT)
+    LIST(GET CACHE_FILE_CONTENT 0 CACHE_SHORT_HASH)
+endif()
+if(NOT "${FSWEEP_SHORT_HASH}" STREQUAL "${CACHE_SHORT_HASH}")
+    configure_file("${HASH_INPUT_FILE}" "${HASH_OUTPUT_FILE}")
+    file(WRITE "${CACHE_FILE}" "${FSWEEP_SHORT_HASH}")
+endif()

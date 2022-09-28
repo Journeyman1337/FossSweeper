@@ -18,13 +18,14 @@ cmake_minimum_required(VERSION 3.19)
 
 project(
     fosssweeper
-    VERSION 0.4.0
+    VERSION 0.4.0.0
     DESCRIPTION "An open source clone of a popular mine avoidance game"
     LANGUAGES C CXX
 )
 
 set(FSWEEP_CXX_STANDARD 20)
-set(FSWEEP_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set(FSWEEP_CMAKE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set(FSWEEP_CMAKE_SCRIPT_DIR "${FSWEEP_CMAKE_SOURCE_DIR}/CMake/")
 
 if(DEFINED PROJECT_NAME)
   set(FSWEEP_MAIN_PROJECT ON)
