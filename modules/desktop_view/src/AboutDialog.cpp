@@ -35,14 +35,23 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
 {
   auto* const sizer = new wxBoxSizer(wxVERTICAL);
 
-  std::stringstream header_ss("");
-  header_ss << "FossSweeper v" << FSWEEP_VERSION;
-  auto* const header = new wxStaticText(this, wxID_ANY, header_ss.str().data());
+
+  auto* const header = new wxStaticText(this, wxID_ANY, "FossSweeper");
   auto header_font = header->GetFont();
   header_font.SetPointSize(24);
   header_font.SetWeight(wxFONTWEIGHT_BOLD);
   header->SetFont(header_font);
-  sizer->Add(header, 0, wxALIGN_CENTER | wxALL, 20);
+  sizer->Add(header, 0, wxALIGN_CENTER | wxUP | wxLEFT | wxRIGHT, 20);\
+
+  std::stringstream version_ss("");
+  version_ss << "v" << FSWEEP_VERSION << " " << FSWEEP_SHORT_HASH;
+  auto* const version = new wxStaticText(this, wxID_ANY, version_ss.str().data());
+  auto version_font = version->GetFont();
+  version_font.SetPointSize(18);
+  version_font.SetWeight(wxFONTWEIGHT_LIGHT);
+  version_font.SetStyle(wxFONTSTYLE_ITALIC);
+  version->SetFont(version_font);
+  sizer->Add(version, 0, wxALIGN_CENTER | wxDOWN | wxLEFT | wxRIGHT, 20);
 
   auto* const subtext =
       new wxStaticText(this, wxID_ANY, "An open source clone of a popular mine avoidance game.");
