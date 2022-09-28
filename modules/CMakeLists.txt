@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
+add_subdirectory(generated)
 add_subdirectory(model)
 if(FSWEEP_BUILD_DESKTOP)
     add_subdirectory(desktop_view)

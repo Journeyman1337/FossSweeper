@@ -14,14 +14,9 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-include(${FSWEEP_SOURCE_DIR}/CMake/embed_string.CMake)
-embed_string("FSWEEP_LICENSE_TEXT" "${FSWEEP_SOURCE_DIR}/COPYING" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp")
-embed_string("FSWEEP_CREDITS_TEXT" "${FSWEEP_SOURCE_DIR}/CREDITS" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp")
 set(FSWEEP_DESKTOP_SOURCES
     "AboutDialog.cpp"
     "AboutDialog.hpp"
-    "credits.cpp"
-    "credits.hpp"
     "ConfigDialog.cpp"
     "ConfigDialog.hpp"
     "DesktopApp.cpp"
@@ -35,8 +30,6 @@ set(FSWEEP_DESKTOP_SOURCES
     "GamePanelState.hpp"
     "icon.cpp"
     "icon.hpp"
-    "license.cpp"
-    "license.hpp"
     "main.cpp"
     "PixelScaleDialog.cpp"
     "PixelScaleDialog.hpp"
@@ -69,15 +62,23 @@ if (WIN32)
         ${FSWEEP_DESKTOP_RESOURCES}
     )
 elseif(APPLE)
-    set(MACOSX_BUNDLE_ICON_FILE "fosssweeper.icns")
-    set(FSWEEP_DESKTOP_OSX_ICON "${CMAKE_CURRENT_SOURCE_DIR}/rc/${MACOSX_BUNDLE_ICON_FILE}")
+    set(FSWEEP_MACOSX_BUNDLE_ICON_FILE "fosssweeper.icns")
+    set(FSWEEP_DESKTOP_OSX_ICON "${CMAKE_CURRENT_SOURCE_DIR}/rc/${FSWEEP_MACOSX_BUNDLE_ICON_FILE}")
+
+    add_executable(fsweep_desktop_view MACOSX_BUNDLE
+        ${FSWEEP_DESKTOP_SOURCES}
+        ${FSWEEP_DESKTOP_OSX_ICON}
+    )
+    set_target_properties(fsweep_desktop_view PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "FossSweeper")
     set_source_files_properties(FSWEEP_DESKTOP_OSX_ICON 
         PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources"
     )
-    add_executable(fsweep_desktop_view MACOSX_BUNDLE
-        ${FSWEEP_DESKTOP_SOURCES}
-        ${FSWEEP_DESKTOP_OSX_ICON}
+    set_target_properties(${GUI_ONLY_BINARIES} PROPERTIES
+	          MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
+	          MACOSX_BUNDLE_LONG_VERSION_STRING ${PROJECT_VERSION}
+	          MACOSX_BUNDLE_ICON_FILE "${FSWEEP_MACOSX_BUNDLE_ICON_FILE}"
+	          MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/rc/osxbundle.plist.in"
     )
 elseif(UNIX)
     add_executable(fsweep_desktop_view
@@ -88,6 +89,7 @@ else()
 endif()
 target_link_libraries(fsweep_desktop_view
     PUBLIC
+        fsweep::generated
         fsweep::model
         wx::net
         wx::core
@@ -95,7 +97,7 @@ target_link_libraries(fsweep_desktop_view
 )
 target_include_directories(fsweep_desktop_view
     PUBLIC
-        "${FSWEEP_SOURCE_DIR}/extern/wxWidgets/include"
+        "${FSWEEP_CMAKE_SOURCE_DIR}/extern/wxWidgets/include"
 )
 set_target_properties(fsweep_desktop_view
     PROPERTIES
@@ -106,13 +108,15 @@ set_target_properties(fsweep_desktop_view
 if(FSWEEP_INSTALL_DESKTOP)
     include(GNUInstallDirs)
     install(TARGETS fsweep_desktop_view DESTINATION ${CMAKE_INSTALL_BINDIR})
-    install(FILES "${FSWEEP_SOURCE_DIR}/COPYING" DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(FILES "${FSWEEP_CMAKE_SOURCE_DIR}/COPYING" DESTINATION ${CMAKE_INSTALL_BINDIR})
     if(UNIX AND NOT APPLE)
       install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/16x16/apps")
       configure_file("${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop.in" "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop")
       install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
+    elseif(APPLE)
+    	string(APPEND CMAKE_INSTALL_PREFIX "FossSweeper.app/Contents")
     endif()
-    set(CPACK_RESOURCE_FILE_LICENSE "${FSWEEP_SOURCE_DIR}/COPYING")
+    set(CPACK_RESOURCE_FILE_LICENSE "${FSWEEP_CMAKE_SOURCE_DIR}/COPYING")
     set(CPACK_STRIP_FILES TRUE)
     set(CPACK_THREADS 0)
     include(CPack)

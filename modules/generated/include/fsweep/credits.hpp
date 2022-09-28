@@ -20,12 +20,12 @@
  *
  */
 
-#ifndef FSWEEP_VERSION_HPP
-#define FSWEEP_VERSION_HPP
+#ifndef FSWEEP_CREDITS_HPP
+#define FSWEEP_CREDITS_HPP
 
-#define FSWEEP_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
-#define FSWEEP_VERSION_MINOR @PROJECT_VERSION_MINOR@
-#define FSWEEP_VERSION_PATCH @PROJECT_VERSION_PATCH@
-#define FSWEEP_VERSION "@PROJECT_VERSION@"
+namespace fsweep
+{
+  extern const char* const CREDITS_TEXT;
+}  // namespace fsweep
 
 #endif

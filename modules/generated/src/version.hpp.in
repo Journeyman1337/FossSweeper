@@ -20,13 +20,13 @@
  *
  */
 
-#include "license.hpp"
-#include "TextDialog.hpp"
+#ifndef FSWEEP_VERSION_HPP
+#define FSWEEP_VERSION_HPP
 
-const char* const fsweep::LICENSE_TEXT =
-@FSWEEP_LICENSE_TEXT@;
+#define FSWEEP_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define FSWEEP_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define FSWEEP_VERSION_PATCH @PROJECT_VERSION_PATCH@
+#define FSWEEP_VERSION_TWEAK @PROJECT_VERSION_TWEAK@
+#define FSWEEP_VERSION "@PROJECT_VERSION@"
 
-fsweep::TextDialog fsweep::createLicenseDialog(wxWindow* parent)
-{
-    return fsweep::TextDialog(parent, "FossSweeper License", fsweep::LICENSE_TEXT);
-}
+#endif

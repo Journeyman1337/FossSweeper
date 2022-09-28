@@ -14,7 +14,5 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-src/license.cpp
-src/credits.cpp
 rc/fosssweeper.aps
 rc/fosssweeper.desktop
