@@ -22,27 +22,37 @@
 
 #include "AboutDialog.hpp"
 
+#include <wx/clipbrd.h>
 #include <wx/hyperlink.h>
 
+#include <fsweep/credits.hpp>
+#include <fsweep/license.hpp>
 #include <fsweep/version.hpp>
 #include <sstream>
 
-#include "credits.hpp"
-#include "license.hpp"
+#include "TextDialog.hpp"
 #include "wx_include.hpp"
 
 fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, "About FossSweeper")
 {
   auto* const sizer = new wxBoxSizer(wxVERTICAL);
 
-  std::stringstream header_ss("");
-  header_ss << "FossSweeper v" << FSWEEP_VERSION;
-  auto* const header = new wxStaticText(this, wxID_ANY, header_ss.str().data());
+  auto* const header = new wxStaticText(this, wxID_ANY, "FossSweeper");
   auto header_font = header->GetFont();
   header_font.SetPointSize(24);
   header_font.SetWeight(wxFONTWEIGHT_BOLD);
   header->SetFont(header_font);
-  sizer->Add(header, 0, wxALIGN_CENTER | wxALL, 20);
+  sizer->Add(header, 0, wxALIGN_CENTER | wxUP | wxLEFT | wxRIGHT, 20);
+
+  std::stringstream version_ss("");
+  version_ss << "v" << FSWEEP_VERSION << " " << FSWEEP_SHORT_HASH;
+  auto* const version = new wxStaticText(this, wxID_ANY, version_ss.str().data());
+  auto version_font = version->GetFont();
+  version_font.SetPointSize(18);
+  version_font.SetWeight(wxFONTWEIGHT_LIGHT);
+  version_font.SetStyle(wxFONTSTYLE_ITALIC);
+  version->SetFont(version_font);
+  sizer->Add(version, 0, wxALIGN_CENTER | wxDOWN | wxLEFT | wxRIGHT, 20);
 
   auto* const subtext =
       new wxStaticText(this, wxID_ANY, "An open source clone of a popular mine avoidance game.");
@@ -90,6 +100,12 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   sizer->Add(gnu_sizer, 0, wxALIGN_CENTER | wxALL, 5);
 
   auto* const button_sizer = new wxBoxSizer(wxHORIZONTAL);
+  auto* const copy_version_button = new wxButton(this, wxID_ANY, "Copy Version");
+  Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnCopyVersion, this, copy_version_button->GetId());
+  button_sizer->Add(copy_version_button, 0, wxALIGN_CENTER | wxALL, 10);
+  auto* const copy_hash_button = new wxButton(this, wxID_ANY, "Copy Hash");
+  Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnCopyHash, this, copy_hash_button->GetId());
+  button_sizer->Add(copy_hash_button, 0, wxALIGN_CENTER | wxALL, 10);
   auto* const license_button = new wxButton(this, wxID_ANY, "License");
   Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnLicense, this, license_button->GetId());
   button_sizer->Add(license_button, 0, wxALIGN_CENTER | wxALL, 10);
@@ -115,4 +131,22 @@ void fsweep::AboutDialog::OnLicense(wxCommandEvent& WXUNUSED(e))
 {
   auto license_dialog = fsweep::createLicenseDialog(this);
   license_dialog.ShowModal();
+}
+
+void fsweep::AboutDialog::OnCopyVersion(wxCommandEvent& e)
+{
+  if (wxTheClipboard->Open())
+  {
+    wxTheClipboard->SetData(new wxTextDataObject(FSWEEP_VERSION));
+    wxTheClipboard->Close();
+  }
+}
+
+void fsweep::AboutDialog::OnCopyHash(wxCommandEvent& e)
+{
+  if (wxTheClipboard->Open())
+  {
+    wxTheClipboard->SetData(new wxTextDataObject(FSWEEP_SHORT_HASH));
+    wxTheClipboard->Close();
+  }
 }

@@ -16,4 +16,3 @@
 
 /build/*
 .vscode/*
-/modules/model/include/fsweep/version.hpp

@@ -12,18 +12,16 @@
 # FossSweeper is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
-#
+# 
 
-# The text of this file is embeded into the application using CMake.
-# Lines that start with a number sign are ignored. 
-# Lines need at least one character to be copied, so blank lines must have at least a space.
-
-FossSweeper Credits
- 
-Thanks to all who have helped to make FossSweeper what it is today!
- 
-Code Contributors:
-Daniel Valcour (GitHub: @Journeyman-dev)
- 
-Bug Reports
-TurtleCheez28
+include("${CMAKE_SCRIPT_DIR}/get_short_hash.CMake")
+get_short_hash("${GIT_SOURCE_DIR}" FSWEEP_SHORT_HASH)
+set(CACHE_FILE "${CACHE_DIR}/short_hash.cache")
+if (EXISTS "${CACHE_FILE}")
+    file(STRINGS "${CACHE_FILE}" CACHE_FILE_CONTENT)
+    LIST(GET CACHE_FILE_CONTENT 0 CACHE_SHORT_HASH)
+endif()
+if(NOT "${FSWEEP_SHORT_HASH}" STREQUAL "${CACHE_SHORT_HASH}")
+    configure_file("${HASH_INPUT_FILE}" "${HASH_OUTPUT_FILE}")
+    file(WRITE "${CACHE_FILE}" "${FSWEEP_SHORT_HASH}")
+endif()
