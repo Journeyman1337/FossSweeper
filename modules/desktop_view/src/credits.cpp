@@ -21,20 +21,21 @@
  */
 
 #include "credits.hpp"
+
 #include "TextDialog.hpp"
 
 const char* const fsweep::CREDITS_TEXT =
-"FossSweeper Credits\n"
-" \n"
-"Thanks to all who have helped to make FossSweeper what it is today!\n"
-" \n"
-"Each contributor name is followed by their GitHub profile in parenthesis.\n"
-" \n"
-"Code Contributors:\n"
-"Daniel Valcour (@Journeyman-dev)\n"
-"";
+    "FossSweeper Credits\n"
+    " \n"
+    "Thanks to all who have helped to make FossSweeper what it is today!\n"
+    " \n"
+    "Each contributor name is followed by their GitHub profile in parenthesis.\n"
+    " \n"
+    "Code Contributors:\n"
+    "Daniel Valcour (@Journeyman-dev)\n"
+    "";
 
 fsweep::TextDialog fsweep::createCreditsDialog(wxWindow* parent)
 {
-    return fsweep::TextDialog(parent, "FossSweeper Credits", fsweep::CREDITS_TEXT);
+  return fsweep::TextDialog(parent, "FossSweeper Credits", fsweep::CREDITS_TEXT);
 }

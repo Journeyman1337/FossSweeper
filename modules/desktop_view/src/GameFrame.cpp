@@ -23,17 +23,17 @@
 #include "GameFrame.hpp"
 
 #include <fsweep/GameConfiguration.hpp>
+#include <fsweep/credits.hpp>
+#include <fsweep/license.hpp>
 #include <functional>
 
-#include "TextDialog.hpp"
 #include "AboutDialog.hpp"
 #include "ConfigDialog.hpp"
 #include "DesktopView.hpp"
 #include "GamePanel.hpp"
 #include "PixelScaleDialog.hpp"
-#include <fsweep/credits.hpp>
+#include "TextDialog.hpp"
 #include "icon.hpp"
-#include <fsweep/license.hpp>
 #include "wx_include.hpp"
 
 BEGIN_EVENT_TABLE(fsweep::GameFrame, wxFrame)

@@ -26,6 +26,6 @@
 namespace fsweep
 {
   extern const char* const CREDITS_TEXT;
-} // namespace fsweep
+}  // namespace fsweep
 
 #endif

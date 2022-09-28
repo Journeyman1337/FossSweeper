@@ -22,11 +22,11 @@
 
 #include "TextDialog.hpp"
 
+#include <fsweep/credits.hpp>
+#include <fsweep/license.hpp>
 #include <string>
 
-#include <fsweep/license.hpp>
 #include "wx_include.hpp"
-#include <fsweep/credits.hpp>
 
 fsweep::TextDialog::TextDialog(wxWindow* parent, std::string_view title, std::string_view text)
     : wxDialog(parent, wxID_ANY, title.data())
@@ -35,7 +35,6 @@ fsweep::TextDialog::TextDialog(wxWindow* parent, std::string_view title, std::st
   new wxTextCtrl(this, wxID_ANY, text.data(), wxDefaultPosition, wxDefaultSize,
                  wxTE_READONLY | wxTE_MULTILINE | wxTE_AUTO_URL | wxTE_CENTER | wxTE_BESTWRAP);
 }
-
 
 fsweep::TextDialog fsweep::createLicenseDialog(wxWindow* parent)
 {

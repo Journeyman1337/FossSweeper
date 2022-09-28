@@ -21,26 +21,28 @@
  */
 
 #include "AboutDialog.hpp"
-#include "TextDialog.hpp"
+
 #include <wx/clipbrd.h>
 #include <wx/hyperlink.h>
-#include <fsweep/version.hpp>
-#include <sstream>
+
 #include <fsweep/credits.hpp>
 #include <fsweep/license.hpp>
+#include <fsweep/version.hpp>
+#include <sstream>
+
+#include "TextDialog.hpp"
 #include "wx_include.hpp"
 
 fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, "About FossSweeper")
 {
   auto* const sizer = new wxBoxSizer(wxVERTICAL);
 
-
   auto* const header = new wxStaticText(this, wxID_ANY, "FossSweeper");
   auto header_font = header->GetFont();
   header_font.SetPointSize(24);
   header_font.SetWeight(wxFONTWEIGHT_BOLD);
   header->SetFont(header_font);
-  sizer->Add(header, 0, wxALIGN_CENTER | wxUP | wxLEFT | wxRIGHT, 20);\
+  sizer->Add(header, 0, wxALIGN_CENTER | wxUP | wxLEFT | wxRIGHT, 20);
 
   std::stringstream version_ss("");
   version_ss << "v" << FSWEEP_VERSION << " " << FSWEEP_SHORT_HASH;
@@ -133,7 +135,7 @@ void fsweep::AboutDialog::OnLicense(wxCommandEvent& WXUNUSED(e))
 
 void fsweep::AboutDialog::OnCopyVersion(wxCommandEvent& e)
 {
-  if(wxTheClipboard->Open())
+  if (wxTheClipboard->Open())
   {
     wxTheClipboard->SetData(new wxTextDataObject(FSWEEP_VERSION));
     wxTheClipboard->Close();
@@ -142,7 +144,7 @@ void fsweep::AboutDialog::OnCopyVersion(wxCommandEvent& e)
 
 void fsweep::AboutDialog::OnCopyHash(wxCommandEvent& e)
 {
-  if(wxTheClipboard->Open())
+  if (wxTheClipboard->Open())
   {
     wxTheClipboard->SetData(new wxTextDataObject(FSWEEP_SHORT_HASH));
     wxTheClipboard->Close();
