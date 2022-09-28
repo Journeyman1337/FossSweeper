@@ -22,6 +22,7 @@
 
 #include "AboutDialog.hpp"
 #include "TextDialog.hpp"
+#include <wx/clipbrd.h>
 #include <wx/hyperlink.h>
 #include <fsweep/version.hpp>
 #include <sstream>
@@ -97,6 +98,12 @@ fsweep::AboutDialog::AboutDialog(wxWindow* parent) : wxDialog(parent, wxID_ANY, 
   sizer->Add(gnu_sizer, 0, wxALIGN_CENTER | wxALL, 5);
 
   auto* const button_sizer = new wxBoxSizer(wxHORIZONTAL);
+  auto* const copy_version_button = new wxButton(this, wxID_ANY, "Copy Version");
+  Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnCopyVersion, this, copy_version_button->GetId());
+  button_sizer->Add(copy_version_button, 0, wxALIGN_CENTER | wxALL, 10);
+  auto* const copy_hash_button = new wxButton(this, wxID_ANY, "Copy Hash");
+  Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnCopyHash, this, copy_hash_button->GetId());
+  button_sizer->Add(copy_hash_button, 0, wxALIGN_CENTER | wxALL, 10);
   auto* const license_button = new wxButton(this, wxID_ANY, "License");
   Bind(wxEVT_BUTTON, &fsweep::AboutDialog::OnLicense, this, license_button->GetId());
   button_sizer->Add(license_button, 0, wxALIGN_CENTER | wxALL, 10);
@@ -122,4 +129,22 @@ void fsweep::AboutDialog::OnLicense(wxCommandEvent& WXUNUSED(e))
 {
   auto license_dialog = fsweep::createLicenseDialog(this);
   license_dialog.ShowModal();
+}
+
+void fsweep::AboutDialog::OnCopyVersion(wxCommandEvent& e)
+{
+  if(wxTheClipboard->Open())
+  {
+    wxTheClipboard->SetData(new wxTextDataObject(FSWEEP_VERSION));
+    wxTheClipboard->Close();
+  }
+}
+
+void fsweep::AboutDialog::OnCopyHash(wxCommandEvent& e)
+{
+  if(wxTheClipboard->Open())
+  {
+    wxTheClipboard->SetData(new wxTextDataObject(FSWEEP_SHORT_HASH));
+    wxTheClipboard->Close();
+  }
 }

@@ -34,6 +34,8 @@ namespace fsweep
 
     void OnCredits(wxCommandEvent& e);
     void OnLicense(wxCommandEvent& e);
+    void OnCopyVersion(wxCommandEvent& e);
+    void OnCopyHash(wxCommandEvent& e);
   };
 }  // namespace fsweep
 
