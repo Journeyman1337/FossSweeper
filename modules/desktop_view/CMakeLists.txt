@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-include(${FSWEEP_SOURCE_DIR}/CMake/embed_string.CMake)
+include("${FSWEEP_SOURCE_DIR}/CMake/embed_string.CMake")
 embed_string("FSWEEP_LICENSE_TEXT" "${FSWEEP_SOURCE_DIR}/COPYING" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/license.cpp")
 embed_string("FSWEEP_CREDITS_TEXT" "${FSWEEP_SOURCE_DIR}/CREDITS" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp")
 set(FSWEEP_DESKTOP_SOURCES
