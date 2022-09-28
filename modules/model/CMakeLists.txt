@@ -15,7 +15,6 @@
 # 
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/version.hpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/include/fsweep/version.hpp")
-
 set(FSWEEP_MODEL_SOURCE_FILES
     "Button.cpp"
     "GameConfiguration.cpp"
