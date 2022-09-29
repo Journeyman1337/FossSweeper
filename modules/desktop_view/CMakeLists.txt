@@ -69,16 +69,18 @@ elseif(APPLE)
         ${FSWEEP_DESKTOP_SOURCES}
         ${FSWEEP_DESKTOP_OSX_ICON}
     )
-    set_target_properties(fsweep_desktop_view PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "FossSweeper")
     set_source_files_properties(FSWEEP_DESKTOP_OSX_ICON 
         PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources"
     )
-    set_target_properties(${GUI_ONLY_BINARIES} PROPERTIES
-	          MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
-	          MACOSX_BUNDLE_LONG_VERSION_STRING ${PROJECT_VERSION}
-	          MACOSX_BUNDLE_ICON_FILE "${FSWEEP_MACOSX_BUNDLE_ICON_FILE}"
-	          MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/rc/osxbundle.plist.in"
+    set_target_properties(fsweep_desktop_view PROPERTIES
+              MACOSX_BUNDLE_BUNDLE_NAME "FossSweeper"
+              MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+              MACOSX_BUNDLE_INFO_STRING "An open source clone of a popular mine avoidance game."
+              MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
+              MACOSX_BUNDLE_LONG_VERSION_STRING ${PROJECT_VERSION}
+              MACOSX_BUNDLE_ICON_FILE "${FSWEEP_MACOSX_BUNDLE_ICON_FILE}"
+              MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/rc/osxbundle.plist.in"
     )
 elseif(UNIX)
     add_executable(fsweep_desktop_view
@@ -114,7 +116,7 @@ if(FSWEEP_INSTALL_DESKTOP)
       configure_file("${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop.in" "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop")
       install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
     elseif(APPLE)
-    	string(APPEND CMAKE_INSTALL_PREFIX "FossSweeper.app/Contents")
+        string(APPEND CMAKE_INSTALL_PREFIX "FossSweeper.app/Contents")
     endif()
     set(CPACK_RESOURCE_FILE_LICENSE "${FSWEEP_CMAKE_SOURCE_DIR}/COPYING")
     set(CPACK_STRIP_FILES TRUE)
