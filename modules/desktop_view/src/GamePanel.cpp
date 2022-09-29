@@ -100,7 +100,7 @@ wxBitmap& fsweep::GamePanel::getBitmap(fsweep::Sprite sprite)
 
 unsigned long fsweep::GamePanel::getDeltaTime()
 {
-  const auto& model = this->model.get();
+  const auto& game_model = this->game_model.get();
   const unsigned long new_time = this->stopwatch.Time();
   const unsigned long delta_time = new_time - this->last_time;
   this->last_time = new_time;
@@ -119,17 +119,17 @@ void fsweep::GamePanel::startClock()
 
 void fsweep::GamePanel::stopClock()
 {
-  auto& model = this->model.get();
+  auto& game_model = this->game_model.get();
   this->timer.Stop();
   this->stopwatch.Pause();
-  model.UpdateTime(this->getDeltaTime());
+  game_model.UpdateTime(this->getDeltaTime());
 }
 
 fsweep::Sprite fsweep::GamePanel::getFaceSprite()
 {
-  const auto& model = this->model.get();
-  if (model.GetGameState() == fsweep::GameState::None ||
-      model.GetGameState() == fsweep::GameState::Playing)
+  const auto& game_model = this->game_model.get();
+  if (game_model.GetGameState() == fsweep::GameState::None ||
+      game_model.GetGameState() == fsweep::GameState::Playing)
   {
     if (this->left_down && !this->buttons_locked && this->hover_face)
     {
@@ -138,7 +138,7 @@ fsweep::Sprite fsweep::GamePanel::getFaceSprite()
     else if (this->left_down && !this->buttons_locked && this->hover_button_o.has_value())
     {
       const auto& hover_button = this->hover_button_o.value();
-      const auto& button = model.GetButton(hover_button.x, hover_button.y);
+      const auto& button = game_model.GetButton(hover_button.x, hover_button.y);
       if (button.GetButtonState() != fsweep::ButtonState::Down &&
           button.GetButtonState() != fsweep::ButtonState::Flagged)
       {
@@ -146,7 +146,7 @@ fsweep::Sprite fsweep::GamePanel::getFaceSprite()
       }
     }
   }
-  else if (model.GetGameState() == fsweep::GameState::Cool)
+  else if (game_model.GetGameState() == fsweep::GameState::Cool)
   {
     if (this->left_down && this->hover_face)
     {
@@ -173,11 +173,11 @@ fsweep::Sprite fsweep::GamePanel::getFaceSprite()
 
 fsweep::Sprite fsweep::GamePanel::getButtonSprite(int x, int y)
 {
-  const auto& model = this->model.get();
-  const auto& button = model.GetButton(x, y);
+  const auto& game_model = this->game_model.get();
+  const auto& button = game_model.GetButton(x, y);
   const fsweep::ButtonPosition button_position(x, y);
-  if (model.GetGameState() == fsweep::GameState::None ||
-      model.GetGameState() == fsweep::GameState::Playing)
+  if (game_model.GetGameState() == fsweep::GameState::None ||
+      game_model.GetGameState() == fsweep::GameState::Playing)
   {
     if (button.GetButtonState() != fsweep::ButtonState::Flagged &&
         button.GetButtonState() != fsweep::ButtonState::Down && this->left_down &&
@@ -185,7 +185,7 @@ fsweep::Sprite fsweep::GamePanel::getButtonSprite(int x, int y)
     {
       const auto& hover_button = this->hover_button_o.value();
       if ((hover_button == button_position) ||
-          (model.GetGameState() == fsweep::GameState::Playing && this->right_down &&
+          (game_model.GetGameState() == fsweep::GameState::Playing && this->right_down &&
            hover_button.IsNear(button_position)))
       {
         if (fsweep::ButtonState() == fsweep::ButtonState::Questioned)
@@ -255,13 +255,13 @@ fsweep::Sprite fsweep::GamePanel::getButtonSprite(int x, int y)
 
 int fsweep::GamePanel::getTimerSeconds()
 {
-  const auto& model = this->model.get();
-  const auto game_time = static_cast<int>(model.GetGameTime());
+  const auto& game_model = this->game_model.get();
+  const auto game_time = static_cast<int>(game_model.GetGameTime());
   return (game_time / MILLISECONDS_PER_SECOND);
 }
 
-fsweep::GamePanel::GamePanel(fsweep::Model& model, wxFrame* parent, wxSize size)
-    : wxPanel(parent, wxID_ANY), model(std::ref(model)), timer(this)
+fsweep::GamePanel::GamePanel(fsweep::GameModel& game_model, wxFrame* parent, wxSize size)
+    : wxPanel(parent, wxID_ANY), game_model(std::ref(game_model)), timer(this)
 {
   Bind(wxEVT_TIMER, &GamePanel::OnTimer, this, this->timer.GetId());
   for (std::size_t bitmap_i = 0; bitmap_i < static_cast<std::size_t>(fsweep::Sprite::Count);
@@ -301,7 +301,7 @@ void fsweep::GamePanel::OnRender(wxPaintEvent& WXUNUSED(e)) { this->DrawAll(); }
 
 void fsweep::GamePanel::OnMouseMove(wxMouseEvent& e)
 {
-  auto& model = this->model.get();
+  auto& model = this->game_model.get();
   this->mouse_position = e.GetPosition();
   this->hover_button_o = this->getHoverButton(this->mouse_position);
   this->hover_face = this->getHoverFace(this->mouse_position);
@@ -316,37 +316,37 @@ void fsweep::GamePanel::OnLeftDown(wxMouseEvent& WXUNUSED(e))
 
 void fsweep::GamePanel::OnLeftRelease(wxMouseEvent& WXUNUSED(e))
 {
-  auto& model = this->model.get();
-  if (model.GetGameState() == fsweep::GameState::Playing)
+  auto& game_model = this->game_model.get();
+  if (game_model.GetGameState() == fsweep::GameState::Playing)
   {
-    model.UpdateTime(this->getDeltaTime());
+    game_model.UpdateTime(this->getDeltaTime());
   }
   if (!this->buttons_locked)
   {
-    auto initially_playing = model.GetGameState() == fsweep::GameState::Playing;
+    auto initially_playing = game_model.GetGameState() == fsweep::GameState::Playing;
     if (this->hover_button_o.has_value())
     {
       auto& hover_button = this->hover_button_o.value();
       if (this->right_down)
       {
-        model.AreaClickButton(hover_button.x, hover_button.y);
+        game_model.AreaClickButton(hover_button.x, hover_button.y);
       }
       else
       {
-        model.ClickButton(hover_button.x, hover_button.y);
+        game_model.ClickButton(hover_button.x, hover_button.y);
       }
-      if (model.GetGameState() == fsweep::GameState::Playing && !initially_playing)
+      if (game_model.GetGameState() == fsweep::GameState::Playing && !initially_playing)
       {
         this->startClock();
       }
-      else if (model.GetGameState() == fsweep::GameState::Dead && initially_playing)
+      else if (game_model.GetGameState() == fsweep::GameState::Dead && initially_playing)
       {
         this->stopClock();
       }
     }
     else if (this->hover_face)
     {
-      model.NewGame();
+      game_model.NewGame();
       this->stopClock();
     }
   }
@@ -360,31 +360,31 @@ void fsweep::GamePanel::OnLeftRelease(wxMouseEvent& WXUNUSED(e))
 
 void fsweep::GamePanel::OnRightDown(wxMouseEvent& WXUNUSED(e))
 {
-  auto& model = this->model.get();
+  auto& game_model = this->game_model.get();
   this->right_down = true;
-  if (model.GetGameState() == fsweep::GameState::Playing)
+  if (game_model.GetGameState() == fsweep::GameState::Playing)
   {
-    model.UpdateTime(this->getDeltaTime());
+    game_model.UpdateTime(this->getDeltaTime());
   }
   if (!this->left_down && this->hover_button_o.has_value() && !this->buttons_locked)
   {
     auto& hover_button = this->hover_button_o.value();
-    model.AltClickButton(hover_button.x, hover_button.y);
+    game_model.AltClickButton(hover_button.x, hover_button.y);
   }
   this->DrawChanged();
 }
 
 void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
 {
-  auto& model = this->model.get();
+  auto& game_model = this->game_model.get();
   this->right_down = false;
-  if (this->left_down && model.GetGameState() == fsweep::GameState::Playing)
+  if (this->left_down && game_model.GetGameState() == fsweep::GameState::Playing)
   {
     this->buttons_locked = true;
     if (this->hover_button_o.has_value())
     {
       auto& hover_button = this->hover_button_o.value();
-      model.AreaClickButton(hover_button.x, hover_button.y);
+      game_model.AreaClickButton(hover_button.x, hover_button.y);
     }
   }
   else
@@ -408,8 +408,8 @@ void fsweep::GamePanel::OnMouseLeave(wxMouseEvent& WXUNUSED(e))
 
 void fsweep::GamePanel::OnTimer(wxTimerEvent& WXUNUSED(e))
 {
-  auto& model = this->model.get();
-  model.UpdateTime(this->getDeltaTime());
+  auto& game_model = this->game_model.get();
+  game_model.UpdateTime(this->getDeltaTime());
   this->DrawChanged(true);
 }
 
@@ -433,7 +433,7 @@ int fsweep::GamePanel::GetPixelScale() const noexcept { return this->pixel_scale
 
 void fsweep::GamePanel::DrawAll()
 {
-  const auto& model = this->model.get();
+  const auto& game_model = this->game_model.get();
   wxClientDC dc(this);
   dc.SetBrush(wxBrush(wxColour(142, 142, 142)));
   dc.DrawRectangle(wxRect(wxPoint(0, 0), this->GetSize()));
@@ -492,7 +492,7 @@ void fsweep::GamePanel::DrawAll()
                   wxPoint(this->GetSize().x - this->getBorderSize(), i * this->getBorderSize()),
                   false);
   }
-  const auto score_lcd = fsweep::LcdNumber(model.GetBombsLeft());
+  const auto score_lcd = fsweep::LcdNumber(game_model.GetBombsLeft());
   for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
   {
     const auto lcd_sprite = fsweep::getSpriteFromDigit(score_lcd[digit_i]);
@@ -510,10 +510,10 @@ void fsweep::GamePanel::DrawAll()
   dc.DrawBitmap(this->getBitmap(face_sprite), this->getFaceButtonPoint(), false);
   this->game_panel_state.face_sprite = face_sprite;
   this->game_panel_state.button_sprites.clear();
-  this->game_panel_state.button_sprites.reserve(model.GetGameConfiguration().GetButtonCount());
-  for (int x = 0; x < model.GetGameConfiguration().GetButtonsWide(); x++)
+  this->game_panel_state.button_sprites.reserve(game_model.GetGameConfiguration().GetButtonCount());
+  for (int x = 0; x < game_model.GetGameConfiguration().GetButtonsWide(); x++)
   {
-    for (int y = 0; y < model.GetGameConfiguration().GetButtonsTall(); y++)
+    for (int y = 0; y < game_model.GetGameConfiguration().GetButtonsTall(); y++)
     {
       const auto button_sprite = this->getButtonSprite(x, y);
       dc.DrawBitmap(this->getBitmap(this->getButtonSprite(x, y)), this->getButtonPoint(x, y),
@@ -525,8 +525,8 @@ void fsweep::GamePanel::DrawAll()
 
 void fsweep::GamePanel::DrawChanged(bool timer_only)
 {
-  const auto& model = this->model.get();
-  const auto buttons_wide = model.GetGameConfiguration().GetButtonsWide();
+  const auto& game_model = this->game_model.get();
+  const auto buttons_wide = game_model.GetGameConfiguration().GetButtonsWide();
   [[maybe_unused]] wxClientDC dc(this);
   const auto time_lcd = fsweep::LcdNumber(this->getTimerSeconds());
   for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
@@ -539,7 +539,7 @@ void fsweep::GamePanel::DrawChanged(bool timer_only)
     }
   }
   if (timer_only) return;
-  auto score_lcd = fsweep::LcdNumber(model.GetBombsLeft());
+  auto score_lcd = fsweep::LcdNumber(game_model.GetBombsLeft());
   for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
   {
     const auto lcd_sprite = fsweep::getSpriteFromDigit(score_lcd[digit_i]);
@@ -556,9 +556,9 @@ void fsweep::GamePanel::DrawChanged(bool timer_only)
     dc.DrawBitmap(this->getBitmap(face_sprite), this->getFaceButtonPoint(), false);
     this->game_panel_state.face_sprite = face_sprite;
   }
-  for (int x = 0; x < model.GetGameConfiguration().GetButtonsWide(); x++)
+  for (int x = 0; x < game_model.GetGameConfiguration().GetButtonsWide(); x++)
   {
-    for (int y = 0; y < model.GetGameConfiguration().GetButtonsTall(); y++)
+    for (int y = 0; y < game_model.GetGameConfiguration().GetButtonsTall(); y++)
     {
       const fsweep::ButtonPosition button_position(x, y);
       const auto button_sprite = this->getButtonSprite(x, y);

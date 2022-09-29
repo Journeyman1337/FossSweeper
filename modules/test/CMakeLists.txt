@@ -33,7 +33,7 @@ set(FSWEEP_TEST_SOURCES
     "button_test.cpp"
     "game_configuration_test.cpp"
     "lcd_number_test.cpp"
-    "model_test.cpp"
+    "game_model_test.cpp"
 )
 list(
     TRANSFORM FSWEEP_TEST_SOURCES

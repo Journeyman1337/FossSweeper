@@ -22,7 +22,7 @@
 
 #include "DesktopApp.hpp"
 
-#include <fsweep/Model.hpp>
+#include <fsweep/GameModel.hpp>
 
 #include "DesktopView.hpp"
 

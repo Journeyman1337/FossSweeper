@@ -4,7 +4,7 @@
 
 /*
  * Copyright (c) 2022 Daniel Valcour
- *
+ *model
  * This file is part of FossSweeper.
  *
  * FossSweeper is free software: you can redistribute it and/or modify it under the terms of the GNU
@@ -23,13 +23,13 @@
 #include <algorithm>
 #include <cstddef>
 #include <fsweep/ButtonPosition.hpp>
-#include <fsweep/Model.hpp>
+#include <fsweep/GameModel.hpp>
 #include <stdexcept>
 #include <string>
 
-fsweep::Model::Model() noexcept { this->NewGame(); }
+fsweep::GameModel::GameModel() noexcept { this->NewGame(); }
 
-fsweep::Model::Model(fsweep::GameConfiguration game_configuration, bool questions_enabled,
+fsweep::GameModel::GameModel(fsweep::GameConfiguration game_configuration, bool questions_enabled,
                      fsweep::GameState game_state, int game_time, std::string_view button_string)
     : game_configuration(game_configuration)
     , flag_count(0)
@@ -56,13 +56,13 @@ fsweep::Model::Model(fsweep::GameConfiguration game_configuration, bool question
   this->calculateSurroundingBombs();
 }
 
-fsweep::Button& fsweep::Model::getButton(int x, int y)
+fsweep::Button& fsweep::GameModel::getButton(int x, int y)
 {
   const fsweep::ButtonPosition position(x, y);
   return this->buttons[position.GetIndex(this->game_configuration.GetButtonsWide())];
 }
 
-void fsweep::Model::pressButton(int x, int y)
+void fsweep::GameModel::pressButton(int x, int y)
 {
   auto& button = this->getButton(x, y);
   if (button.GetIsPressable())
@@ -79,7 +79,7 @@ void fsweep::Model::pressButton(int x, int y)
   }
 }
 
-void fsweep::Model::floodFillClick(int x, int y)
+void fsweep::GameModel::floodFillClick(int x, int y)
 {
   const fsweep::ButtonPosition start_position(x, y);
   const auto buttons_wide = this->game_configuration.GetButtonsWide();
@@ -110,7 +110,7 @@ void fsweep::Model::floodFillClick(int x, int y)
   } while (!this->flood_fill_stack.empty());
 }
 
-bool fsweep::Model::choordingPossible(int x, int y)
+bool fsweep::GameModel::choordingPossible(int x, int y)
 {
   const auto& button = this->getButton(x, y);
   if (button.GetButtonState() != fsweep::ButtonState::Down) return false;
@@ -127,7 +127,7 @@ bool fsweep::Model::choordingPossible(int x, int y)
   return surrounding_flags == button.GetSurroundingBombs();
 }
 
-void fsweep::Model::surroundingButtonAction(
+void fsweep::GameModel::surroundingButtonAction(
     const fsweep::ButtonPosition& center_position,
     std::function<void(const fsweep::Button&, const fsweep::ButtonPosition&)> action)
 {
@@ -183,7 +183,7 @@ void fsweep::Model::surroundingButtonAction(
   }
 }
 
-void fsweep::Model::placeBombs(int initial_x, int initial_y)
+void fsweep::GameModel::placeBombs(int initial_x, int initial_y)
 {
   const auto bomb_count = this->game_configuration.GetBombCount();
   for (auto& button : this->buttons)
@@ -213,7 +213,7 @@ void fsweep::Model::placeBombs(int initial_x, int initial_y)
   this->calculateSurroundingBombs();
 }
 
-void fsweep::Model::calculateSurroundingBombs()
+void fsweep::GameModel::calculateSurroundingBombs()
 {
   const auto buttons_wide = this->game_configuration.GetButtonsWide();
   const auto buttons_tall = this->game_configuration.GetButtonsTall();
@@ -236,7 +236,7 @@ void fsweep::Model::calculateSurroundingBombs()
   }
 }
 
-void fsweep::Model::tryWin() noexcept
+void fsweep::GameModel::tryWin() noexcept
 {
   if (this->buttons_left <= 0)
   {
@@ -244,7 +244,7 @@ void fsweep::Model::tryWin() noexcept
   }
 }
 
-void fsweep::Model::NewGame()
+void fsweep::GameModel::NewGame()
 {
   std::fill(this->buttons.begin(), this->buttons.end(), fsweep::Button());
   this->game_time = 0;
@@ -254,7 +254,7 @@ void fsweep::Model::NewGame()
       this->game_configuration.GetButtonCount() - this->game_configuration.GetBombCount();
 }
 
-void fsweep::Model::NewGame(fsweep::GameConfiguration game_configuration)
+void fsweep::GameModel::NewGame(fsweep::GameConfiguration game_configuration)
 {
   if (this->game_configuration != game_configuration)
   {
@@ -279,7 +279,7 @@ void fsweep::Model::NewGame(fsweep::GameConfiguration game_configuration)
   }
 }
 
-void fsweep::Model::ClickButton(int x, int y)
+void fsweep::GameModel::ClickButton(int x, int y)
 {
   if (this->game_state != fsweep::GameState::Playing && this->game_state != fsweep::GameState::None)
     return;
@@ -296,7 +296,7 @@ void fsweep::Model::ClickButton(int x, int y)
   this->tryWin();
 }
 
-void fsweep::Model::AltClickButton(int x, int y)
+void fsweep::GameModel::AltClickButton(int x, int y)
 {
   if (this->game_state != fsweep::GameState::Playing) return;
   auto& button = this->getButton(x, y);
@@ -311,7 +311,7 @@ void fsweep::Model::AltClickButton(int x, int y)
   }
 }
 
-void fsweep::Model::AreaClickButton(int x, int y)
+void fsweep::GameModel::AreaClickButton(int x, int y)
 {
   if (this->game_state != fsweep::GameState::Playing) return;
   if (!this->choordingPossible(x, y)) return;
@@ -335,13 +335,13 @@ void fsweep::Model::AreaClickButton(int x, int y)
   this->tryWin();
 }
 
-void fsweep::Model::UpdateTime(unsigned long delta_time)
+void fsweep::GameModel::UpdateTime(unsigned long delta_time)
 {
   if (this->game_state != fsweep::GameState::Playing) return;
   this->game_time += delta_time;
 }
 
-void fsweep::Model::SetQuestionsEnabled(bool questions_enabled)
+void fsweep::GameModel::SetQuestionsEnabled(bool questions_enabled)
 {
   if (this->questions_enabled == questions_enabled) return;
   if (!questions_enabled)
@@ -354,33 +354,33 @@ void fsweep::Model::SetQuestionsEnabled(bool questions_enabled)
   this->questions_enabled = questions_enabled;
 }
 
-bool fsweep::Model::GetQuestionsEnabled() const noexcept { return this->questions_enabled; }
+bool fsweep::GameModel::GetQuestionsEnabled() const noexcept { return this->questions_enabled; }
 
-int fsweep::Model::GetFlagCount() const noexcept { return this->flag_count; }
+int fsweep::GameModel::GetFlagCount() const noexcept { return this->flag_count; }
 
-int fsweep::Model::GetBombsLeft() const noexcept
+int fsweep::GameModel::GetBombsLeft() const noexcept
 {
   return this->game_configuration.GetBombCount() - this->flag_count;
 }
 
-int fsweep::Model::GetButtonsLeft() const noexcept { return this->buttons_left; }
+int fsweep::GameModel::GetButtonsLeft() const noexcept { return this->buttons_left; }
 
-fsweep::GameState fsweep::Model::GetGameState() const noexcept { return this->game_state; }
+fsweep::GameState fsweep::GameModel::GetGameState() const noexcept { return this->game_state; }
 
-fsweep::GameConfiguration fsweep::Model::GetGameConfiguration() const noexcept
+fsweep::GameConfiguration fsweep::GameModel::GetGameConfiguration() const noexcept
 {
   return this->game_configuration;
 }
 
-unsigned long fsweep::Model::GetGameTime() const noexcept { return this->game_time; }
+unsigned long fsweep::GameModel::GetGameTime() const noexcept { return this->game_time; }
 
-const fsweep::Button& fsweep::Model::GetButton(int x, int y) const
+const fsweep::Button& fsweep::GameModel::GetButton(int x, int y) const
 {
   const fsweep::ButtonPosition position(x, y);
   return this->buttons.at(position.GetIndex(this->game_configuration.GetButtonsWide()));
 }
 
-const std::vector<fsweep::Button>& fsweep::Model::GetButtons() const noexcept
+const std::vector<fsweep::Button>& fsweep::GameModel::GetButtons() const noexcept
 {
   return this->buttons;
 }

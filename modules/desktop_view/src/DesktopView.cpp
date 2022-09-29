@@ -21,6 +21,7 @@
  */
 
 #include "DesktopView.hpp"
+#include <fsweep/GameModel.hpp>
 
 #include <functional>
 #include <sstream>
@@ -29,7 +30,7 @@
 #include "GameFrame.hpp"
 #include "wx_include.hpp"
 
-fsweep::DesktopView::DesktopView(fsweep::Model& model) noexcept : model(std::ref(model)) {}
+fsweep::DesktopView::DesktopView(fsweep::GameModel& game_model) noexcept : game_model(std::ref(game_model)) {}
 
 bool fsweep::DesktopView::Run() noexcept
 {
@@ -49,4 +50,4 @@ bool fsweep::DesktopView::Run() noexcept
   return true;
 }
 
-fsweep::Model& fsweep::DesktopView::GetModel() noexcept { return this->model.get(); }
+fsweep::GameModel& fsweep::DesktopView::GetGameModel() noexcept { return this->game_model.get(); }

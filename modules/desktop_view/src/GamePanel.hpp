@@ -25,7 +25,7 @@
 
 #include <array>
 #include <fsweep/ButtonPosition.hpp>
-#include <fsweep/Model.hpp>
+#include <fsweep/GameModel.hpp>
 #include <functional>
 #include <optional>
 
@@ -38,7 +38,7 @@ namespace fsweep
   class GamePanel : public wxPanel
   {
    private:
-    std::reference_wrapper<fsweep::Model> model;
+    std::reference_wrapper<fsweep::GameModel> game_model;
     std::array<wxBitmap, static_cast<std::size_t>(fsweep::Sprite::Count)> base_bitmaps;
     std::array<wxBitmap, static_cast<std::size_t>(fsweep::Sprite::Count)> scaled_bitmaps;
     bool left_down = false;
@@ -74,7 +74,7 @@ namespace fsweep
     int getHeaderHeight() const noexcept;
 
    public:
-    GamePanel(fsweep::Model& model, wxFrame* parent, wxSize size);
+    GamePanel(fsweep::GameModel& game_model, wxFrame* parent, wxSize size);
     virtual ~GamePanel();
 
     void OnRender(wxPaintEvent& evt);

@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef FSWEEP_MODEL_HPP
-#define FSWEEP_MODEL_HPP
+#ifndef FSWEEP_GAME_MODEL_HPP
+#define FSWEEP_GAME_MODEL_HPP
 
 #include <fsweep/Button.hpp>
 #include <fsweep/GameConfiguration.hpp>
@@ -33,7 +33,7 @@
 
 namespace fsweep
 {
-  struct Model
+  struct GameModel
   {
    private:
     std::vector<fsweep::Button> buttons =
@@ -62,8 +62,8 @@ namespace fsweep
     void tryWin() noexcept;
 
    public:
-    Model() noexcept;
-    Model(fsweep::GameConfiguration game_configuration, bool questions_enabled,
+    GameModel() noexcept;
+    GameModel(fsweep::GameConfiguration game_configuration, bool questions_enabled,
           fsweep::GameState game_state, int game_time, std::string_view button_string);
 
     void NewGame();

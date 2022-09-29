@@ -125,14 +125,14 @@ fsweep::GameFrame::GameFrame(fsweep::DesktopView& view)
   // create the game panel
   const auto size = fsweep::GamePanel::GetPixelDimensions(1, fsweep::GameConfiguration());
   this->SetClientSize(size);
-  this->game_panel = new fsweep::GamePanel(view.GetModel(), this, size);
+  this->game_panel = new fsweep::GamePanel(view.GetGameModel(), this, size);
   this->SetAutoLayout(true);
   this->game_panel->DrawAll();
 }
 
 void fsweep::GameFrame::OnNew(wxCommandEvent& WXUNUSED(e))
 {
-  this->view.get().GetModel().NewGame();
+  this->view.get().GetGameModel().NewGame();
   this->game_panel->DrawAll();
 }
 
@@ -145,7 +145,7 @@ void fsweep::GameFrame::OnBeginner(wxCommandEvent& WXUNUSED(e))
   const auto size =
       fsweep::GamePanel::GetPixelDimensions(this->game_panel->GetPixelScale(), game_configuration);
   this->resizeGamePanel(size);
-  this->view.get().GetModel().NewGame(game_configuration);
+  this->view.get().GetGameModel().NewGame(game_configuration);
   this->game_panel->DrawAll();
 }
 
@@ -158,7 +158,7 @@ void fsweep::GameFrame::OnIntermediate(wxCommandEvent& WXUNUSED(e))
   const auto size =
       fsweep::GamePanel::GetPixelDimensions(this->game_panel->GetPixelScale(), game_configuration);
   this->resizeGamePanel(size);
-  this->view.get().GetModel().NewGame(game_configuration);
+  this->view.get().GetGameModel().NewGame(game_configuration);
   this->game_panel->DrawAll();
 }
 
@@ -171,7 +171,7 @@ void fsweep::GameFrame::OnExpert(wxCommandEvent& WXUNUSED(e))
   const auto size =
       fsweep::GamePanel::GetPixelDimensions(this->game_panel->GetPixelScale(), game_configuration);
   this->resizeGamePanel(size);
-  this->view.get().GetModel().NewGame(game_configuration);
+  this->view.get().GetGameModel().NewGame(game_configuration);
   this->game_panel->DrawAll();
 }
 
@@ -187,7 +187,7 @@ void fsweep::GameFrame::OnCustom(wxCommandEvent& WXUNUSED(e))
     const auto size = fsweep::GamePanel::GetPixelDimensions(this->game_panel->GetPixelScale(),
                                                             game_configuration);
     this->resizeGamePanel(size);
-    this->view.get().GetModel().NewGame(game_configuration);
+    this->view.get().GetGameModel().NewGame(game_configuration);
     this->game_panel->DrawAll();
   }
 }
@@ -195,13 +195,13 @@ void fsweep::GameFrame::OnCustom(wxCommandEvent& WXUNUSED(e))
 void fsweep::GameFrame::OnQuestionMarks(wxCommandEvent& WXUNUSED(e))
 {
   const auto questions_enabled = question_marks_item->IsChecked();
-  this->view.get().GetModel().SetQuestionsEnabled(questions_enabled);
+  this->view.get().GetGameModel().SetQuestionsEnabled(questions_enabled);
   this->game_panel->DrawChanged();
 }
 
 void fsweep::GameFrame::OnPixelScale(wxCommandEvent& e)
 {
-  const auto& model = this->view.get().GetModel();
+  const auto& game_model = this->view.get().GetGameModel();
   fsweep::PixelScaleDialog pixel_scale_dialog(this, this->game_panel->GetPixelScale());
   const auto dialog_result = pixel_scale_dialog.ShowModal();
   if (dialog_result == wxOK)
@@ -209,7 +209,7 @@ void fsweep::GameFrame::OnPixelScale(wxCommandEvent& e)
     if (this->game_panel->TryChangePixelScale(pixel_scale_dialog.GetPixelScale()))
     {
       const auto size = fsweep::GamePanel::GetPixelDimensions(this->game_panel->GetPixelScale(),
-                                                              model.GetGameConfiguration());
+                                                              game_model.GetGameConfiguration());
       this->resizeGamePanel(size);
       this->game_panel->DrawAll();
     }
