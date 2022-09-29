@@ -38,6 +38,7 @@ set(FSWEEP_MODEL_INCLUDE_FILES
     "LcdDigit.hpp"
     "LcdNumber.hpp"
     "Point.hpp"
+    "Sprite.hpp"
 )
 list(
     TRANSFORM FSWEEP_MODEL_INCLUDE_FILES
