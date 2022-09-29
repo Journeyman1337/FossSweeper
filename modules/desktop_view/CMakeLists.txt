@@ -69,7 +69,6 @@ elseif(APPLE)
         ${FSWEEP_DESKTOP_SOURCES}
         ${FSWEEP_DESKTOP_OSX_ICON}
     )
-    set_target_properties(fsweep_desktop_view PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "FossSweeper")
     set_source_files_properties(FSWEEP_DESKTOP_OSX_ICON 
         PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources"
@@ -79,6 +78,7 @@ elseif(APPLE)
 	          MACOSX_BUNDLE_ICON_FILE "${FSWEEP_MACOSX_BUNDLE_ICON_FILE}"
 	          MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/rc/osxbundle.plist.in"
     set_target_properties(fsweep_desktop_view PROPERTIES
+              MACOSX_BUNDLE_BUNDLE_NAME "FossSweeper"
     )
 elseif(UNIX)
     add_executable(fsweep_desktop_view
