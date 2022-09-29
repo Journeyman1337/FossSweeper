@@ -37,6 +37,7 @@ set(FSWEEP_MODEL_INCLUDE_FILES
     "GameState.hpp"
     "LcdDigit.hpp"
     "LcdNumber.hpp"
+    "Point.hpp"
 )
 list(
     TRANSFORM FSWEEP_MODEL_INCLUDE_FILES
