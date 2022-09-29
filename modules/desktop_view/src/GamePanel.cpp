@@ -330,7 +330,6 @@ void fsweep::GamePanel::OnLeftRelease(wxMouseEvent& WXUNUSED(e))
       if (this->right_down)
       {
         model.AreaClickButton(hover_button.x, hover_button.y);
-        this->buttons_locked = true;
       }
       else
       {
