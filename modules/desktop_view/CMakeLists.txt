@@ -73,12 +73,14 @@ elseif(APPLE)
         PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources"
     )
-	          MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
-	          MACOSX_BUNDLE_LONG_VERSION_STRING ${PROJECT_VERSION}
-	          MACOSX_BUNDLE_ICON_FILE "${FSWEEP_MACOSX_BUNDLE_ICON_FILE}"
-	          MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/rc/osxbundle.plist.in"
     set_target_properties(fsweep_desktop_view PROPERTIES
               MACOSX_BUNDLE_BUNDLE_NAME "FossSweeper"
+              MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+              MACOSX_BUNDLE_INFO_STRING "An open source clone of a popular mine avoidance game."
+              MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
+              MACOSX_BUNDLE_LONG_VERSION_STRING ${PROJECT_VERSION}
+              MACOSX_BUNDLE_ICON_FILE "${FSWEEP_MACOSX_BUNDLE_ICON_FILE}"
+              MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/rc/osxbundle.plist.in"
     )
 elseif(UNIX)
     add_executable(fsweep_desktop_view
