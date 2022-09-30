@@ -33,9 +33,5 @@ namespace fsweep
 {
   extern const std::array<const char* const*, static_cast<std::size_t>(fsweep::Sprite::Count)>
       SPRITESHEET_XPM_DATA;
-
-  fsweep::Sprite getSpriteFromDigit(fsweep::LcdDigit digit) noexcept;
-
-  fsweep::Sprite getDownButtonSprite(int surrounding_bombs) noexcept;
 }  // namespace fsweep
 #endif

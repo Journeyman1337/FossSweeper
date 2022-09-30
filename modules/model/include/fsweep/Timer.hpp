@@ -20,26 +20,25 @@
  *
  */
 
-#ifndef FSWEEP_DESKTOP_APP_HPP
-#define FSWEEP_DESKTOP_APP_HPP
+#ifndef FSWEEP_TIMER_HPP
+#define FSWEEP_TIMER_HPP
 
-#include "DesktopTimer.hpp"
-#include <fsweep/DesktopModel.hpp>
-#include "DesktopView.hpp"
-#include "wx_include.hpp"
+#include <functional>
 
 namespace fsweep
 {
-  class DesktopApp : public wxApp
-  {
-   private:
-    fsweep::DesktopModel desktop_model = fsweep::DesktopModel();
-    fsweep::DesktopView view = fsweep::DesktopView(desktop_model);
+    class GameModel;
 
-   public:
-    DesktopApp() noexcept = default;
-    bool OnInit() override;
-  };
-}  // namespace fsweep
+    class Timer
+    {
+    public:
+        Timer() noexcept = default;
+        virtual ~Timer() = default;
+
+        virtual unsigned long GetGameTime() = 0;
+        virtual void Start() = 0;
+        virtual void Stop() = 0;
+    };
+}
 
 #endif

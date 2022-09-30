@@ -23,6 +23,8 @@
 #ifndef FSWEEP_SPRITE_HPP
 #define FSWEEP_SPRITE_HPP
 
+ #include <fsweep/LcdDigit.hpp>
+
 namespace fsweep
 {
   enum class Sprite
@@ -73,6 +75,9 @@ namespace fsweep
     BorderLeftIntersection,
     Count
   };
+
+  fsweep::Sprite getSpriteFromDigit(fsweep::LcdDigit digit) noexcept;
+  fsweep::Sprite getDownButtonSprite(int surrounding_bombs) noexcept;
 }
 
 #endif

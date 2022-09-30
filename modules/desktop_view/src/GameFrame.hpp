@@ -24,7 +24,7 @@
 #define FSWEEP_GAME_FRAME_HPP
 
 #include <functional>
-
+#include <fsweep/DesktopModel.hpp>
 #include "wx_include.hpp"
 
 namespace fsweep
@@ -36,13 +36,14 @@ namespace fsweep
   {
    private:
     std::reference_wrapper<fsweep::DesktopView> view;
+    fsweep::DesktopModel model;
     wxMenuItem* beginner_item;
     wxMenuItem* intermediate_item;
     wxMenuItem* expert_item;
     wxMenuItem* question_marks_item;
     fsweep::GamePanel* game_panel;
 
-    void resizeGamePanel(wxSize size);
+    void resizeGamePanel(int x, int y);
 
    public:
     GameFrame(fsweep::DesktopView& view);

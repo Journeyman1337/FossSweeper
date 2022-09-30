@@ -27,18 +27,18 @@
 
 namespace fsweep
 {
-  class GameModel;
+  class DesktopModel;
 
   class DesktopView
   {
    private:
-    std::reference_wrapper<fsweep::GameModel> game_model;
+    std::reference_wrapper<fsweep::DesktopModel> desktop_model;
 
    public:
-    DesktopView(fsweep::GameModel& model) noexcept;
+    DesktopView(fsweep::DesktopModel& desktop_model) noexcept;
 
     bool Run() noexcept;
-    fsweep::GameModel& GetGameModel() noexcept;
+    fsweep::DesktopModel& GetDesktopModel() noexcept;
   };
 }  // namespace fsweep
 

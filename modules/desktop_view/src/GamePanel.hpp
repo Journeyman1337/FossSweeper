@@ -25,7 +25,7 @@
 
 #include <array>
 #include <fsweep/ButtonPosition.hpp>
-#include <fsweep/GameModel.hpp>
+#include "DesktopTimer.hpp"
 #include <functional>
 #include <optional>
 
@@ -35,53 +35,27 @@
 
 namespace fsweep
 {
+  class DesktopModel;
+
   class GamePanel : public wxPanel
   {
    private:
-    std::reference_wrapper<fsweep::GameModel> game_model;
+    std::reference_wrapper<fsweep::DesktopModel> desktop_model;
+    fsweep::DesktopTimer timer;
     std::array<wxBitmap, static_cast<std::size_t>(fsweep::Sprite::Count)> base_bitmaps;
     std::array<wxBitmap, static_cast<std::size_t>(fsweep::Sprite::Count)> scaled_bitmaps;
-    bool left_down = false;
-    bool right_down = false;
-    bool buttons_locked = false;
-    bool hover_face = false;
-    bool mouse_hover = true;
-    int pixel_scale = 1;
-    wxPoint mouse_position;
-    std::optional<fsweep::ButtonPosition> hover_button_o;
-    wxTimer timer;
-    wxStopWatch stopwatch;
-    unsigned long last_time = 0;
     fsweep::GamePanelState game_panel_state;
-
-    std::optional<fsweep::ButtonPosition> getHoverButton(wxPoint mouse_position);
-    bool getHoverFace(wxPoint mouse_position);
     wxBitmap& getBitmap(fsweep::Sprite sprite);
-    wxPoint getFaceButtonPoint();
-    wxPoint getButtonPoint(int x, int y);
-    wxPoint getScorePoint(std::size_t digit);
-    wxPoint getTimerPoint(std::size_t digit);
-    void stopClock();
-    void startClock();
-    unsigned long getDeltaTime();
-    fsweep::Sprite getFaceSprite();
-    fsweep::Sprite getButtonSprite(int x, int y);
-    int getTimerSeconds();
-    int getFaceButtonDimension() const noexcept;
-    int getBorderSize() const noexcept;
-    int getButtonDimension() const noexcept;
-    int getLcdDigitWidth() const noexcept;
-    int getHeaderHeight() const noexcept;
 
    public:
-    GamePanel(fsweep::GameModel& game_model, wxFrame* parent, wxSize size);
+    GamePanel(fsweep::DesktopModel& desktop_model, wxFrame* parent, int width, int height);
     virtual ~GamePanel();
 
     void OnRender(wxPaintEvent& evt);
     void OnMouseMove(wxMouseEvent& evt);
-    void OnLeftDown(wxMouseEvent& evt);
+    void OnLeftPress(wxMouseEvent& evt);
     void OnLeftRelease(wxMouseEvent& evt);
-    void OnRightDown(wxMouseEvent& evt);
+    void OnRightPress(wxMouseEvent& evt);
     void OnRightRelease(wxMouseEvent& evt);
     void OnMouseEnter(wxMouseEvent& evt);
     void OnMouseLeave(wxMouseEvent& evt);
@@ -91,9 +65,6 @@ namespace fsweep
     int GetPixelScale() const noexcept;
     void DrawAll();
     void DrawChanged(bool timer_only = false);
-
-    static wxSize GetPixelDimensions(int pixel_scale,
-                                     const fsweep::GameConfiguration& configuration) noexcept;
 
     DECLARE_EVENT_TABLE();
   };

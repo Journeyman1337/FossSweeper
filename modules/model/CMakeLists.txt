@@ -16,9 +16,11 @@
 
 set(FSWEEP_MODEL_SOURCE_FILES
     "Button.cpp"
+    "DesktopModel.cpp"
     "GameConfiguration.cpp"
     "GameModel.cpp"
     "LcdNumber.cpp"
+    "Sprite.cpp"
 )
 list(
     TRANSFORM FSWEEP_MODEL_SOURCE_FILES
@@ -31,6 +33,7 @@ set(FSWEEP_MODEL_INCLUDE_FILES
     "Button.hpp"
     "ButtonPosition.hpp"
     "ButtonState.hpp"
+    "DesktopModel.hpp"
     "GameConfiguration.hpp"
     "GameDifficulty.hpp"
     "GameModel.hpp"
@@ -39,6 +42,7 @@ set(FSWEEP_MODEL_INCLUDE_FILES
     "LcdNumber.hpp"
     "Point.hpp"
     "Sprite.hpp"
+    "Timer.hpp"
 )
 list(
     TRANSFORM FSWEEP_MODEL_INCLUDE_FILES

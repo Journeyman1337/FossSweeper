@@ -26,8 +26,7 @@
 #include <fsweep/GameModel.hpp>
 #include <stdexcept>
 #include <string>
-
-fsweep::GameModel::GameModel() noexcept { this->NewGame(); }
+#include <fsweep/Timer.hpp>
 
 fsweep::GameModel::GameModel(fsweep::GameConfiguration game_configuration, bool questions_enabled,
                      fsweep::GameState game_state, int game_time, std::string_view button_string)
@@ -335,12 +334,6 @@ void fsweep::GameModel::AreaClickButton(int x, int y)
   this->tryWin();
 }
 
-void fsweep::GameModel::UpdateTime(unsigned long delta_time)
-{
-  if (this->game_state != fsweep::GameState::Playing) return;
-  this->game_time += delta_time;
-}
-
 void fsweep::GameModel::SetQuestionsEnabled(bool questions_enabled)
 {
   if (this->questions_enabled == questions_enabled) return;
@@ -372,7 +365,19 @@ fsweep::GameConfiguration fsweep::GameModel::GetGameConfiguration() const noexce
   return this->game_configuration;
 }
 
+void fsweep::GameModel::UpdateTime(unsigned int game_time)
+{
+  this->game_time = game_time;
+}
+
 unsigned long fsweep::GameModel::GetGameTime() const noexcept { return this->game_time; }
+
+const unsigned long MILLISECONDS_PER_SECOND = 1000;
+
+unsigned long fsweep::GameModel::GetTimerSeconds() const noexcept
+{
+  return this->game_time / MILLISECONDS_PER_SECOND;
+}
 
 const fsweep::Button& fsweep::GameModel::GetButton(int x, int y) const
 {
