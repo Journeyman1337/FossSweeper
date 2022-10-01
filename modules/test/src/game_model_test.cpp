@@ -731,17 +731,17 @@ SCENARIO("The game time of a GameModel is updated")
                         ".b....bb"
                         "......bd");
 
-    WHEN("The timer is updated")
+    WHEN("The timer is updated to 14")
     {
       game_model.UpdateTime(14);
 
-      THEN("The timer value is correct") { CHECK(game_model.GetGameTime() == 14); }
+      THEN("The timer value is 14") { CHECK(game_model.GetGameTime() == 14); }
 
-      WHEN("The timer is updated again")
+      WHEN("The timer is updated again to 16")
       {
         game_model.UpdateTime(16);
 
-        THEN("The timer value is correct") { CHECK(game_model.GetGameTime() == 30); }
+        THEN("The timer value is 16") { CHECK(game_model.GetGameTime() == 16); }
       }
     }
   }
