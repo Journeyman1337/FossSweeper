@@ -23,8 +23,9 @@
 #ifndef FSWEEP_DESKTOP_APP_HPP
 #define FSWEEP_DESKTOP_APP_HPP
 
-#include "DesktopTimer.hpp"
 #include <fsweep/DesktopModel.hpp>
+
+#include "DesktopTimer.hpp"
 #include "DesktopView.hpp"
 #include "wx_include.hpp"
 

@@ -23,69 +23,69 @@
 #ifndef FSWEEP_DESKTOP_MODEL_HPP
 #define FSWEEP_DESKTOP_MODEL_HPP
 
+#include <cstddef>
+#include <fsweep/ButtonPosition.hpp>
+#include <fsweep/GameModel.hpp>
+#include <fsweep/Point.hpp>
+#include <fsweep/Sprite.hpp>
 #include <functional>
 #include <optional>
-#include <fsweep/ButtonPosition.hpp>
-#include <cstddef>
-#include <fsweep/Point.hpp>
-#include <fsweep/GameModel.hpp>
-#include <fsweep/Sprite.hpp>
 
 namespace fsweep
 {
-    class Timer;
+  class Timer;
 
-    class DesktopModel : protected fsweep::GameModel
-    {
-    private:
-        std::optional<fsweep::ButtonPosition> hover_button_o = std::nullopt;
-        bool left_down = false;
-        bool right_down = false;
-        bool buttons_locked = false;
-        bool hover_face = false;
-        bool mouse_hover = true;
-        int pixel_scale = 1;
+  class DesktopModel : protected fsweep::GameModel
+  {
+   private:
+    std::optional<fsweep::ButtonPosition> hover_button_o = std::nullopt;
+    bool left_down = false;
+    bool right_down = false;
+    bool buttons_locked = false;
+    bool hover_face = false;
+    bool mouse_hover = true;
+    int pixel_scale = 1;
 
-    public:
-        DesktopModel() noexcept = default;
+   public:
+    DesktopModel() noexcept = default;
 
-        bool TryChangePixelScale(int new_pixel_scale);
-        int GetPixelScale() const noexcept;
-        void LeftPress();
-        void LeftRelease(fsweep::Timer& timer);
-        void RightPress(fsweep::Timer& timer);
-        void RightRelease();
-        void MouseEnter();
-        void MouseLeave();
-        void MouseMove(int x, int y);
+    bool TryChangePixelScale(int new_pixel_scale);
+    int GetPixelScale() const noexcept;
+    void LeftPress();
+    void LeftRelease(fsweep::Timer& timer);
+    void RightPress(fsweep::Timer& timer);
+    void RightRelease();
+    void MouseEnter();
+    void MouseLeave();
+    void MouseMove(int x, int y);
 
-        int GetFaceButtonDimension() const noexcept;
-        int GetBorderSize() const noexcept;
-        int GetButtonDimension() const noexcept;
-        int GetLcdDigitWidth() const noexcept;
-        int GetHeaderHeight() const noexcept;
-        fsweep::Sprite GetFaceSprite() const noexcept;
-        fsweep::Sprite GetButtonSprite(int x, int y) const noexcept;
-        fsweep::Point GetFaceButtonPoint() const noexcept;
-        fsweep::Point GetButtonPoint(int x, int y) const noexcept;
-        fsweep::Point GetScorePoint(std::size_t digit) const noexcept;
-        fsweep::Point GetTimerPoint(std::size_t digit) const noexcept;
-        fsweep::Point GetSize() const noexcept;
+    int GetFaceButtonDimension() const noexcept;
+    int GetBorderSize() const noexcept;
+    int GetButtonDimension() const noexcept;
+    int GetLcdDigitWidth() const noexcept;
+    int GetHeaderHeight() const noexcept;
+    fsweep::Sprite GetFaceSprite() const noexcept;
+    fsweep::Sprite GetButtonSprite(int x, int y) const noexcept;
+    fsweep::Point GetFaceButtonPoint() const noexcept;
+    fsweep::Point GetButtonPoint(int x, int y) const noexcept;
+    fsweep::Point GetScorePoint(std::size_t digit) const noexcept;
+    fsweep::Point GetTimerPoint(std::size_t digit) const noexcept;
+    fsweep::Point GetSize() const noexcept;
 
-        using GameModel::NewGame;
-        using GameModel::UpdateTime;
-        using GameModel::GetTimerSeconds;
-        using GameModel::SetQuestionsEnabled;
-        using GameModel::GetQuestionsEnabled;
-        using GameModel::GetFlagCount;
-        using GameModel::GetBombsLeft;
-        using GameModel::GetButtonsLeft;
-        using GameModel::GetGameState;
-        using GameModel::GetGameConfiguration;
-        using GameModel::GetGameTime;
-        using GameModel::GetButton;
-        using GameModel::GetButtons;
-    };
-}
+    using GameModel::GetBombsLeft;
+    using GameModel::GetButton;
+    using GameModel::GetButtons;
+    using GameModel::GetButtonsLeft;
+    using GameModel::GetFlagCount;
+    using GameModel::GetGameConfiguration;
+    using GameModel::GetGameState;
+    using GameModel::GetGameTime;
+    using GameModel::GetQuestionsEnabled;
+    using GameModel::GetTimerSeconds;
+    using GameModel::NewGame;
+    using GameModel::SetQuestionsEnabled;
+    using GameModel::UpdateTime;
+  };
+}  // namespace fsweep
 
 #endif

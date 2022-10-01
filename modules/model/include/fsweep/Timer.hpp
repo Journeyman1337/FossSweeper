@@ -27,18 +27,18 @@
 
 namespace fsweep
 {
-    class GameModel;
+  class GameModel;
 
-    class Timer
-    {
-    public:
-        Timer() noexcept = default;
-        virtual ~Timer() = default;
+  class Timer
+  {
+   public:
+    Timer() noexcept = default;
+    virtual ~Timer() = default;
 
-        virtual unsigned long GetGameTime() = 0;
-        virtual void Start() = 0;
-        virtual void Stop() = 0;
-    };
-}
+    virtual unsigned long GetGameTime() = 0;
+    virtual void Start() = 0;
+    virtual void Stop() = 0;
+  };
+}  // namespace fsweep
 
 #endif

@@ -23,7 +23,7 @@
 #ifndef FSWEEP_SPRITE_HPP
 #define FSWEEP_SPRITE_HPP
 
- #include <fsweep/LcdDigit.hpp>
+#include <fsweep/LcdDigit.hpp>
 
 namespace fsweep
 {
@@ -78,6 +78,6 @@ namespace fsweep
 
   fsweep::Sprite getSpriteFromDigit(fsweep::LcdDigit digit) noexcept;
   fsweep::Sprite getDownButtonSprite(int surrounding_bombs) noexcept;
-}
+}  // namespace fsweep
 
 #endif

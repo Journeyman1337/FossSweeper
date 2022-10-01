@@ -20,8 +20,8 @@
  *
  */
 
- #include <fsweep/Sprite.hpp>
- #include <fsweep/LcdDigit.hpp>
+#include <fsweep/LcdDigit.hpp>
+#include <fsweep/Sprite.hpp>
 
 fsweep::Sprite fsweep::getSpriteFromDigit(fsweep::LcdDigit digit) noexcept
 {

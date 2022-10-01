@@ -24,12 +24,13 @@
 #include <cstddef>
 #include <fsweep/ButtonPosition.hpp>
 #include <fsweep/GameModel.hpp>
+#include <fsweep/Timer.hpp>
 #include <stdexcept>
 #include <string>
-#include <fsweep/Timer.hpp>
 
 fsweep::GameModel::GameModel(fsweep::GameConfiguration game_configuration, bool questions_enabled,
-                     fsweep::GameState game_state, int game_time, std::string_view button_string)
+                             fsweep::GameState game_state, int game_time,
+                             std::string_view button_string)
     : game_configuration(game_configuration)
     , flag_count(0)
     , game_time(game_time)

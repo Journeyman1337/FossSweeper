@@ -44,7 +44,8 @@ namespace fsweep
     bool questions_enabled = false;
     int flag_count = 0;
     int buttons_left = fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE *
-                                    fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL - fsweep::GameConfiguration::BEGINNER_BOMB_COUNT;
+                           fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL -
+                       fsweep::GameConfiguration::BEGINNER_BOMB_COUNT;
     unsigned long game_time = 0;
     std::random_device rnd = std::random_device();
     std::mt19937 rng = std::mt19937(rnd());
@@ -65,7 +66,7 @@ namespace fsweep
    public:
     GameModel() noexcept = default;
     GameModel(fsweep::GameConfiguration game_configuration, bool questions_enabled,
-          fsweep::GameState game_state, int game_time, std::string_view button_string);
+              fsweep::GameState game_state, int game_time, std::string_view button_string);
 
     void NewGame();
     void NewGame(fsweep::GameConfiguration game_configuration);

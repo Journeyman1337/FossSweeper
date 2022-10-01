@@ -20,13 +20,13 @@
  *
  */
 
-#include <fsweep/GameModel.hpp>
-#include <fsweep/DesktopModel.hpp>
-#include <fsweep/Timer.hpp>
-#include <fsweep/Point.hpp>
-#include <utility>
 #include <cstddef>
+#include <fsweep/DesktopModel.hpp>
+#include <fsweep/GameModel.hpp>
+#include <fsweep/Point.hpp>
 #include <fsweep/Sprite.hpp>
+#include <fsweep/Timer.hpp>
+#include <utility>
 
 bool fsweep::DesktopModel::TryChangePixelScale(int new_pixel_scale)
 {
@@ -35,15 +35,9 @@ bool fsweep::DesktopModel::TryChangePixelScale(int new_pixel_scale)
   return true;
 }
 
-int fsweep::DesktopModel::GetPixelScale() const noexcept
-{
-    return this->pixel_scale;
-}
+int fsweep::DesktopModel::GetPixelScale() const noexcept { return this->pixel_scale; }
 
-void fsweep::DesktopModel::LeftPress()
-{
-  this->left_down = true;
-}
+void fsweep::DesktopModel::LeftPress() { this->left_down = true; }
 
 void fsweep::DesktopModel::LeftRelease(fsweep::Timer& timer)
 {
@@ -69,7 +63,8 @@ void fsweep::DesktopModel::LeftRelease(fsweep::Timer& timer)
       {
         timer.Start();
       }
-      else if (this->GetGameState() == fsweep::GameState::Dead || this->GetGameState() == fsweep::GameState::Cool && initially_playing)
+      else if (this->GetGameState() == fsweep::GameState::Dead ||
+               this->GetGameState() == fsweep::GameState::Cool && initially_playing)
       {
         timer.Stop();
       }
@@ -119,25 +114,23 @@ void fsweep::DesktopModel::RightRelease()
   }
 }
 
-void fsweep::DesktopModel::MouseEnter()
-{
-    this->mouse_hover = false;
-}
+void fsweep::DesktopModel::MouseEnter() { this->mouse_hover = false; }
 
-void fsweep::DesktopModel::MouseLeave()
-{
-    this->mouse_hover = true;
-}
+void fsweep::DesktopModel::MouseLeave() { this->mouse_hover = true; }
 
 void fsweep::DesktopModel::MouseMove(int x, int y)
 {
   this->hover_button_o = std::nullopt;
-  if (x >= this->GetBorderSize() && x < this->GetSize().x - this->GetBorderSize() && y >= this->GetHeaderHeight() && y < this->GetSize().y - this->GetBorderSize())
+  if (x >= this->GetBorderSize() && x < this->GetSize().x - this->GetBorderSize() &&
+      y >= this->GetHeaderHeight() && y < this->GetSize().y - this->GetBorderSize())
   {
-    this->hover_button_o = fsweep::ButtonPosition((x - this->GetBorderSize()) / this->GetButtonDimension(), (y - this->GetHeaderHeight()) / this->GetButtonDimension());
+    this->hover_button_o =
+        fsweep::ButtonPosition((x - this->GetBorderSize()) / this->GetButtonDimension(),
+                               (y - this->GetHeaderHeight()) / this->GetButtonDimension());
   }
   const auto face_point = this->GetFaceButtonPoint();
-  this->hover_face = x >= face_point.x && x < face_point.x + this->GetFaceButtonDimension() && y >= face_point.y && y < face_point.y + this->GetFaceButtonDimension();
+  this->hover_face = x >= face_point.x && x < face_point.x + this->GetFaceButtonDimension() &&
+                     y >= face_point.y && y < face_point.y + this->GetFaceButtonDimension();
 }
 
 const int FACE_BUTTON_DIMENSION = 24;
@@ -148,22 +141,19 @@ const int HEADER_HEIGHT = BORDER_SIZE * 2 + FACE_BUTTON_DIMENSION;
 
 int fsweep::DesktopModel::GetFaceButtonDimension() const noexcept
 {
-    return this->pixel_scale * FACE_BUTTON_DIMENSION;
+  return this->pixel_scale * FACE_BUTTON_DIMENSION;
 }
 
-int fsweep::DesktopModel::GetBorderSize() const noexcept
-{
-    return this->pixel_scale * BORDER_SIZE;
-}
+int fsweep::DesktopModel::GetBorderSize() const noexcept { return this->pixel_scale * BORDER_SIZE; }
 
 int fsweep::DesktopModel::GetButtonDimension() const noexcept
 {
-    return this->pixel_scale * BUTTON_DIMENSION;
+  return this->pixel_scale * BUTTON_DIMENSION;
 }
 
 int fsweep::DesktopModel::GetLcdDigitWidth() const noexcept
 {
-    return this->pixel_scale * LCD_DIGIT_WIDTH;
+  return this->pixel_scale * LCD_DIGIT_WIDTH;
 }
 
 int fsweep::DesktopModel::GetHeaderHeight() const noexcept
@@ -218,7 +208,8 @@ fsweep::Sprite fsweep::DesktopModel::GetFaceSprite() const noexcept
 
 fsweep::Sprite fsweep::DesktopModel::GetButtonSprite(int x, int y) const noexcept
 {
-  if (x >= this->game_configuration.GetButtonsWide() || y >= this->game_configuration.GetButtonsTall())
+  if (x >= this->game_configuration.GetButtonsWide() ||
+      y >= this->game_configuration.GetButtonsTall())
   {
     return fsweep::Sprite::ButtonNone;
   }
@@ -303,32 +294,34 @@ fsweep::Sprite fsweep::DesktopModel::GetButtonSprite(int x, int y) const noexcep
 
 fsweep::Point fsweep::DesktopModel::GetFaceButtonPoint() const noexcept
 {
-  return fsweep::Point((this->GetSize().x / 2) - (this->GetFaceButtonDimension() / 2), this->GetBorderSize());
+  return fsweep::Point((this->GetSize().x / 2) - (this->GetFaceButtonDimension() / 2),
+                       this->GetBorderSize());
 }
 
 fsweep::Point fsweep::DesktopModel::GetButtonPoint(int x, int y) const noexcept
 {
   return fsweep::Point(this->GetBorderSize() + (x * this->GetButtonDimension()),
-                 this->GetHeaderHeight() + (y * this->GetButtonDimension()));
+                       this->GetHeaderHeight() + (y * this->GetButtonDimension()));
 }
 
 fsweep::Point fsweep::DesktopModel::GetScorePoint(std::size_t digit) const noexcept
 {
-    return fsweep::Point(this->GetBorderSize() + (this->GetLcdDigitWidth() * digit), this->GetBorderSize());
+  return fsweep::Point(this->GetBorderSize() + (this->GetLcdDigitWidth() * digit),
+                       this->GetBorderSize());
 }
 
 fsweep::Point fsweep::DesktopModel::GetTimerPoint(std::size_t digit) const noexcept
 {
-      return fsweep::Point(
+  return fsweep::Point(
       this->GetSize().x - (this->GetBorderSize() + (this->GetLcdDigitWidth() * (3 - digit))),
       this->GetBorderSize());
 }
 
 fsweep::Point fsweep::DesktopModel::GetSize() const noexcept
 {
-  return fsweep::Point((this->game_configuration.GetButtonsWide() * (this->pixel_scale * BUTTON_DIMENSION)) +
-                    ((this->pixel_scale * BORDER_SIZE) * 2),
-                (this->game_configuration.GetButtonsTall() * (this->pixel_scale * BUTTON_DIMENSION)) +
-                    ((this->pixel_scale * BORDER_SIZE) + (this->pixel_scale * HEADER_HEIGHT)));
+  return fsweep::Point(
+      (this->game_configuration.GetButtonsWide() * (this->pixel_scale * BUTTON_DIMENSION)) +
+          ((this->pixel_scale * BORDER_SIZE) * 2),
+      (this->game_configuration.GetButtonsTall() * (this->pixel_scale * BUTTON_DIMENSION)) +
+          ((this->pixel_scale * BORDER_SIZE) + (this->pixel_scale * HEADER_HEIGHT)));
 }
-

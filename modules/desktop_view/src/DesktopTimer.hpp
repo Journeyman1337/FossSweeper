@@ -23,25 +23,26 @@
 #ifndef FSWEEP_DESKTOP_TIMER_HPP
 #define FSWEEP_DESKTOP_TIMER_HPP
 
-#include "wx_include.hpp"
 #include <fsweep/Timer.hpp>
+
+#include "wx_include.hpp"
 
 namespace fsweep
 {
-    class DesktopTimer : public fsweep::Timer
-    {
-        wxStopWatch stopwatch;
-        wxTimer timer;
-        unsigned long last_time;
+  class DesktopTimer : public fsweep::Timer
+  {
+    wxStopWatch stopwatch;
+    wxTimer timer;
+    unsigned long last_time;
 
-    public:
-        DesktopTimer(wxEvtHandler* handler) noexcept;
+   public:
+    DesktopTimer(wxEvtHandler* handler) noexcept;
 
-        unsigned long GetGameTime() override;
-        void Start() override;
-        void Stop() override;
-        wxTimer& GetTimer() noexcept;
-    };
-}
+    unsigned long GetGameTime() override;
+    void Start() override;
+    void Stop() override;
+    wxTimer& GetTimer() noexcept;
+  };
+}  // namespace fsweep
 
 #endif

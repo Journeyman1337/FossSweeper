@@ -20,19 +20,15 @@
  *
  */
 
- #include "DesktopTimer.hpp"
- #include "wx_include.hpp"
+#include "DesktopTimer.hpp"
+
+#include "wx_include.hpp"
 
 const unsigned long TIMER_INTERVAL = 1000 / 15;
 
-fsweep::DesktopTimer::DesktopTimer(wxEvtHandler* handler) noexcept
-  : timer(handler)
-{}
+fsweep::DesktopTimer::DesktopTimer(wxEvtHandler* handler) noexcept : timer(handler) {}
 
-unsigned long fsweep::DesktopTimer::GetGameTime()
-{
-  return this->stopwatch.Time();
-}
+unsigned long fsweep::DesktopTimer::GetGameTime() { return this->stopwatch.Time(); }
 
 void fsweep::DesktopTimer::Start()
 {
@@ -46,7 +42,4 @@ void fsweep::DesktopTimer::Stop()
   this->stopwatch.Pause();
 }
 
-wxTimer& fsweep::DesktopTimer::GetTimer() noexcept
-{
-  return this->timer;
-}
+wxTimer& fsweep::DesktopTimer::GetTimer() noexcept { return this->timer; }

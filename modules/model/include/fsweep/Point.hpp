@@ -25,14 +25,14 @@
 
 namespace fsweep
 {
-    struct Point
-    {
-        int x = 0;
-        int y = 0;
+  struct Point
+  {
+    int x = 0;
+    int y = 0;
 
-        constexpr Point() noexcept = default;
-        constexpr Point(int x, int y) noexcept : x(x), y(y) {}
-    };
-}
+    constexpr Point() noexcept = default;
+    constexpr Point(int x, int y) noexcept : x(x), y(y) {}
+  };
+}  // namespace fsweep
 
 #endif

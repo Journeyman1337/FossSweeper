@@ -41,15 +41,16 @@ SCENARIO("A GameModel is constructed with its default constructor")
     THEN("There is a beginner difficulty amount of buttons left")
     {
       CHECK(game_model.GetButtonsLeft() == (fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE *
-                                       fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL) -
-                                          fsweep::GameConfiguration::BEGINNER_BOMB_COUNT);
+                                            fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL) -
+                                               fsweep::GameConfiguration::BEGINNER_BOMB_COUNT);
     }
 
     THEN("The GameState is None") { CHECK(game_model.GetGameState() == fsweep::GameState::None); }
 
     THEN("The GameDifficulty is Default (Beginner)")
     {
-      CHECK(game_model.GetGameConfiguration().GetGameDifficulty() == fsweep::GameDifficulty::Default);
+      CHECK(game_model.GetGameConfiguration().GetGameDifficulty() ==
+            fsweep::GameDifficulty::Default);
     }
   }
 }
@@ -58,19 +59,21 @@ SCENARIO("A GameModel is constructed with its overloaded constructor")
 {
   GIVEN("A GameModel constructed with default properties")
   {
-    const fsweep::GameModel game_model(fsweep::GameConfiguration(8, 8, 2), true, fsweep::GameState::Cool, 15,
-                              "dbxfcqr."
-                              "........"
-                              "........"
-                              "........"
-                              "........"
-                              "........"
-                              "........"
-                              "........");
+    const fsweep::GameModel game_model(fsweep::GameConfiguration(8, 8, 2), true,
+                                       fsweep::GameState::Cool, 15,
+                                       "dbxfcqr."
+                                       "........"
+                                       "........"
+                                       "........"
+                                       "........"
+                                       "........"
+                                       "........"
+                                       "........");
 
     THEN("The GameDifficulty is Custom (8x8) 2b")
     {
-      CHECK(game_model.GetGameConfiguration().GetGameDifficulty() == fsweep::GameDifficulty::Custom);
+      CHECK(game_model.GetGameConfiguration().GetGameDifficulty() ==
+            fsweep::GameDifficulty::Custom);
       CHECK(game_model.GetGameConfiguration().GetButtonsWide() == 8);
       CHECK(game_model.GetGameConfiguration().GetButtonsTall() == 8);
       CHECK(game_model.GetGameConfiguration().GetBombCount() == 2);
@@ -144,15 +147,15 @@ SCENARIO("A new game is started in a GameModel without a configuration change")
   GIVEN("A GameModel in dead game state with enabled questions")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), true,
-                        fsweep::GameState::Dead, 30,
-                        "dbxfcqr."
-                        "........"
-                        "........"
-                        "........"
-                        "........"
-                        "........"
-                        "........"
-                        "........");
+                                 fsweep::GameState::Dead, 30,
+                                 "dbxfcqr."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 "........"
+                                 "........"
+                                 "........"
+                                 "........");
 
     WHEN("A new game is started without a configuration change")
     {
@@ -164,7 +167,8 @@ SCENARIO("A new game is started in a GameModel without a configuration change")
 
       THEN("The GameConfiguration has beginner difficulty")
       {
-        CHECK(game_model.GetGameConfiguration().GetGameDifficulty() == fsweep::GameDifficulty::Beginner);
+        CHECK(game_model.GetGameConfiguration().GetGameDifficulty() ==
+              fsweep::GameDifficulty::Beginner);
         CHECK(game_model.GetGameConfiguration().GetButtonsWide() ==
               fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE);
         CHECK(game_model.GetGameConfiguration().GetButtonsTall() ==
@@ -230,15 +234,15 @@ SCENARIO("A new game is started in a GameModel with a configuration change")
   GIVEN("A GameModel constructed with one button pressed in playing state")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), false,
-                        fsweep::GameState::Playing, 55,
-                        "db......"
-                        "bb......"
-                        ".b....b."
-                        "........"
-                        "...b...."
-                        "........"
-                        ".b....b."
-                        "........");
+                                 fsweep::GameState::Playing, 55,
+                                 "db......"
+                                 "bb......"
+                                 ".b....b."
+                                 "........"
+                                 "...b...."
+                                 "........"
+                                 ".b....b."
+                                 "........");
 
     WHEN("A new game is started with intermediate difficulty")
     {
@@ -307,15 +311,15 @@ SCENARIO("A Button of a GameModel is clicked")
   GIVEN("A GameModel is in playing state")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), false,
-                        fsweep::GameState::Playing, 0,
-                        "b......."
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                                 fsweep::GameState::Playing, 0,
+                                 "b......."
+                                 "bb......"
+                                 "......b."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 ".b....bb"
+                                 "......bd");
 
     WHEN("A bombed Button is clicked")
     {
@@ -328,15 +332,15 @@ SCENARIO("A Button of a GameModel is clicked")
   GIVEN("A GameModel in dead state")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), false,
-                        fsweep::GameState::Dead, 0,
-                        "x......."
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                                 fsweep::GameState::Dead, 0,
+                                 "x......."
+                                 "bb......"
+                                 "......b."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 ".b....bb"
+                                 "......bd");
 
     WHEN("A Button with None state is clicked")
     {
@@ -352,15 +356,15 @@ SCENARIO("A Button of a GameModel is clicked")
   GIVEN("A GameModel in cool state")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), false,
-                        fsweep::GameState::Cool, 0,
-                        "bddddddd"
-                        "cbdddddd"
-                        "ddddddbd"
-                        "dddddddd"
-                        "dddddddd"
-                        "dddddddd"
-                        "dbddddbb"
-                        "ddddddbd");
+                                 fsweep::GameState::Cool, 0,
+                                 "bddddddd"
+                                 "cbdddddd"
+                                 "ddddddbd"
+                                 "dddddddd"
+                                 "dddddddd"
+                                 "dddddddd"
+                                 "dbddddbb"
+                                 "ddddddbd");
 
     WHEN("A bombed Button is clicked")
     {
@@ -386,15 +390,15 @@ SCENARIO("A Button of a GameModel is clicked")
   GIVEN("A GameModel in playing state)")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), false,
-                        fsweep::GameState::Playing, 0,
-                        "bf......"
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                                 fsweep::GameState::Playing, 0,
+                                 "bf......"
+                                 "bb......"
+                                 "......b."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 ".b....bb"
+                                 "......bd");
 
     WHEN("A flagged Button is clicked")
     {
@@ -410,15 +414,15 @@ SCENARIO("A Button of a GameModel is clicked")
   GIVEN("A GameModel in playing state")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), true,
-                        fsweep::GameState::Playing, 0,
-                        "bq......"
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                                 fsweep::GameState::Playing, 0,
+                                 "bq......"
+                                 "bb......"
+                                 "......b."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 ".b....bb"
+                                 "......bd");
 
     WHEN("A questioned Button is clicked")
     {
@@ -473,15 +477,15 @@ SCENARIO("A Button of a GameModel is alt clicked")
   GIVEN("A GameModel in playing state with questions enabled")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), true,
-                        fsweep::GameState::Playing, 0,
-                        "bfq....."
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                                 fsweep::GameState::Playing, 0,
+                                 "bfq....."
+                                 "bb......"
+                                 "......b."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 ".b....bb"
+                                 "......bd");
 
     WHEN("A down Button is alt clicked")
     {
@@ -531,15 +535,15 @@ SCENARIO("A Button of a GameModel is alt clicked")
   GIVEN("A GameModel in playing state with questions disabled")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), false,
-                        fsweep::GameState::Playing, 0,
-                        "bf......"
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                                 fsweep::GameState::Playing, 0,
+                                 "bf......"
+                                 "bb......"
+                                 "......b."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 ".b....bb"
+                                 "......bd");
 
     WHEN("A down Button is alt clicked")
     {
@@ -607,15 +611,15 @@ SCENARIO("A Button of a GameModel is area clicked")
   GIVEN("A GameModel in playing state")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), true,
-                        fsweep::GameState::Playing, 0,
-                        "bq...dc."
-                        "bb...b.."
-                        "..ddddd."
-                        ".bd.c.d."
-                        "ccdddd.."
-                        "b.f.c.d."
-                        "...dddbb"
-                        "ddddddbd");
+                                 fsweep::GameState::Playing, 0,
+                                 "bq...dc."
+                                 "bb...b.."
+                                 "..ddddd."
+                                 ".bd.c.d."
+                                 "ccdddd.."
+                                 "b.f.c.d."
+                                 "...dddbb"
+                                 "ddddddbd");
 
     WHEN("A Button is area clicked where chording is possible and no bombs are hit")
     {
@@ -721,15 +725,15 @@ SCENARIO("The game time of a GameModel is updated")
   GIVEN("A GameModel with GameState::Playing")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), true,
-                        fsweep::GameState::Playing, 0,
-                        "bq......"
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                                 fsweep::GameState::Playing, 0,
+                                 "bq......"
+                                 "bb......"
+                                 "......b."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 ".b....bb"
+                                 "......bd");
 
     WHEN("The timer is updated to 14")
     {
@@ -764,15 +768,15 @@ SCENARIO("Questions are enabled or disabled throughout a GameModel")
   GIVEN("A GameModel with GameState::Playing with questions enabled")
   {
     fsweep::GameModel game_model(fsweep::GameConfiguration(fsweep::GameDifficulty::Beginner), true,
-                        fsweep::GameState::Playing, 0,
-                        "bfq....."
-                        "bb......"
-                        "......b."
-                        "........"
-                        "........"
-                        "........"
-                        ".b....bb"
-                        "......bd");
+                                 fsweep::GameState::Playing, 0,
+                                 "bfq....."
+                                 "bb......"
+                                 "......b."
+                                 "........"
+                                 "........"
+                                 "........"
+                                 ".b....bb"
+                                 "......bd");
 
     WHEN("Questions are disabled")
     {

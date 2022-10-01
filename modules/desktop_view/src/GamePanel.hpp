@@ -25,10 +25,10 @@
 
 #include <array>
 #include <fsweep/ButtonPosition.hpp>
-#include "DesktopTimer.hpp"
 #include <functional>
 #include <optional>
 
+#include "DesktopTimer.hpp"
 #include "GamePanelState.hpp"
 #include "spritesheet.hpp"
 #include "wx_include.hpp"

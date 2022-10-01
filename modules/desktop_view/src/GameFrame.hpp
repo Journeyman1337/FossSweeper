@@ -23,8 +23,9 @@
 #ifndef FSWEEP_GAME_FRAME_HPP
 #define FSWEEP_GAME_FRAME_HPP
 
-#include <functional>
 #include <fsweep/DesktopModel.hpp>
+#include <functional>
+
 #include "wx_include.hpp"
 
 namespace fsweep
