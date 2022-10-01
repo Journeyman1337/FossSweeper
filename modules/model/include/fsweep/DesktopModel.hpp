@@ -57,7 +57,6 @@ namespace fsweep
     void MouseEnter();
     void MouseLeave();
     void MouseMove(int x, int y);
-
     int GetPixelScale() const noexcept;
     int GetFaceButtonDimension() const noexcept;
     int GetBorderSize() const noexcept;
