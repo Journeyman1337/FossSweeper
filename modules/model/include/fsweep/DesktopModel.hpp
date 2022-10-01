@@ -35,7 +35,7 @@ namespace fsweep
 {
   class Timer;
 
-  class DesktopModel : protected fsweep::GameModel
+  class DesktopModel : public fsweep::GameModel
   {
    private:
     std::optional<fsweep::ButtonPosition> hover_button_o = std::nullopt;
@@ -72,19 +72,7 @@ namespace fsweep
     fsweep::Point GetTimerPoint(std::size_t digit) const noexcept;
     fsweep::Point GetSize() const noexcept;
 
-    using GameModel::GetBombsLeft;
-    using GameModel::GetButton;
-    using GameModel::GetButtons;
-    using GameModel::GetButtonsLeft;
-    using GameModel::GetFlagCount;
-    using GameModel::GetGameConfiguration;
-    using GameModel::GetGameState;
-    using GameModel::GetGameTime;
-    using GameModel::GetQuestionsEnabled;
-    using GameModel::GetTimerSeconds;
-    using GameModel::NewGame;
-    using GameModel::SetQuestionsEnabled;
-    using GameModel::UpdateTime;
+    using GameModel::GameModel;
   };
 }  // namespace fsweep
 
