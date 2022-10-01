@@ -35,8 +35,6 @@ bool fsweep::DesktopModel::TryChangePixelScale(int new_pixel_scale)
   return true;
 }
 
-int fsweep::DesktopModel::GetPixelScale() const noexcept { return this->pixel_scale; }
-
 void fsweep::DesktopModel::LeftPress() { this->left_down = true; }
 
 void fsweep::DesktopModel::LeftRelease(fsweep::Timer& timer)
@@ -138,6 +136,8 @@ const int BORDER_SIZE = 8;
 const int BUTTON_DIMENSION = 16;
 const int LCD_DIGIT_WIDTH = 16;
 const int HEADER_HEIGHT = BORDER_SIZE * 2 + FACE_BUTTON_DIMENSION;
+
+int fsweep::DesktopModel::GetPixelScale() const noexcept { return this->pixel_scale; }
 
 int fsweep::DesktopModel::GetFaceButtonDimension() const noexcept
 {

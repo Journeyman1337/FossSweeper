@@ -50,7 +50,6 @@ namespace fsweep
     DesktopModel() noexcept = default;
 
     bool TryChangePixelScale(int new_pixel_scale);
-    int GetPixelScale() const noexcept;
     void LeftPress();
     void LeftRelease(fsweep::Timer& timer);
     void RightPress(fsweep::Timer& timer);
@@ -59,6 +58,7 @@ namespace fsweep
     void MouseLeave();
     void MouseMove(int x, int y);
 
+    int GetPixelScale() const noexcept;
     int GetFaceButtonDimension() const noexcept;
     int GetBorderSize() const noexcept;
     int GetButtonDimension() const noexcept;
