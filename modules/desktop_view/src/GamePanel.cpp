@@ -238,7 +238,7 @@ void fsweep::GamePanel::DrawAll()
     this->game_panel_state.time_lcd[digit_i] = lcd_sprite;
   }
   const auto face_sprite = desktop_model.GetFaceSprite();
-  point = desktop_model.GetFaceButtonPoint();
+  point = desktop_model. GetFacePoint();
   wx_point = wxPoint(point.x, point.y);
   dc.DrawBitmap(this->getBitmap(face_sprite), wx_point, false);
   this->game_panel_state.face_sprite = face_sprite;
@@ -293,7 +293,7 @@ void fsweep::GamePanel::DrawChanged(bool timer_only)
   const auto face_sprite = desktop_model.GetFaceSprite();
   if (face_sprite != this->game_panel_state.face_sprite)
   {
-    point = desktop_model.GetFaceButtonPoint();
+    point = desktop_model. GetFacePoint();
     wx_point = wxPoint(point.x, point.y);
     dc.DrawBitmap(this->getBitmap(face_sprite), wx_point, false);
     this->game_panel_state.face_sprite = face_sprite;

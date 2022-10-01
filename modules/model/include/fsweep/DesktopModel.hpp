@@ -58,14 +58,14 @@ namespace fsweep
     void MouseLeave();
     void MouseMove(int x, int y);
     int GetPixelScale() const noexcept;
-    int GetFaceButtonDimension() const noexcept;
+    int GetFaceDimension() const noexcept;
     int GetBorderSize() const noexcept;
     int GetButtonDimension() const noexcept;
     int GetLcdDigitWidth() const noexcept;
     int GetHeaderHeight() const noexcept;
     fsweep::Sprite GetFaceSprite() const noexcept;
     fsweep::Sprite GetButtonSprite(int x, int y) const noexcept;
-    fsweep::Point GetFaceButtonPoint() const noexcept;
+    fsweep::Point GetFacePoint() const noexcept;
     fsweep::Point GetButtonPoint(int x, int y) const noexcept;
     fsweep::Point GetScorePoint(std::size_t digit) const noexcept;
     fsweep::Point GetTimerPoint(std::size_t digit) const noexcept;

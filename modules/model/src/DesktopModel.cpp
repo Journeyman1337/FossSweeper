@@ -126,9 +126,9 @@ void fsweep::DesktopModel::MouseMove(int x, int y)
         fsweep::ButtonPosition((x - this->GetBorderSize()) / this->GetButtonDimension(),
                                (y - this->GetHeaderHeight()) / this->GetButtonDimension());
   }
-  const auto face_point = this->GetFaceButtonPoint();
-  this->hover_face = x >= face_point.x && x < face_point.x + this->GetFaceButtonDimension() &&
-                     y >= face_point.y && y < face_point.y + this->GetFaceButtonDimension();
+  const auto face_point = this->GetFacePoint();
+  this->hover_face = x >= face_point.x && x < face_point.x + this->GetFaceDimension() &&
+                     y >= face_point.y && y < face_point.y + this->GetFaceDimension();
 }
 
 const int FACE_BUTTON_DIMENSION = 24;
@@ -139,7 +139,7 @@ const int HEADER_HEIGHT = BORDER_SIZE * 2 + FACE_BUTTON_DIMENSION;
 
 int fsweep::DesktopModel::GetPixelScale() const noexcept { return this->pixel_scale; }
 
-int fsweep::DesktopModel::GetFaceButtonDimension() const noexcept
+int fsweep::DesktopModel::GetFaceDimension() const noexcept
 {
   return this->pixel_scale * FACE_BUTTON_DIMENSION;
 }
@@ -292,9 +292,9 @@ fsweep::Sprite fsweep::DesktopModel::GetButtonSprite(int x, int y) const noexcep
   return fsweep::Sprite::ButtonNone;
 }
 
-fsweep::Point fsweep::DesktopModel::GetFaceButtonPoint() const noexcept
+fsweep::Point fsweep::DesktopModel::GetFacePoint() const noexcept
 {
-  return fsweep::Point((this->GetSize().x / 2) - (this->GetFaceButtonDimension() / 2),
+  return fsweep::Point((this->GetSize().x / 2) - (this->GetFaceDimension() / 2),
                        this->GetBorderSize());
 }
 
