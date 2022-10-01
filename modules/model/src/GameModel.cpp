@@ -367,7 +367,10 @@ fsweep::GameConfiguration fsweep::GameModel::GetGameConfiguration() const noexce
 
 void fsweep::GameModel::UpdateTime(unsigned int game_time)
 {
-  this->game_time = game_time;
+  if (this->game_state == fsweep::GameState::Playing)
+  {
+    this->game_time = game_time;
+  }
 }
 
 unsigned long fsweep::GameModel::GetGameTime() const noexcept { return this->game_time; }
