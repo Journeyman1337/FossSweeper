@@ -25,7 +25,7 @@
 
 SCENARIO("A GameModel is constructed with its default constructor")
 {
-  GIVEN("A GameModel constructed with its default constructor")
+  GIVEN("A default constructed GameModel")
   {
     const fsweep::GameModel game_model;
 
