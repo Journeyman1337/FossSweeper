@@ -32,6 +32,16 @@ namespace fsweep
 
     constexpr Point() noexcept = default;
     constexpr Point(int x, int y) noexcept : x(x), y(y) {}
+
+    constexpr operator==(const fsweep::Point& other) const noexcept
+    {
+      return this->x == other.x && this->y == other.y;
+    }
+
+    constexpr operator!=(const fsweep::Point& other) const noexcept
+    {
+      return !(*this == other);
+    }
   };
 }  // namespace fsweep
 
