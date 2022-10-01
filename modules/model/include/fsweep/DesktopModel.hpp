@@ -35,9 +35,10 @@ namespace fsweep
 {
   class Timer;
 
-  class DesktopModel : public fsweep::GameModel
+  class DesktopModel
   {
    private:
+    std::reference_wrapper<fsweep::GameModel> game_model;
     std::optional<fsweep::ButtonPosition> hover_button_o = std::nullopt;
     bool left_down = false;
     bool right_down = false;
@@ -47,7 +48,7 @@ namespace fsweep
     int pixel_scale = 1;
 
    public:
-    DesktopModel() noexcept = default;
+    DesktopModel(fsweep::GameModel& game_model) noexcept;
 
     bool TryChangePixelScale(int new_pixel_scale);
     void LeftPress();
@@ -70,8 +71,6 @@ namespace fsweep
     fsweep::Point GetScorePoint(std::size_t digit) const noexcept;
     fsweep::Point GetTimerPoint(std::size_t digit) const noexcept;
     fsweep::Point GetSize() const noexcept;
-
-    using GameModel::GameModel;
   };
 }  // namespace fsweep
 

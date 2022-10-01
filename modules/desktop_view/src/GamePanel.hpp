@@ -35,12 +35,12 @@
 
 namespace fsweep
 {
-  class DesktopModel;
+  class DesktopView;
 
   class GamePanel : public wxPanel
   {
    private:
-    std::reference_wrapper<fsweep::DesktopModel> desktop_model;
+    std::reference_wrapper<fsweep::DesktopView> desktop_view;
     fsweep::DesktopTimer timer;
     std::array<wxBitmap, static_cast<std::size_t>(fsweep::Sprite::Count)> base_bitmaps;
     std::array<wxBitmap, static_cast<std::size_t>(fsweep::Sprite::Count)> scaled_bitmaps;
@@ -48,7 +48,7 @@ namespace fsweep
     wxBitmap& getBitmap(fsweep::Sprite sprite);
 
    public:
-    GamePanel(fsweep::DesktopModel& desktop_model, wxFrame* parent, int width, int height);
+    GamePanel(fsweep::DesktopView& desktop_view, wxFrame* parent, int width, int height);
     virtual ~GamePanel();
 
     void OnRender(wxPaintEvent& evt);

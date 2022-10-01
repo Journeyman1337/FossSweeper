@@ -37,7 +37,6 @@ namespace fsweep
   {
    private:
     std::reference_wrapper<fsweep::DesktopView> view;
-    fsweep::DesktopModel model;
     wxMenuItem* beginner_item;
     wxMenuItem* intermediate_item;
     wxMenuItem* expert_item;

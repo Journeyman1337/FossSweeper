@@ -127,25 +127,26 @@ fsweep::GameFrame::GameFrame(fsweep::DesktopView& view)
   auto& desktop_model = view.GetDesktopModel();
   const auto size = desktop_model.GetSize();
   this->SetClientSize(size.x, size.y);
-  this->game_panel = new fsweep::GamePanel(desktop_model, this, size.x, size.y);
+  this->game_panel = new fsweep::GamePanel(view, this, size.x, size.y);
   this->SetAutoLayout(true);
   this->game_panel->DrawAll();
 }
 
 void fsweep::GameFrame::OnNew(wxCommandEvent& WXUNUSED(e))
 {
-  this->view.get().GetDesktopModel().NewGame();
+  this->view.get().GetGameModel().NewGame();
   this->game_panel->DrawAll();
 }
 
 void fsweep::GameFrame::OnBeginner(wxCommandEvent& WXUNUSED(e))
 {
+  auto& game_model = this->view.get().GetGameModel();
   auto& desktop_model = this->view.get().GetDesktopModel();
   this->beginner_item->Check(true);
   this->intermediate_item->Check(false);
   this->expert_item->Check(false);
   const fsweep::GameConfiguration game_configuration(fsweep::GameDifficulty::Beginner);
-  desktop_model.NewGame(game_configuration);
+  game_model.NewGame(game_configuration);
   auto size = desktop_model.GetSize();
   this->resizeGamePanel(size.x, size.y);
   this->game_panel->DrawAll();
@@ -153,12 +154,13 @@ void fsweep::GameFrame::OnBeginner(wxCommandEvent& WXUNUSED(e))
 
 void fsweep::GameFrame::OnIntermediate(wxCommandEvent& WXUNUSED(e))
 {
+  auto& game_model = this->view.get().GetGameModel();
   auto& desktop_model = this->view.get().GetDesktopModel();
   this->beginner_item->Check(false);
   this->intermediate_item->Check(true);
   this->expert_item->Check(false);
   const fsweep::GameConfiguration game_configuration(fsweep::GameDifficulty::Intermediate);
-  desktop_model.NewGame(game_configuration);
+  game_model.NewGame(game_configuration);
   auto size = desktop_model.GetSize();
   this->resizeGamePanel(size.x, size.y);
   this->game_panel->DrawAll();
@@ -166,12 +168,13 @@ void fsweep::GameFrame::OnIntermediate(wxCommandEvent& WXUNUSED(e))
 
 void fsweep::GameFrame::OnExpert(wxCommandEvent& WXUNUSED(e))
 {
+  auto& game_model = this->view.get().GetGameModel();
   auto& desktop_model = this->view.get().GetDesktopModel();
   this->beginner_item->Check(false);
   this->intermediate_item->Check(false);
   this->expert_item->Check(true);
   const fsweep::GameConfiguration game_configuration(fsweep::GameDifficulty::Expert);
-  desktop_model.NewGame(game_configuration);
+  game_model.NewGame(game_configuration);
   auto size = desktop_model.GetSize();
   this->resizeGamePanel(size.x, size.y);
   this->game_panel->DrawAll();
@@ -183,11 +186,12 @@ void fsweep::GameFrame::OnCustom(wxCommandEvent& WXUNUSED(e))
   const auto dialog_result = config_dialog.ShowModal();
   if (dialog_result == wxOK)
   {
+    auto& game_model = this->view.get().GetGameModel();
     auto& desktop_model = this->view.get().GetDesktopModel();
     const fsweep::GameConfiguration game_configuration(config_dialog.GetButtonsWide(),
                                                        config_dialog.GetButtonsTall(),
                                                        config_dialog.GetBombCount());
-    desktop_model.NewGame(game_configuration);
+    game_model.NewGame(game_configuration);
     auto size = desktop_model.GetSize();
     this->resizeGamePanel(size.x, size.y);
     this->game_panel->DrawAll();
@@ -197,7 +201,7 @@ void fsweep::GameFrame::OnCustom(wxCommandEvent& WXUNUSED(e))
 void fsweep::GameFrame::OnQuestionMarks(wxCommandEvent& WXUNUSED(e))
 {
   const auto questions_enabled = question_marks_item->IsChecked();
-  this->view.get().GetDesktopModel().SetQuestionsEnabled(questions_enabled);
+  this->view.get().GetGameModel().SetQuestionsEnabled(questions_enabled);
   this->game_panel->DrawChanged();
 }
 
