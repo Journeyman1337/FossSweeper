@@ -122,7 +122,7 @@ void fsweep::DesktopModel::RightRelease()
 
 void fsweep::DesktopModel::MouseEnter() { this->mouse_hover = false; }
 
-void fsweep::DesktopModel::MouseLeave() { this->mouse_hover = true; }
+void fsweep::DesktopModel::MouseLeave() { this->hover_button_o = std::nullopt; }
 
 void fsweep::DesktopModel::MouseMove(int x, int y)
 {

@@ -44,7 +44,6 @@ namespace fsweep
     bool right_down = false;
     bool buttons_locked = false;
     bool hover_face = false;
-    bool mouse_hover = true;
     int pixel_scale = 1;
 
    public:
