@@ -54,7 +54,6 @@ namespace fsweep
     void LeftRelease(fsweep::Timer& timer);
     void RightPress(fsweep::Timer& timer);
     void RightRelease();
-    void MouseEnter();
     void MouseLeave();
     void MouseMove(int x, int y);
     int GetPixelScale() const noexcept;

@@ -57,7 +57,6 @@ namespace fsweep
     void OnLeftRelease(wxMouseEvent& evt);
     void OnRightPress(wxMouseEvent& evt);
     void OnRightRelease(wxMouseEvent& evt);
-    void OnMouseEnter(wxMouseEvent& evt);
     void OnMouseLeave(wxMouseEvent& evt);
     void OnTimer(wxTimerEvent& evt);
 

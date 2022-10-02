@@ -41,7 +41,6 @@ EVT_LEFT_DOWN(fsweep::GamePanel::OnLeftPress)
 EVT_LEFT_UP(fsweep::GamePanel::OnLeftRelease)
 EVT_RIGHT_DOWN(fsweep::GamePanel::OnRightPress)
 EVT_RIGHT_UP(fsweep::GamePanel::OnRightRelease)
-EVT_ENTER_WINDOW(fsweep::GamePanel::OnMouseEnter)
 EVT_LEAVE_WINDOW(fsweep::GamePanel::OnMouseLeave)
 END_EVENT_TABLE()
 
@@ -101,13 +100,6 @@ void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.RightRelease();
-  this->DrawChanged();
-}
-
-void fsweep::GamePanel::OnMouseEnter(wxMouseEvent& WXUNUSED(e))
-{
-  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
-  desktop_model.MouseEnter();
   this->DrawChanged();
 }
 
