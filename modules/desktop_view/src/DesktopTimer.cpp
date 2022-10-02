@@ -20,14 +20,26 @@
  *
  */
 
-#include "DesktopApp.hpp"
+#include "DesktopTimer.hpp"
 
-#include <fsweep/GameModel.hpp>
+#include "wx_include.hpp"
 
-#include "DesktopView.hpp"
+const unsigned long TIMER_INTERVAL = 1000 / 15;
 
-bool fsweep::DesktopApp::OnInit()
+fsweep::DesktopTimer::DesktopTimer(wxEvtHandler* handler) noexcept : timer(handler) {}
+
+unsigned long fsweep::DesktopTimer::GetGameTime() { return this->stopwatch.Time(); }
+
+void fsweep::DesktopTimer::Start()
 {
-  if (!wxApp::OnInit()) return false;
-  return this->view.Run();
+  this->stopwatch.Start(0);
+  this->timer.Start(TIMER_INTERVAL);
 }
+
+void fsweep::DesktopTimer::Stop()
+{
+  this->timer.Stop();
+  this->stopwatch.Pause();
+}
+
+wxTimer& fsweep::DesktopTimer::GetTimer() noexcept { return this->timer; }

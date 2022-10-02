@@ -23,8 +23,10 @@
 #ifndef FSWEEP_DESKTOP_APP_HPP
 #define FSWEEP_DESKTOP_APP_HPP
 
-#include <fsweep/Model.hpp>
+#include <fsweep/DesktopModel.hpp>
+#include <fsweep/GameModel.hpp>
 
+#include "DesktopTimer.hpp"
 #include "DesktopView.hpp"
 #include "wx_include.hpp"
 
@@ -33,8 +35,9 @@ namespace fsweep
   class DesktopApp : public wxApp
   {
    private:
-    fsweep::Model model = fsweep::Model();
-    fsweep::DesktopView view = fsweep::DesktopView(model);
+    fsweep::GameModel game_model = fsweep::GameModel();
+    fsweep::DesktopModel desktop_model = fsweep::DesktopModel(this->game_model);
+    fsweep::DesktopView view = fsweep::DesktopView(this->desktop_model, this->game_model);
 
    public:
     DesktopApp() noexcept = default;

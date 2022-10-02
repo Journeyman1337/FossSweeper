@@ -20,14 +20,29 @@
  *
  */
 
-#include "DesktopApp.hpp"
+#ifndef FSWEEP_POINT_HPP
+#define FSWEEP_POINT_HPP
 
-#include <fsweep/GameModel.hpp>
-
-#include "DesktopView.hpp"
-
-bool fsweep::DesktopApp::OnInit()
+namespace fsweep
 {
-  if (!wxApp::OnInit()) return false;
-  return this->view.Run();
-}
+  struct Point
+  {
+    int x = 0;
+    int y = 0;
+
+    constexpr Point() noexcept = default;
+    constexpr Point(int x, int y) noexcept : x(x), y(y) {}
+
+    constexpr bool operator==(const fsweep::Point& other) const noexcept
+    {
+      return this->x == other.x && this->y == other.y;
+    }
+
+    constexpr bool operator!=(const fsweep::Point& other) const noexcept
+    {
+      return !(*this == other);
+    }
+  };
+}  // namespace fsweep
+
+#endif

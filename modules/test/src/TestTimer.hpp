@@ -20,13 +20,24 @@
  *
  */
 
-#ifndef FSWEEP_VERSION_HPP
-#define FSWEEP_VERSION_HPP
+#ifndef FSWEEP_TEST_TIMER_HPP
+#define FSWEEP_TEST_TIMER_HPP
 
-#define FSWEEP_VERSION_MAJOR 0
-#define FSWEEP_VERSION_MINOR 4
-#define FSWEEP_VERSION_PATCH 0
-#define FSWEEP_VERSION_TWEAK 0
-#define FSWEEP_VERSION "0.4.0.0"
+#include <fsweep/Timer.hpp>
+
+namespace fsweep
+{
+  class TestTimer : public fsweep::Timer
+  {
+   private:
+    bool is_running = false;
+
+   public:
+    unsigned long GetGameTime() override;
+    void Start() override;
+    void Stop() override;
+    bool GetIsRunning() const noexcept;
+  };
+}  // namespace fsweep
 
 #endif

@@ -23,6 +23,7 @@
 #ifndef FSWEEP_GAME_FRAME_HPP
 #define FSWEEP_GAME_FRAME_HPP
 
+#include <fsweep/DesktopModel.hpp>
 #include <functional>
 
 #include "wx_include.hpp"
@@ -42,7 +43,7 @@ namespace fsweep
     wxMenuItem* question_marks_item;
     fsweep::GamePanel* game_panel;
 
-    void resizeGamePanel(wxSize size);
+    void resizeGamePanel(int x, int y);
 
    public:
     GameFrame(fsweep::DesktopView& view);

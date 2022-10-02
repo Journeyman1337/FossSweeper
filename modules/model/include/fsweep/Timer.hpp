@@ -20,14 +20,25 @@
  *
  */
 
-#include "DesktopApp.hpp"
+#ifndef FSWEEP_TIMER_HPP
+#define FSWEEP_TIMER_HPP
 
-#include <fsweep/GameModel.hpp>
+#include <functional>
 
-#include "DesktopView.hpp"
-
-bool fsweep::DesktopApp::OnInit()
+namespace fsweep
 {
-  if (!wxApp::OnInit()) return false;
-  return this->view.Run();
-}
+  class GameModel;
+
+  class Timer
+  {
+   public:
+    Timer() noexcept = default;
+    virtual ~Timer() = default;
+
+    virtual unsigned long GetGameTime() = 0;
+    virtual void Start() = 0;
+    virtual void Stop() = 0;
+  };
+}  // namespace fsweep
+
+#endif

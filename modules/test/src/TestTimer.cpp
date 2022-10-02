@@ -20,14 +20,12 @@
  *
  */
 
-#include "DesktopApp.hpp"
+#include "TestTimer.hpp"
 
-#include <fsweep/GameModel.hpp>
+unsigned long fsweep::TestTimer::GetGameTime() { return 0; }
 
-#include "DesktopView.hpp"
+void fsweep::TestTimer::Start() { this->is_running = true; }
 
-bool fsweep::DesktopApp::OnInit()
-{
-  if (!wxApp::OnInit()) return false;
-  return this->view.Run();
-}
+void fsweep::TestTimer::Stop() { this->is_running = false; }
+
+bool fsweep::TestTimer::GetIsRunning() const noexcept { return this->is_running; }
