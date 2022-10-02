@@ -37,7 +37,7 @@ namespace fsweep
         void Start() override;
         void Stop() override;
         bool GetIsRunning() const noexcept;
-    }
+    };
 }
 
 #endif
