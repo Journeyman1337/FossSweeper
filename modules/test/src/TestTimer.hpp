@@ -27,17 +27,17 @@
 
 namespace fsweep
 {
-    class TestTimer : public fsweep::Timer
-    {
-    private:
-        bool is_running = false;
+  class TestTimer : public fsweep::Timer
+  {
+   private:
+    bool is_running = false;
 
-    public:
-        unsigned long GetGameTime() override;
-        void Start() override;
-        void Stop() override;
-        bool GetIsRunning() const noexcept;
-    };
-}
+   public:
+    unsigned long GetGameTime() override;
+    void Start() override;
+    void Stop() override;
+    bool GetIsRunning() const noexcept;
+  };
+}  // namespace fsweep
 
 #endif

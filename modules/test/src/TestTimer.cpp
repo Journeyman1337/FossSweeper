@@ -22,22 +22,10 @@
 
 #include "TestTimer.hpp"
 
-unsigned long fsweep::TestTimer::GetGameTime()
-{
-    return 0;
-}
+unsigned long fsweep::TestTimer::GetGameTime() { return 0; }
 
-void fsweep::TestTimer::Start()
-{
-    this->is_running = true;
-}
+void fsweep::TestTimer::Start() { this->is_running = true; }
 
-void fsweep::TestTimer::Stop()
-{
-    this->is_running = false;
-}
+void fsweep::TestTimer::Stop() { this->is_running = false; }
 
-bool fsweep::TestTimer::GetIsRunning() const noexcept
-{
-    return this->is_running;
-}
+bool fsweep::TestTimer::GetIsRunning() const noexcept { return this->is_running; }

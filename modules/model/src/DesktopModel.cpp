@@ -26,12 +26,13 @@
 #include <fsweep/Point.hpp>
 #include <fsweep/Sprite.hpp>
 #include <fsweep/Timer.hpp>
-#include <utility>
 #include <functional>
+#include <utility>
 
 fsweep::DesktopModel::DesktopModel(fsweep::GameModel& game_model) noexcept
-  : game_model(std::ref(game_model))
-{}
+    : game_model(std::ref(game_model))
+{
+}
 
 bool fsweep::DesktopModel::TryChangePixelScale(int new_pixel_scale)
 {
@@ -329,8 +330,10 @@ fsweep::Point fsweep::DesktopModel::GetSize() const noexcept
 {
   const auto& game_model = this->game_model.get();
   return fsweep::Point(
-      (game_model.GetGameConfiguration().GetButtonsWide() * (this->pixel_scale * BUTTON_DIMENSION)) +
+      (game_model.GetGameConfiguration().GetButtonsWide() *
+       (this->pixel_scale * BUTTON_DIMENSION)) +
           ((this->pixel_scale * BORDER_SIZE) * 2),
-      (game_model.GetGameConfiguration().GetButtonsTall() * (this->pixel_scale * BUTTON_DIMENSION)) +
+      (game_model.GetGameConfiguration().GetButtonsTall() *
+       (this->pixel_scale * BUTTON_DIMENSION)) +
           ((this->pixel_scale * BORDER_SIZE) + (this->pixel_scale * HEADER_HEIGHT)));
 }
