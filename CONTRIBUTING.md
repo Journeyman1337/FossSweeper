@@ -34,10 +34,6 @@ Many aspects of FossSweeper are tested automatically using the [Catch2](https://
 
 Unit tests are not enough to catch everything that can go wrong with FossSweeper. Depending on what code you modify, you may be told that you need to run FossSweeper on one or more platforms to ensure that there are no visible bugs. You can emulate a different operating system than your own using [virtual machine](https://en.wikipedia.org/wiki/Virtual_machine) software such as [Virtual Box](https://www.virtualbox.org/). If you don't want to do this yourself, add the `help-needed` tag to your pull request and ask for someone else to do it for you.
 
-### Linting with Trunk
-
-A consistent coding style is maintained throughout the FossSweeper project. This is done through the use of multiple [code linting tools](<https://en.wikipedia.org/wiki/Lint_(software)>). To make it easier to manage the various linters used in the project, we use the [Trunk](https://trunk.io/products/check) amalgimated linting tool. If you have trunk installed on your machine, you can run the run all linters across all files using the bash command `trunk fmt -a`.
-
 ### Licensing with REUSE
 
 The FossSweeper project is a propoenent of the [REUSE Specification](https://reuse.software/spec/). This means that all files in the repository must be adequatly licensed for the your fork to be considered [REUSE-compliant](https://reuse.software/tutorial/). If you have the [REUSE Tool](https://github.com/fsfe/reuse-tool) installed on your computer, you can check your fork to see if it is compliant using the bash command `reuse lint`.
