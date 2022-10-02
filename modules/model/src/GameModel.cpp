@@ -34,7 +34,7 @@ fsweep::GameModel::GameModel(fsweep::GameConfiguration game_configuration, bool 
     : game_configuration(game_configuration)
     , flag_count(0)
     , game_time(game_time)
-    , buttons_left(game_configuration.GetButtonCount())
+    , buttons_left(game_configuration.GetButtonCount() - game_configuration.GetBombCount())
     , questions_enabled(questions_enabled)
     , buttons()
     , game_state(game_state)
@@ -51,6 +51,10 @@ fsweep::GameModel::GameModel(fsweep::GameConfiguration game_configuration, bool 
     if (button.GetButtonState() == fsweep::ButtonState::Flagged)
     {
       this->flag_count++;
+    }
+    if (button.GetButtonState() == fsweep::ButtonState::Down)
+    {
+      this->buttons_left--;
     }
   }
   this->calculateSurroundingBombs();

@@ -43,8 +43,8 @@ namespace fsweep
     fsweep::GameState game_state = fsweep::GameState::Default;
     bool questions_enabled = false;
     int flag_count = 0;
-    int buttons_left = fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE *
-                           fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL -
+    int buttons_left = (fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE *
+                           fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL) -
                        fsweep::GameConfiguration::BEGINNER_BOMB_COUNT;
     unsigned long game_time = 0;
     std::random_device rnd = std::random_device();
