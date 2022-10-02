@@ -18,7 +18,7 @@ cmake_minimum_required(VERSION 3.19)
 
 project(
     fosssweeper
-    VERSION 0.4.0.2
+    VERSION 0.5.0.0
     DESCRIPTION "An open source clone of a popular mine avoidance game"
     LANGUAGES C CXX
 )
