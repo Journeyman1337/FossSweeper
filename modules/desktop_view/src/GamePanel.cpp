@@ -20,9 +20,14 @@
  *
  */
 
+const int MILLISECONDS_PER_SECOND = 1000;
+const int TIMER_INTERVAL = MILLISECONDS_PER_SECOND / 15;
+
 #include "GamePanel.hpp"
+#include "DesktopView.hpp"
 
 #include <cstddef>
+#include <fsweep/Sprite.hpp>
 #include <functional>
 #include <optional>
 
@@ -32,267 +37,30 @@
 BEGIN_EVENT_TABLE(fsweep::GamePanel, wxPanel)
 EVT_PAINT(fsweep::GamePanel::OnRender)
 EVT_MOTION(fsweep::GamePanel::OnMouseMove)
-EVT_LEFT_DOWN(fsweep::GamePanel::OnLeftDown)
+EVT_LEFT_DOWN(fsweep::GamePanel::OnLeftPress)
 EVT_LEFT_UP(fsweep::GamePanel::OnLeftRelease)
-EVT_RIGHT_DOWN(fsweep::GamePanel::OnRightDown)
+EVT_RIGHT_DOWN(fsweep::GamePanel::OnRightPress)
 EVT_RIGHT_UP(fsweep::GamePanel::OnRightRelease)
-EVT_ENTER_WINDOW(fsweep::GamePanel::OnMouseEnter)
 EVT_LEAVE_WINDOW(fsweep::GamePanel::OnMouseLeave)
 END_EVENT_TABLE()
-
-const int FACE_BUTTON_DIMENSION = 24;
-const int BORDER_SIZE = 8;
-const int BUTTON_DIMENSION = 16;
-const int LCD_DIGIT_WIDTH = 16;
-const int HEADER_HEIGHT = BORDER_SIZE * 2 + FACE_BUTTON_DIMENSION;
-
-std::optional<fsweep::ButtonPosition> fsweep::GamePanel::getHoverButton(wxPoint mouse_position)
-{
-  if (mouse_position.x >= this->getBorderSize() &&
-      mouse_position.x < this->GetSize().x - this->getBorderSize() &&
-      mouse_position.y >= this->getHeaderHeight() &&
-      mouse_position.y < this->GetSize().y - this->getBorderSize())
-  {
-    return fsweep::ButtonPosition(
-        (mouse_position.x - this->getBorderSize()) / this->getButtonDimension(),
-        (mouse_position.y - this->getHeaderHeight()) / this->getButtonDimension());
-  }
-  return std::nullopt;
-}
-
-bool fsweep::GamePanel::getHoverFace(wxPoint mouse_position)
-{
-  const auto face_point = this->getFaceButtonPoint();
-  return mouse_position.x >= face_point.x &&
-         mouse_position.x < face_point.x + this->getFaceButtonDimension() &&
-         mouse_position.y >= face_point.y &&
-         mouse_position.y < face_point.y + this->getFaceButtonDimension();
-}
-
-wxPoint fsweep::GamePanel::getFaceButtonPoint()
-{
-  return wxPoint((this->GetSize().x / 2) - (this->getFaceButtonDimension() / 2),
-                 this->getBorderSize());
-}
-
-wxPoint fsweep::GamePanel::getButtonPoint(int x, int y)
-{
-  return wxPoint(this->getBorderSize() + (x * this->getButtonDimension()),
-                 this->getHeaderHeight() + (y * this->getButtonDimension()));
-}
-
-wxPoint fsweep::GamePanel::getScorePoint(std::size_t digit)
-{
-  return wxPoint(this->getBorderSize() + (this->getLcdDigitWidth() * digit), this->getBorderSize());
-}
-
-wxPoint fsweep::GamePanel::getTimerPoint(std::size_t digit)
-{
-  return wxPoint(
-      this->GetSize().x - (this->getBorderSize() + (this->getLcdDigitWidth() * (3 - digit))),
-      this->getBorderSize());
-}
 
 wxBitmap& fsweep::GamePanel::getBitmap(fsweep::Sprite sprite)
 {
   return this->scaled_bitmaps[static_cast<std::size_t>(sprite)];
 }
 
-unsigned long fsweep::GamePanel::getDeltaTime()
+fsweep::GamePanel::GamePanel(fsweep::DesktopView& desktop_view, wxFrame* parent, int width,
+                             int height)
+    : wxPanel(parent, wxID_ANY), desktop_view(std::ref(desktop_view)), timer(this)
 {
-  const auto& model = this->model.get();
-  const unsigned long new_time = this->stopwatch.Time();
-  const unsigned long delta_time = new_time - this->last_time;
-  this->last_time = new_time;
-  return delta_time;
-}
-
-const int MILLISECONDS_PER_SECOND = 1000;
-const int TIMER_INTERVAL = MILLISECONDS_PER_SECOND / 15;
-
-void fsweep::GamePanel::startClock()
-{
-  this->stopwatch.Start(0);
-  this->last_time = 0;
-  this->timer.Start(TIMER_INTERVAL);
-}
-
-void fsweep::GamePanel::stopClock()
-{
-  auto& model = this->model.get();
-  this->timer.Stop();
-  this->stopwatch.Pause();
-  model.UpdateTime(this->getDeltaTime());
-}
-
-fsweep::Sprite fsweep::GamePanel::getFaceSprite()
-{
-  const auto& model = this->model.get();
-  if (model.GetGameState() == fsweep::GameState::None ||
-      model.GetGameState() == fsweep::GameState::Playing)
-  {
-    if (this->left_down && !this->buttons_locked && this->hover_face)
-    {
-      return fsweep::Sprite::ButtonSmileDown;
-    }
-    else if (this->left_down && !this->buttons_locked && this->hover_button_o.has_value())
-    {
-      const auto& hover_button = this->hover_button_o.value();
-      const auto& button = model.GetButton(hover_button.x, hover_button.y);
-      if (button.GetButtonState() != fsweep::ButtonState::Down &&
-          button.GetButtonState() != fsweep::ButtonState::Flagged)
-      {
-        return fsweep::Sprite::ButtonShocked;
-      }
-    }
-  }
-  else if (model.GetGameState() == fsweep::GameState::Cool)
-  {
-    if (this->left_down && this->hover_face)
-    {
-      return fsweep::Sprite::ButtonSmileDown;
-    }
-    else
-    {
-      return fsweep::Sprite::ButtonCool;
-    }
-  }
-  else  // if (model.GetGameState() == fsweep::GameState::Dead)
-  {
-    if (this->left_down && this->hover_face)
-    {
-      return fsweep::Sprite::ButtonSmileDown;
-    }
-    else
-    {
-      return fsweep::Sprite::ButtonDead;
-    }
-  }
-  return fsweep::Sprite::ButtonSmile;
-}
-
-fsweep::Sprite fsweep::GamePanel::getButtonSprite(int x, int y)
-{
-  const auto& model = this->model.get();
-  const auto& button = model.GetButton(x, y);
-  const fsweep::ButtonPosition button_position(x, y);
-  if (model.GetGameState() == fsweep::GameState::None ||
-      model.GetGameState() == fsweep::GameState::Playing)
-  {
-    if (button.GetButtonState() != fsweep::ButtonState::Flagged &&
-        button.GetButtonState() != fsweep::ButtonState::Down && this->left_down &&
-        this->hover_button_o.has_value() && !this->buttons_locked)
-    {
-      const auto& hover_button = this->hover_button_o.value();
-      if ((hover_button == button_position) ||
-          (model.GetGameState() == fsweep::GameState::Playing && this->right_down &&
-           hover_button.IsNear(button_position)))
-      {
-        if (fsweep::ButtonState() == fsweep::ButtonState::Questioned)
-        {
-          return fsweep::Sprite::ButtonQuestionDown;
-        }
-        return fsweep::Sprite::ButtonDown;
-      }
-    }
-    else if (button.GetButtonState() == fsweep::ButtonState::Flagged)
-    {
-      return fsweep::Sprite::ButtonFlag;
-    }
-    else if (button.GetButtonState() == fsweep::ButtonState::Questioned)
-    {
-      return fsweep::Sprite::ButtonQuestion;
-    }
-    else if (button.GetButtonState() == fsweep::ButtonState::Down)
-    {
-      return fsweep::getDownButtonSprite(button.GetSurroundingBombs());
-    }
-    else
-    {
-      return fsweep::Sprite::ButtonNone;
-    }
-  }
-  else  // if (model.GetGameState() == fsweep::GameState::Cool || model.GetGameState() ==
-        // fsweep::GameState::Dead)
-  {
-    if (button.GetButtonState() == fsweep::ButtonState::None ||
-        button.GetButtonState() == fsweep::ButtonState::Questioned)
-    {
-      if (button.GetHasBomb())
-      {
-        return fsweep::Sprite::ButtonBomb;
-      }
-      else
-      {
-        return fsweep::Sprite::ButtonNone;
-      }
-    }
-    else if (button.GetButtonState() == fsweep::ButtonState::Flagged)
-    {
-      if (button.GetHasBomb())
-      {
-        return fsweep::Sprite::ButtonFlagHit;
-      }
-      else
-      {
-        return fsweep::Sprite::ButtonFlagMiss;
-      }
-    }
-    else if (button.GetButtonState() == fsweep::ButtonState::Down)
-    {
-      if (button.GetHasBomb())
-      {
-        return fsweep::Sprite::ButtonBombExplode;
-      }
-      else
-      {
-        return fsweep::getDownButtonSprite(button.GetSurroundingBombs());
-      }
-    }
-  }
-  return fsweep::Sprite::ButtonNone;
-}
-
-int fsweep::GamePanel::getTimerSeconds()
-{
-  const auto& model = this->model.get();
-  const auto game_time = static_cast<int>(model.GetGameTime());
-  return (game_time / MILLISECONDS_PER_SECOND);
-}
-
-fsweep::GamePanel::GamePanel(fsweep::Model& model, wxFrame* parent, wxSize size)
-    : wxPanel(parent, wxID_ANY), model(std::ref(model)), timer(this)
-{
-  Bind(wxEVT_TIMER, &GamePanel::OnTimer, this, this->timer.GetId());
+  Bind(wxEVT_TIMER, &GamePanel::OnTimer, this, this->timer.GetTimer().GetId());
   for (std::size_t bitmap_i = 0; bitmap_i < static_cast<std::size_t>(fsweep::Sprite::Count);
        bitmap_i++)
   {
     this->base_bitmaps[bitmap_i] = wxBitmap(fsweep::SPRITESHEET_XPM_DATA[bitmap_i]);
     this->scaled_bitmaps[bitmap_i] = wxBitmap(this->base_bitmaps[bitmap_i]);
   }
-  this->SetSize(size);
-}
-
-int fsweep::GamePanel::getFaceButtonDimension() const noexcept
-{
-  return this->pixel_scale * FACE_BUTTON_DIMENSION;
-}
-
-int fsweep::GamePanel::getBorderSize() const noexcept { return this->pixel_scale * BORDER_SIZE; }
-
-int fsweep::GamePanel::getButtonDimension() const noexcept
-{
-  return this->pixel_scale * BUTTON_DIMENSION;
-}
-
-int fsweep::GamePanel::getLcdDigitWidth() const noexcept
-{
-  return this->pixel_scale * LCD_DIGIT_WIDTH;
-}
-
-int fsweep::GamePanel::getHeaderHeight() const noexcept
-{
-  return this->pixel_scale * HEADER_HEIGHT;
+  this->SetSize(wxSize(width, height));
 }
 
 fsweep::GamePanel::~GamePanel() {}
@@ -301,223 +69,184 @@ void fsweep::GamePanel::OnRender(wxPaintEvent& WXUNUSED(e)) { this->DrawAll(); }
 
 void fsweep::GamePanel::OnMouseMove(wxMouseEvent& e)
 {
-  auto& model = this->model.get();
-  this->mouse_position = e.GetPosition();
-  this->hover_button_o = this->getHoverButton(this->mouse_position);
-  this->hover_face = this->getHoverFace(this->mouse_position);
+  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  wxPoint mouse_position = e.GetPosition();
+  desktop_model.MouseMove(mouse_position.x, mouse_position.y);
   this->DrawChanged();
 }
 
-void fsweep::GamePanel::OnLeftDown(wxMouseEvent& WXUNUSED(e))
+void fsweep::GamePanel::OnLeftPress(wxMouseEvent& WXUNUSED(e))
 {
-  this->left_down = true;
+  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  desktop_model.LeftPress();
   this->DrawChanged();
 }
 
 void fsweep::GamePanel::OnLeftRelease(wxMouseEvent& WXUNUSED(e))
 {
-  auto& model = this->model.get();
-  if (model.GetGameState() == fsweep::GameState::Playing)
-  {
-    model.UpdateTime(this->getDeltaTime());
-  }
-  if (!this->buttons_locked)
-  {
-    auto initially_playing = model.GetGameState() == fsweep::GameState::Playing;
-    if (this->hover_button_o.has_value())
-    {
-      auto& hover_button = this->hover_button_o.value();
-      if (this->right_down)
-      {
-        model.AreaClickButton(hover_button.x, hover_button.y);
-      }
-      else
-      {
-        model.ClickButton(hover_button.x, hover_button.y);
-      }
-      if (model.GetGameState() == fsweep::GameState::Playing && !initially_playing)
-      {
-        this->startClock();
-      }
-      else if (model.GetGameState() == fsweep::GameState::Dead && initially_playing)
-      {
-        this->stopClock();
-      }
-    }
-    else if (this->hover_face)
-    {
-      model.NewGame();
-      this->stopClock();
-    }
-  }
-  else if (!this->right_down)
-  {
-    this->buttons_locked = false;
-  }
-  this->left_down = false;
+  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  desktop_model.LeftRelease(this->timer);
   this->DrawChanged();
 }
 
-void fsweep::GamePanel::OnRightDown(wxMouseEvent& WXUNUSED(e))
+void fsweep::GamePanel::OnRightPress(wxMouseEvent& WXUNUSED(e))
 {
-  auto& model = this->model.get();
-  this->right_down = true;
-  if (model.GetGameState() == fsweep::GameState::Playing)
-  {
-    model.UpdateTime(this->getDeltaTime());
-  }
-  if (!this->left_down && this->hover_button_o.has_value() && !this->buttons_locked)
-  {
-    auto& hover_button = this->hover_button_o.value();
-    model.AltClickButton(hover_button.x, hover_button.y);
-  }
+  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  desktop_model.RightPress(this->timer);
   this->DrawChanged();
 }
 
 void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
 {
-  auto& model = this->model.get();
-  this->right_down = false;
-  if (this->left_down && model.GetGameState() == fsweep::GameState::Playing)
-  {
-    this->buttons_locked = true;
-    if (this->hover_button_o.has_value())
-    {
-      auto& hover_button = this->hover_button_o.value();
-      model.AreaClickButton(hover_button.x, hover_button.y);
-    }
-  }
-  else
-  {
-    this->buttons_locked = false;
-  }
-  this->DrawChanged();
-}
-
-void fsweep::GamePanel::OnMouseEnter(wxMouseEvent& WXUNUSED(e))
-{
-  this->mouse_hover = true;
+  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  desktop_model.RightRelease();
   this->DrawChanged();
 }
 
 void fsweep::GamePanel::OnMouseLeave(wxMouseEvent& WXUNUSED(e))
 {
-  this->mouse_hover = false;
+  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  desktop_model.MouseLeave();
   this->DrawChanged();
 }
 
 void fsweep::GamePanel::OnTimer(wxTimerEvent& WXUNUSED(e))
 {
-  auto& model = this->model.get();
-  model.UpdateTime(this->getDeltaTime());
+  auto& game_model = this->desktop_view.get().GetGameModel();
+  game_model.UpdateTime(this->timer.GetGameTime());
   this->DrawChanged(true);
 }
 
 bool fsweep::GamePanel::TryChangePixelScale(int new_pixel_scale)
 {
-  if (this->pixel_scale == new_pixel_scale) return false;
-  for (std::size_t bitmap_i = 0; bitmap_i < static_cast<std::size_t>(fsweep::Sprite::Count);
-       bitmap_i++)
+  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  if (desktop_model.TryChangePixelScale(new_pixel_scale))
   {
-    const auto& base_bitmap = this->base_bitmaps[bitmap_i];
-    auto image = base_bitmap.ConvertToImage();
-    image.Rescale(base_bitmap.GetWidth() * new_pixel_scale,
-                  base_bitmap.GetHeight() * new_pixel_scale);
-    this->scaled_bitmaps[bitmap_i] = wxBitmap(image);
+    for (std::size_t bitmap_i = 0; bitmap_i < static_cast<std::size_t>(fsweep::Sprite::Count);
+         bitmap_i++)
+    {
+      const auto& base_bitmap = this->base_bitmaps[bitmap_i];
+      auto image = base_bitmap.ConvertToImage();
+      image.Rescale(base_bitmap.GetWidth() * new_pixel_scale,
+                    base_bitmap.GetHeight() * new_pixel_scale);
+      this->scaled_bitmaps[bitmap_i] = wxBitmap(image);
+    }
+    return true;
   }
-  this->pixel_scale = new_pixel_scale;
-  return true;
+  else
+    return false;
 }
 
-int fsweep::GamePanel::GetPixelScale() const noexcept { return this->pixel_scale; }
+int fsweep::GamePanel::GetPixelScale() const noexcept
+{
+  auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  return desktop_model.GetPixelScale();
+}
 
 void fsweep::GamePanel::DrawAll()
 {
-  const auto& model = this->model.get();
+  const auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  const auto& game_model = this->desktop_view.get().GetGameModel();
+  fsweep::Point point;
+  wxPoint wx_point;
   wxClientDC dc(this);
   dc.SetBrush(wxBrush(wxColour(142, 142, 142)));
-  dc.DrawRectangle(wxRect(wxPoint(0, 0), this->GetSize()));
+  point = desktop_model.GetSize();
+  wx_point = wxPoint(point.x, point.y);
+  dc.DrawRectangle(wxRect(wxPoint(0, 0), wx_point));
   dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderLeftTop), wxPoint(0, 0), false);
   dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderRightTop),
-                wxPoint(this->GetSize().x - this->getBorderSize(), 0), false);
+                wxPoint(desktop_model.GetSize().x - desktop_model.GetBorderSize(), 0), false);
   dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderLeftBottom),
-                wxPoint(0, this->GetSize().y - this->getBorderSize()), false);
-  dc.DrawBitmap(
-      this->getBitmap(fsweep::Sprite::BorderRightBottom),
-      wxPoint(this->GetSize().x - this->getBorderSize(), this->GetSize().y - this->getBorderSize()),
-      false);
-  for (std::size_t i = 0; i < (this->GetSize().x / this->getBorderSize()) - 2; i++)
+                wxPoint(0, desktop_model.GetSize().y - desktop_model.GetBorderSize()), false);
+  dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderRightBottom),
+                wxPoint(desktop_model.GetSize().x - desktop_model.GetBorderSize(),
+                        desktop_model.GetSize().y - desktop_model.GetBorderSize()),
+                false);
+  for (std::size_t i = 0; i < (desktop_model.GetSize().x / desktop_model.GetBorderSize()) - 2; i++)
   {
     dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderTop),
-                  wxPoint(this->getBorderSize() + (i * this->getBorderSize()), 0), false);
+                  wxPoint(desktop_model.GetBorderSize() + (i * desktop_model.GetBorderSize()), 0),
+                  false);
   }
-  for (std::size_t i = 0; i < (this->GetSize().x / this->getBorderSize()) - 2; i++)
+  for (std::size_t i = 0; i < (this->GetSize().x / desktop_model.GetBorderSize()) - 2; i++)
   {
     dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderBottom),
-                  wxPoint(this->getBorderSize() + (i * this->getBorderSize()),
-                          this->GetSize().y - this->getBorderSize()),
+                  wxPoint(desktop_model.GetBorderSize() + (i * desktop_model.GetBorderSize()),
+                          desktop_model.GetSize().y - desktop_model.GetBorderSize()),
                   false);
   }
   dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderLeftIntersection),
-                wxPoint(0, this->getBorderSize() * 4), false);
+                wxPoint(0, desktop_model.GetBorderSize() * 4), false);
   dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderRightIntersection),
-                wxPoint(this->GetSize().x - this->getBorderSize(), this->getBorderSize() * 4),
+                wxPoint(desktop_model.GetSize().x - desktop_model.GetBorderSize(),
+                        desktop_model.GetBorderSize() * 4),
                 false);
-  for (std::size_t i = 0; i < (this->GetSize().x / this->getBorderSize()) - 2; i++)
+  for (std::size_t i = 0; i < (desktop_model.GetSize().x / desktop_model.GetBorderSize()) - 2; i++)
   {
-    dc.DrawBitmap(
-        this->getBitmap(fsweep::Sprite::BorderTop),
-        wxPoint(this->getBorderSize() + (i * this->getBorderSize()), this->getBorderSize() * 4),
-        false);
+    dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderTop),
+                  wxPoint(desktop_model.GetBorderSize() + (i * desktop_model.GetBorderSize()),
+                          desktop_model.GetBorderSize() * 4),
+                  false);
   }
   for (std::size_t i = 1; i < 4; i++)
   {
     dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderLeft),
-                  wxPoint(0, i * this->getBorderSize()), false);
+                  wxPoint(0, i * desktop_model.GetBorderSize()), false);
   }
   for (std::size_t i = 1; i < 4; i++)
   {
     dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderRight),
-                  wxPoint(this->GetSize().x - this->getBorderSize(), i * this->getBorderSize()),
+                  wxPoint(desktop_model.GetSize().x - desktop_model.GetBorderSize(),
+                          i * desktop_model.GetBorderSize()),
                   false);
   }
-  for (std::size_t i = 5; i < (this->GetSize().y / this->getBorderSize()) - 1; i++)
+  for (std::size_t i = 5; i < (desktop_model.GetSize().y / desktop_model.GetBorderSize()) - 1; i++)
   {
     dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderLeft),
-                  wxPoint(0, i * this->getBorderSize()), false);
+                  wxPoint(0, i * desktop_model.GetBorderSize()), false);
   }
-  for (std::size_t i = 5; i < (this->GetSize().y / this->getBorderSize()) - 1; i++)
+  for (std::size_t i = 5; i < (desktop_model.GetSize().y / desktop_model.GetBorderSize()) - 1; i++)
   {
     dc.DrawBitmap(this->getBitmap(fsweep::Sprite::BorderRight),
-                  wxPoint(this->GetSize().x - this->getBorderSize(), i * this->getBorderSize()),
+                  wxPoint(desktop_model.GetSize().x - desktop_model.GetBorderSize(),
+                          i * desktop_model.GetBorderSize()),
                   false);
   }
-  const auto score_lcd = fsweep::LcdNumber(model.GetBombsLeft());
+  const auto score_lcd = fsweep::LcdNumber(game_model.GetBombsLeft());
   for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
   {
     const auto lcd_sprite = fsweep::getSpriteFromDigit(score_lcd[digit_i]);
-    dc.DrawBitmap(this->getBitmap(lcd_sprite), this->getScorePoint(digit_i), false);
+    point = desktop_model.GetScorePoint(digit_i);
+    wx_point = wxPoint(point.x, point.y);
+    dc.DrawBitmap(this->getBitmap(lcd_sprite), wx_point, false);
     this->game_panel_state.score_lcd[digit_i] = lcd_sprite;
   }
-  const auto time_lcd = fsweep::LcdNumber(this->getTimerSeconds());
+  const auto time_lcd = fsweep::LcdNumber(game_model.GetTimerSeconds());
   for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
   {
     const auto lcd_sprite = fsweep::getSpriteFromDigit(time_lcd[digit_i]);
-    dc.DrawBitmap(this->getBitmap(lcd_sprite), this->getTimerPoint(digit_i), false);
+    point = desktop_model.GetTimerPoint(digit_i);
+    wx_point = wxPoint(point.x, point.y);
+    dc.DrawBitmap(this->getBitmap(lcd_sprite), wx_point, false);
     this->game_panel_state.time_lcd[digit_i] = lcd_sprite;
   }
-  const auto face_sprite = this->getFaceSprite();
-  dc.DrawBitmap(this->getBitmap(face_sprite), this->getFaceButtonPoint(), false);
+  const auto face_sprite = desktop_model.GetFaceSprite();
+  point = desktop_model. GetFacePoint();
+  wx_point = wxPoint(point.x, point.y);
+  dc.DrawBitmap(this->getBitmap(face_sprite), wx_point, false);
   this->game_panel_state.face_sprite = face_sprite;
   this->game_panel_state.button_sprites.clear();
-  this->game_panel_state.button_sprites.reserve(model.GetGameConfiguration().GetButtonCount());
-  for (int x = 0; x < model.GetGameConfiguration().GetButtonsWide(); x++)
+  this->game_panel_state.button_sprites.reserve(
+      game_model.GetGameConfiguration().GetButtonCount());
+  for (int x = 0; x < game_model.GetGameConfiguration().GetButtonsWide(); x++)
   {
-    for (int y = 0; y < model.GetGameConfiguration().GetButtonsTall(); y++)
+    for (int y = 0; y < game_model.GetGameConfiguration().GetButtonsTall(); y++)
     {
-      const auto button_sprite = this->getButtonSprite(x, y);
-      dc.DrawBitmap(this->getBitmap(this->getButtonSprite(x, y)), this->getButtonPoint(x, y),
-                    false);
+      const auto button_sprite = desktop_model.GetButtonSprite(x, y);
+      point = desktop_model.GetButtonPoint(x, y);
+      wx_point = wxPoint(point.x, point.y);
+      dc.DrawBitmap(this->getBitmap(desktop_model.GetButtonSprite(x, y)), wx_point, false);
       this->game_panel_state.button_sprites.push_back(button_sprite);
     }
   }
@@ -525,59 +254,60 @@ void fsweep::GamePanel::DrawAll()
 
 void fsweep::GamePanel::DrawChanged(bool timer_only)
 {
-  const auto& model = this->model.get();
-  const auto buttons_wide = model.GetGameConfiguration().GetButtonsWide();
+  fsweep::Point point;
+  wxPoint wx_point;
+  const auto& game_model = this->desktop_view.get().GetGameModel();
+  const auto& desktop_model = this->desktop_view.get().GetDesktopModel();
+  const auto buttons_wide = game_model.GetGameConfiguration().GetButtonsWide();
   [[maybe_unused]] wxClientDC dc(this);
-  const auto time_lcd = fsweep::LcdNumber(this->getTimerSeconds());
+  const auto time_lcd = fsweep::LcdNumber(game_model.GetTimerSeconds());
   for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
   {
     const auto lcd_sprite = fsweep::getSpriteFromDigit(time_lcd[digit_i]);
     if (this->game_panel_state.time_lcd[digit_i] != lcd_sprite)
     {
-      dc.DrawBitmap(this->getBitmap(lcd_sprite), this->getTimerPoint(digit_i), false);
+      point = desktop_model.GetTimerPoint(digit_i);
+      wx_point = wxPoint(point.x, point.y);
+      dc.DrawBitmap(this->getBitmap(lcd_sprite), wx_point, false);
       this->game_panel_state.time_lcd[digit_i] = lcd_sprite;
     }
   }
   if (timer_only) return;
-  auto score_lcd = fsweep::LcdNumber(model.GetBombsLeft());
+  auto score_lcd = fsweep::LcdNumber(game_model.GetBombsLeft());
   for (std::size_t digit_i = 0; digit_i < 3; digit_i++)
   {
     const auto lcd_sprite = fsweep::getSpriteFromDigit(score_lcd[digit_i]);
     if (this->game_panel_state.score_lcd[digit_i] != lcd_sprite)
     {
-      dc.DrawBitmap(this->getBitmap(lcd_sprite), this->getScorePoint(digit_i), false);
+      point = desktop_model.GetScorePoint(digit_i);
+      wx_point = wxPoint(point.x, point.y);
+      dc.DrawBitmap(this->getBitmap(lcd_sprite), wx_point, false);
       this->game_panel_state.score_lcd[digit_i] = lcd_sprite;
     }
   }
-
-  const auto face_sprite = this->getFaceSprite();
+  const auto face_sprite = desktop_model.GetFaceSprite();
   if (face_sprite != this->game_panel_state.face_sprite)
   {
-    dc.DrawBitmap(this->getBitmap(face_sprite), this->getFaceButtonPoint(), false);
+    point = desktop_model. GetFacePoint();
+    wx_point = wxPoint(point.x, point.y);
+    dc.DrawBitmap(this->getBitmap(face_sprite), wx_point, false);
     this->game_panel_state.face_sprite = face_sprite;
   }
-  for (int x = 0; x < model.GetGameConfiguration().GetButtonsWide(); x++)
+  for (int x = 0; x < game_model.GetGameConfiguration().GetButtonsWide(); x++)
   {
-    for (int y = 0; y < model.GetGameConfiguration().GetButtonsTall(); y++)
+    for (int y = 0; y < game_model.GetGameConfiguration().GetButtonsTall(); y++)
     {
       const fsweep::ButtonPosition button_position(x, y);
-      const auto button_sprite = this->getButtonSprite(x, y);
+      const auto button_sprite = desktop_model.GetButtonSprite(x, y);
       if (button_sprite !=
           this->game_panel_state.button_sprites[button_position.GetIndex(buttons_wide)])
       {
-        dc.DrawBitmap(this->getBitmap(button_sprite), this->getButtonPoint(x, y), false);
+        point = desktop_model.GetButtonPoint(x, y);
+        wx_point = wxPoint(point.x, point.y);
+        dc.DrawBitmap(this->getBitmap(button_sprite), wx_point, false);
         this->game_panel_state.button_sprites[button_position.GetIndex(buttons_wide)] =
             button_sprite;
       }
     }
   }
-}
-
-wxSize fsweep::GamePanel::GetPixelDimensions(
-    int pixel_scale, const fsweep::GameConfiguration& configuration) noexcept
-{
-  return wxSize((configuration.GetButtonsWide() * (pixel_scale * BUTTON_DIMENSION)) +
-                    ((pixel_scale * BORDER_SIZE) * 2),
-                (configuration.GetButtonsTall() * (pixel_scale * BUTTON_DIMENSION)) +
-                    ((pixel_scale * BORDER_SIZE) + (pixel_scale * HEADER_HEIGHT)));
 }

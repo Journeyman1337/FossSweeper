@@ -21,6 +21,8 @@ set(FSWEEP_DESKTOP_SOURCES
     "ConfigDialog.hpp"
     "DesktopApp.cpp"
     "DesktopApp.hpp"
+    "DesktopTimer.cpp"
+    "DesktopTimer.hpp"
     "DesktopView.cpp"
     "DesktopView.hpp"
     "GameFrame.cpp"

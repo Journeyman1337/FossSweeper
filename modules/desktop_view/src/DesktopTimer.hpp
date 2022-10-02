@@ -20,14 +20,29 @@
  *
  */
 
-#include "DesktopApp.hpp"
+#ifndef FSWEEP_DESKTOP_TIMER_HPP
+#define FSWEEP_DESKTOP_TIMER_HPP
 
-#include <fsweep/GameModel.hpp>
+#include <fsweep/Timer.hpp>
 
-#include "DesktopView.hpp"
+#include "wx_include.hpp"
 
-bool fsweep::DesktopApp::OnInit()
+namespace fsweep
 {
-  if (!wxApp::OnInit()) return false;
-  return this->view.Run();
-}
+  class DesktopTimer : public fsweep::Timer
+  {
+    wxStopWatch stopwatch;
+    wxTimer timer;
+    unsigned long last_time;
+
+   public:
+    DesktopTimer(wxEvtHandler* handler) noexcept;
+
+    unsigned long GetGameTime() override;
+    void Start() override;
+    void Stop() override;
+    wxTimer& GetTimer() noexcept;
+  };
+}  // namespace fsweep
+
+#endif

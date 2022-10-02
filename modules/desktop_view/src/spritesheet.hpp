@@ -27,63 +27,11 @@
 #include <cstddef>
 #include <cstdint>
 #include <fsweep/LcdNumber.hpp>
+#include <fsweep/Sprite.hpp>
 
 namespace fsweep
 {
-  enum class Sprite
-  {
-    ButtonNone = 0,
-    ButtonDown,
-    ButtonFlag,
-    ButtonQuestion,
-    ButtonQuestionDown,
-    ButtonFlagMiss,
-    ButtonBombExplode,
-    ButtonBomb,
-    ButtonFlagHit,
-    ButtonDownOne,
-    ButtonDownTwo,
-    ButtonDownThree,
-    ButtonDownFour,
-    ButtonDownFive,
-    ButtonDownSix,
-    ButtonDownSeven,
-    ButtonDownEight,
-    ButtonSmile,
-    ButtonSmileDown,
-    ButtonShocked,
-    ButtonDead,
-    ButtonCool,
-    LcdOne,
-    LcdTwo,
-    LcdThree,
-    LcdFour,
-    LcdFive,
-    LcdSix,
-    LcdSeven,
-    LcdEight,
-    LcdNine,
-    LcdZero,
-    LcdHythen,
-    LcdNone,
-    BorderLeftTop,
-    BorderTop,
-    BorderLeft,
-    BorderRight,
-    BorderRightTop,
-    BorderRightBottom,
-    BorderLeftBottom,
-    BorderBottom,
-    BorderRightIntersection,
-    BorderLeftIntersection,
-    Count
-  };
-
   extern const std::array<const char* const*, static_cast<std::size_t>(fsweep::Sprite::Count)>
       SPRITESHEET_XPM_DATA;
-
-  fsweep::Sprite getSpriteFromDigit(fsweep::LcdDigit digit) noexcept;
-
-  fsweep::Sprite getDownButtonSprite(int surrounding_bombs) noexcept;
 }  // namespace fsweep
 #endif

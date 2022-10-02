@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef FSWEEP_MODEL_HPP
-#define FSWEEP_MODEL_HPP
+#ifndef FSWEEP_GAME_MODEL_HPP
+#define FSWEEP_GAME_MODEL_HPP
 
 #include <fsweep/Button.hpp>
 #include <fsweep/GameConfiguration.hpp>
@@ -33,9 +33,9 @@
 
 namespace fsweep
 {
-  struct Model
+  class GameModel
   {
-   private:
+   protected:
     std::vector<fsweep::Button> buttons =
         std::vector<fsweep::Button>(fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE *
                                     fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL);
@@ -43,13 +43,15 @@ namespace fsweep
     fsweep::GameState game_state = fsweep::GameState::Default;
     bool questions_enabled = false;
     int flag_count = 0;
-    int buttons_left = 0;
+    int buttons_left = (fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE *
+                        fsweep::GameConfiguration::BEGINNER_BUTTONS_TALL) -
+                       fsweep::GameConfiguration::BEGINNER_BOMB_COUNT;
     unsigned long game_time = 0;
     std::random_device rnd = std::random_device();
     std::mt19937 rng = std::mt19937(rnd());
     std::vector<fsweep::ButtonPosition> flood_fill_stack = std::vector<fsweep::ButtonPosition>();
 
-   private:
+   protected:
     fsweep::Button& getButton(int x, int y);
     void pressButton(int x, int y);
     void floodFillClick(int x, int y);
@@ -62,25 +64,25 @@ namespace fsweep
     void tryWin() noexcept;
 
    public:
-    Model() noexcept;
-    Model(fsweep::GameConfiguration game_configuration, bool questions_enabled,
-          fsweep::GameState game_state, int game_time, std::string_view button_string);
+    GameModel() noexcept = default;
+    GameModel(fsweep::GameConfiguration game_configuration, bool questions_enabled,
+              fsweep::GameState game_state, int game_time, std::string_view button_string);
 
     void NewGame();
     void NewGame(fsweep::GameConfiguration game_configuration);
     void ClickButton(int x, int y);
     void AltClickButton(int x, int y);
     void AreaClickButton(int x, int y);
-    void UpdateTime(unsigned long delta_time);
     void SetQuestionsEnabled(bool questions_enabled);
-
     bool GetQuestionsEnabled() const noexcept;
     int GetFlagCount() const noexcept;
     int GetBombsLeft() const noexcept;
     int GetButtonsLeft() const noexcept;
+    void UpdateTime(unsigned int game_time);
     fsweep::GameState GetGameState() const noexcept;
     fsweep::GameConfiguration GetGameConfiguration() const noexcept;
     unsigned long GetGameTime() const noexcept;
+    unsigned long GetTimerSeconds() const noexcept;
     const fsweep::Button& GetButton(int x, int y) const;
     const std::vector<fsweep::Button>& GetButtons() const noexcept;
   };

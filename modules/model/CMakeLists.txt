@@ -16,9 +16,11 @@
 
 set(FSWEEP_MODEL_SOURCE_FILES
     "Button.cpp"
+    "DesktopModel.cpp"
     "GameConfiguration.cpp"
+    "GameModel.cpp"
     "LcdNumber.cpp"
-    "Model.cpp"
+    "Sprite.cpp"
 )
 list(
     TRANSFORM FSWEEP_MODEL_SOURCE_FILES
@@ -31,12 +33,16 @@ set(FSWEEP_MODEL_INCLUDE_FILES
     "Button.hpp"
     "ButtonPosition.hpp"
     "ButtonState.hpp"
+    "DesktopModel.hpp"
     "GameConfiguration.hpp"
     "GameDifficulty.hpp"
+    "GameModel.hpp"
     "GameState.hpp"
     "LcdDigit.hpp"
     "LcdNumber.hpp"
-    "Model.hpp"
+    "Point.hpp"
+    "Sprite.hpp"
+    "Timer.hpp"
 )
 list(
     TRANSFORM FSWEEP_MODEL_INCLUDE_FILES
@@ -60,7 +66,7 @@ target_include_directories(fsweep_model
 )
 target_link_libraries(fsweep_model
     PUBLIC
-    	fsweep::generated
+        fsweep::generated
 )
 set_target_properties(fsweep_model
     PROPERTIES
