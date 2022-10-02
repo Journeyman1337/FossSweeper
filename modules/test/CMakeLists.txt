@@ -34,6 +34,8 @@ set(FSWEEP_TEST_SOURCES
     "game_configuration_test.cpp"
     "lcd_number_test.cpp"
     "game_model_test.cpp"
+    "TestTimer.cpp"
+    "TestTimer.hpp"
 )
 list(
     TRANSFORM FSWEEP_TEST_SOURCES
