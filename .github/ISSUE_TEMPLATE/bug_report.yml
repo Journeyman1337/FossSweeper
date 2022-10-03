@@ -29,7 +29,7 @@ body:
     id: steps
     attributes:
       label: Steps
-      description: If reproducable, what steps do you need to take to reproduce this problem?
+      description: What steps do you need to take to reproduce this problem?
       placeholder: |
         1. Do something
         2. Do something else
@@ -56,7 +56,7 @@ body:
     id: fosssweeper-version
     attributes:
       label: FossSweeper Version or Hash
-      description: What version of FossSweeper were you using when the bug occured? You can find the version number in the About dialog, which you can access from the help drop down menu. Click the "copy version" button and paste it here. You can find the git short hash in the About dialog along side the version. Click the "copy hash" button and paste it here.
+      description: What version of FossSweeper were you using when the bug occured? You can find the version number and the git short hash in the About dialog, which you can access from the help drop down menu. Click the "copy version" or the "copy hash" button and paste it here.
       placeholder: ex. 1.0.0 or \#91defeec
     validations:
       required: true
