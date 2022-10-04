@@ -26,10 +26,14 @@ body:
 
         Thank you for taking the time to fill out this bug report!
   - type: textarea
-    id: description
+    id: steps
     attributes:
-      label: Bug Description
-      description: Describe the bug. You can attach images and text files by clicking this text area to highlight it and then dragging the files in.
+      label: Steps
+      description: What steps do you need to take to reproduce this problem?
+      placeholder: |
+        1. Do something
+        2. Do something else
+        3. The bug occurs
     validations:
       required: true
   - type: textarea
@@ -48,30 +52,18 @@ body:
       placeholder: I observed that...
     validations:
       required: true
-  - type: textarea
-    id: steps
-    attributes:
-      label: Steps
-      description: If reproducable, what steps do you need to take to reproduce this problem?
-      placeholder: |
-        1. Do something
-        2. Do something else
-        3. The bug occurs
-    validations:
-      required: false
   - type: input
     id: fosssweeper-version
     attributes:
-      label: FossSweeper Version
-      description: What version of FossSweeper were you using when the bug occured? You can find the version number in the About dialog, which you can access from the help drop down menu. Click the "copy version" button and paste it here.
+      label: FossSweeper Version or Hash
+      description: What version of FossSweeper were you using when the bug occured? You can find the version number and the git short hash in the About dialog, which you can access from the help drop down menu. Click the "Copy Version" and paste it here.
       placeholder: ex. 1.0.0
     validations:
       required: true
   - type: input
-    id: fosssweeper-hash
     attributes:
       label: FossSweeper Hash
-      description: What is the git short hash of FossSweeper build you are using? You can find this in the About dialog along side the version. Click the "copy hash" button and paste it here.
+      description: What is the hash of the FossSweeper build that you were using when the bug occured? You can find the hash in the About dialog along side the version. Click the "Copy Hash" button and paste it here.
       placeholder: ex. \#91defeec
     validations:
       required: true
@@ -83,36 +75,16 @@ body:
       placeholder: ex. Windows 10, macOS Mojave, Linux Mint 21, etc
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: linux-desktop
     attributes:
-      label: Linux Desktop
-      description: If using Linux, what desktop do you use?
-      placeholder: ex. Mate 1.26, GNOME 42, KDE Plasma 5, etc
-    validations:
-      required: false
-  - type: input
-    id: linux-theme
-    attributes:
-      label: Linux Desktop Theme
-      description: If using Linux, what desktop theme do you use?
-      placeholder: ex. Adwaita, Nordic, Macuntu, etc
-    validations:
-      required: false
-  - type: input
-    id: linux-gtk-version
-    attributes:
-      label: Linux GTK Version
-      description: If using Linux, what version of GTK do you have on your machine? You can use the bash command `gtk-launch --version` to get this.
-      placeholder: ex. 3.24.34
-    validations:
-      required: false
-  - type: input
-    id: linux-gdk-version
-    attributes:
-      label: Linux GDK
-      description: If using Linux, what GDK do you use?
-      placeholder: ex. Wayland, Xorg
+      label: Linux Details
+      description: If using Linux, please list your desktop, desktop theme, GTK version and GDK.
+      placeholder: |
+        Desktop: ex. Mate 1.26, GNOME 42, KDE Plasma 5, etc
+        Desktop theme: ex. Adwaita, Nordic, Macuntu, etc
+        GTK version: ex. 3.24.34
+        GDK: ex. Wayland, Xorg
     validations:
       required: false
   - type: input
