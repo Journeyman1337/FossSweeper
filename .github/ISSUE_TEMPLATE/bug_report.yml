@@ -55,8 +55,8 @@ body:
   - type: input
     id: fosssweeper-version
     attributes:
-      label: FossSweeper Version or Hash
-      description: What version of FossSweeper were you using when the bug occured? You can find the version number and the git short hash in the About dialog, which you can access from the help drop down menu. Click the "Copy Version" and paste it here.
+      label: FossSweeper Version
+      description: What version of FossSweeper were you using when the bug occured? You can find the version number in the About dialog, which you can access from the help drop down menu. Click the "Copy Version" and paste it here.
       placeholder: ex. 1.0.0
     validations:
       required: true
