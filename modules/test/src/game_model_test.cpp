@@ -462,9 +462,9 @@ SCENARIO("A Button of a GameModel is alt clicked")
     {
       game_model.AltClickButton(0, 0);
 
-      THEN("The state of the Button at (0, 0) is None")
+      THEN("The state of the Button at (0, 0) is Flagged")
       {
-        CHECK(game_model.GetButton(0, 0).GetButtonState() == fsweep::ButtonState::None);
+        CHECK(game_model.GetButton(0, 0).GetButtonState() == fsweep::ButtonState::Flagged);
       }
 
       THEN("The Button at (0, 0) has no bomb")
