@@ -305,7 +305,7 @@ void fsweep::GameModel::ClickButton(int x, int y)
 
 void fsweep::GameModel::AltClickButton(int x, int y)
 {
-  if (this->game_state != fsweep::GameState::Playing) return;
+  if (this->game_state == fsweep::GameState::Dead || this->game_state == fsweep::GameState::Cool) return;
   auto& button = this->getButton(x, y);
   if (button.GetButtonState() == fsweep::ButtonState::Flagged)
   {
