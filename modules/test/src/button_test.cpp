@@ -117,7 +117,7 @@ SCENARIO("A Button is constructed with its char constructor")
   }
 }
 
-SCENARIO("A Button is pressed")
+SCENARIO("A Button is pressed and unpressed")
 {
   GIVEN("A Button")
   {
@@ -132,6 +132,16 @@ SCENARIO("A Button is pressed")
       THEN("The ButtonState is Down")
       {
         CHECK(button.GetButtonState() == fsweep::ButtonState::Down);
+      }
+
+      WHEN("The button is unpressed")
+      {
+        button.Unpress();
+
+        THEN("The ButtonState is None")
+        {
+          CHECK(button.GetButtonState() == fsweep::ButtonState::None);
+        }
       }
     }
   }
