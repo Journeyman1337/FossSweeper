@@ -192,11 +192,13 @@ void fsweep::GameModel::placeBombs(int initial_x, int initial_y)
   const auto bomb_count = this->game_configuration.GetBombCount();
   for (auto& button : this->buttons)
   {
-    button = fsweep::Button();
+    button.SetHasBomb(false);
+    button.Unpress();
   }
+  std::vector<bool> bombs(this->game_configuration.GetButtonCount());
   for (std::size_t button_i = 0; button_i < bomb_count; button_i++)
   {
-    this->buttons[button_i].SetHasBomb(true);
+    bombs[button_i] = true;
   }
   if (bomb_count == this->buttons.size())
   {
@@ -211,9 +213,24 @@ void fsweep::GameModel::placeBombs(int initial_x, int initial_y)
   for (std::size_t button_i = 0; button_i <= last_minable_button_i; button_i++)
   {
     const std::size_t swap_i = static_cast<std::size_t>(distributor(this->rng));
-    std::swap(this->buttons[button_i], this->buttons[swap_i]);
+    // vector of bool are weird, std::swap doesn't work.
+    bool temp = bombs[button_i];
+    bombs[button_i] = bombs[swap_i];
+    bombs[swap_i] = temp;
   }
-  std::swap(this->getButton(initial_x, initial_y), this->buttons.back());
+  const fsweep::ButtonPosition initial_position(initial_x, initial_y);
+  const std::size_t initial_i = initial_position.GetIndex(this->game_configuration.GetButtonsWide());
+  const std::size_t swap_i = bombs.size() - 1;
+  bool temp = bombs[initial_i];
+  bombs[initial_i] = bombs[swap_i];
+  bombs[swap_i] = temp;
+  for (std::size_t button_i = 0; button_i < this->buttons.size(); button_i++)
+  {
+    if (bombs[button_i])
+    {
+      this->buttons[button_i].SetHasBomb(true);
+    }
+  }
   this->calculateSurroundingBombs();
 }
 
