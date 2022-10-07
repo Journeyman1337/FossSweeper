@@ -285,11 +285,7 @@ void fsweep::GameModel::NewGame(fsweep::GameConfiguration game_configuration)
     const std::size_t button_count = game_configuration.GetButtonCount();
     this->game_configuration = game_configuration;
     this->buttons.clear();
-    this->buttons.reserve(button_count);
-    for (auto button_i = 0; button_i < button_count; button_i++)
-    {
-      this->buttons.emplace_back();
-    }
+    this->buttons.resize(button_count);
     this->flood_fill_stack.reserve(button_count);
     this->game_time = 0;
     this->game_state = fsweep::GameState::None;
@@ -337,7 +333,7 @@ void fsweep::GameModel::AltClickButton(int x, int y)
 
 void fsweep::GameModel::AreaClickButton(int x, int y)
 {
-  if (this->game_state != fsweep::GameState::Playing) return;
+  if (this->game_state == fsweep::GameState::Dead || this->game_state == fsweep::GameState::Cool) return;
   if (!this->choordingPossible(x, y)) return;
   const auto buttons_wide = this->game_configuration.GetButtonsWide();
   const auto buttons_tall = this->game_configuration.GetButtonsTall();
