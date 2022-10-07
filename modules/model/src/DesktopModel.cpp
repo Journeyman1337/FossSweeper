@@ -106,7 +106,7 @@ void fsweep::DesktopModel::RightRelease()
 {
   auto& game_model = this->game_model.get();
   this->right_down = false;
-  if (this->left_down && game_model.GetGameState() == fsweep::GameState::Playing)
+  if (this->left_down && game_model.GetGameState() == fsweep::GameState::None || game_model.GetGameState() == fsweep::GameState::Playing)
   {
     this->buttons_locked = true;
     if (this->hover_button_o.has_value())
