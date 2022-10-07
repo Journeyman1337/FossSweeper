@@ -303,6 +303,8 @@ void fsweep::GameModel::ClickButton(int x, int y)
 {
   if (this->game_state != fsweep::GameState::Playing && this->game_state != fsweep::GameState::None)
     return;
+  const auto& button = this->getButton(x, y);
+  if (button.GetButtonState() == fsweep::ButtonState::Flagged) return;
   if (this->game_state == fsweep::GameState::None)
   {
     this->placeBombs(x, y);
