@@ -250,7 +250,10 @@ void fsweep::GameModel::tryWin() noexcept
 
 void fsweep::GameModel::NewGame()
 {
-  std::fill(this->buttons.begin(), this->buttons.end(), fsweep::Button());
+  if (this->game_state != fsweep::GameState::None)
+  {
+    std::fill(this->buttons.begin(), this->buttons.end(), fsweep::Button());
+  }
   this->game_time = 0;
   this->game_state = fsweep::GameState::None;
   this->flag_count = 0;
