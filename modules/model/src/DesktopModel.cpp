@@ -233,8 +233,7 @@ fsweep::Sprite fsweep::DesktopModel::GetButtonSprite(int x, int y) const noexcep
     {
       const auto& hover_button = this->hover_button_o.value();
       if ((hover_button == button_position) ||
-          (game_model.GetGameState() == fsweep::GameState::Playing && this->right_down &&
-           hover_button.IsNear(button_position)))
+          (this->right_down && hover_button.IsNear(button_position)))
       {
         if (fsweep::ButtonState() == fsweep::ButtonState::Questioned)
         {
