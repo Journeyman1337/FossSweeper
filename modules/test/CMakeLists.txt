@@ -32,17 +32,7 @@ target_include_directories(fsweep_test_auto
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
-target_sources(fsweep_test_auto
-    PRIVATE
-        "button_position_test.cpp"
-        "button_test.cpp"
-        "desktop_model_test.cpp"
-        "game_configuration_test.cpp"
-        "lcd_number_test.cpp"
-        "game_model_test.cpp"
-        "TestTimer.cpp"
-        "TestTimer.hpp"
-)
+add_subdirectory(src)
 target_link_libraries(fsweep_test_auto
     PRIVATE
         Catch2::Catch2WithMain

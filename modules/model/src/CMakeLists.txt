@@ -1,0 +1,9 @@
+target_sources(fsweep_model
+    PRIVATE
+        "Button.cpp"
+        "DesktopModel.cpp"
+        "GameConfiguration.cpp"
+        "GameModel.cpp"
+        "LcdNumber.cpp"
+        "Sprite.cpp"
+)

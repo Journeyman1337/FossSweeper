@@ -22,28 +22,7 @@ target_include_directories(fsweep_model
     PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/include/"
 )
-target_sources(fsweep_model
-    PRIVATE
-        "Button.cpp"
-        "DesktopModel.cpp"
-        "GameConfiguration.cpp"
-        "GameModel.cpp"
-        "LcdNumber.cpp"
-        "Sprite.cpp"
-        "Button.hpp"
-        "ButtonPosition.hpp"
-        "ButtonState.hpp"
-        "DesktopModel.hpp"
-        "GameConfiguration.hpp"
-        "GameDifficulty.hpp"
-        "GameModel.hpp"
-        "GameState.hpp"
-        "LcdDigit.hpp"
-        "LcdNumber.hpp"
-        "Point.hpp"
-        "Sprite.hpp"
-        "Timer.hpp"
-)
+add_subdirectory(src)
 target_link_libraries(fsweep_model
     PUBLIC
         fsweep::generated

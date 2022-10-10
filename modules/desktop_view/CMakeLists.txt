@@ -15,71 +15,14 @@
 # 
 
 add_executable(fsweep_desktop_view WIN32 MACOSX_BUNDLE "")
-if(WIN32)
-    target_sources(fsweep_desktop_view
-        PRIVATE
-            "fosssweeper.rc"
-    )
-elseif(APPLE)
-    add_executable(fsweep_desktop_view MACOSX_BUNDLE ""  )
-    set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.icns"
-        PROPERTIES
-            MACOSX_PACKAGE_LOCATION "Resources"
-    )
-    set_target_properties(fsweep_desktop_view PROPERTIES
-              MACOSX_BUNDLE_BUNDLE_NAME "FossSweeper"
-              MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-              MACOSX_BUNDLE_INFO_STRING "An open source clone of a popular mine avoidance game."
-              MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
-              MACOSX_BUNDLE_LONG_VERSION_STRING ${PROJECT_VERSION}
-              MACOSX_BUNDLE_ICON_FILE "fosssweeper.icns"
-              MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/rc/osxbundle.plist.in"
-    )
-    target_sources(fsweep_desktop_view
-        PRIVATE
-            "fosssweeper.icns"
-    )
-elseif(UNIX)
-    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop.in" "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop")
-        target_sources(fsweep_desktop_view
-        PRIVATE
-            "fosssweeper.desktop"
-    )
-else()
-    message(FATAL_ERROR "Unsupported platform for fsweep::desktop_view.")
-endif()
+
 target_include_directories(fsweep_desktop_view
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src/"
         "${FSWEEP_CMAKE_SOURCE_DIR}/extern/wxWidgets/include"
 )
-target_sources(fsweep_desktop_view
-    PUBLIC
-        "AboutDialog.cpp"
-        "ConfigDialog.cpp"
-        "DesktopApp.cpp"
-        "DesktopTimer.cpp"
-        "DesktopView.cpp"
-        "GameFrame.cpp"
-        "GamePanel.cpp"
-        "icon.cpp"
-        "main.cpp"
-        "PixelScaleDialog.cpp"
-        "spritesheet.cpp"
-        "TextDialog.cpp"
-        "AboutDialog.hpp"
-        "DesktopApp.hpp"
-        "DesktopTimer.hpp"
-        "DesktopView.hpp"
-        "GameFrame.hpp"
-        "GamePanel.hpp"
-        "GamePanelState.hpp"
-        "icon.hpp"
-        "PixelScaleDialog.hpp"
-        "spritesheet.hpp"
-        "TextDialog.hpp"
-        "wx_include.hpp"
-)
+add_subdirectory(src)
+add_subdirectory(rc)
 target_link_libraries(fsweep_desktop_view
     PUBLIC
         fsweep::generated
@@ -88,7 +31,6 @@ target_link_libraries(fsweep_desktop_view
         wx::core
         wx::base
 )
-
 set_target_properties(fsweep_desktop_view
     PROPERTIES
     OUTPUT_NAME "FossSweeper"

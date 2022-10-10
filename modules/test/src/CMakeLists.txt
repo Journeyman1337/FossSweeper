@@ -1,0 +1,11 @@
+target_sources(fsweep_test_auto
+    PRIVATE
+        "button_position_test.cpp"
+        "button_test.cpp"
+        "desktop_model_test.cpp"
+        "game_configuration_test.cpp"
+        "lcd_number_test.cpp"
+        "game_model_test.cpp"
+        "TestTimer.cpp"
+        "TestTimer.hpp"
+)

@@ -49,15 +49,7 @@ target_include_directories(fsweep_generated
     PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/include/"
 )
-target_sources(fsweep_generated
-    PRIVATE
-        "credits.cpp"
-        "license.cpp"
-        "credits.hpp"
-        "license.hpp"
-        "short_hash.hpp"
-        "version.hpp"
-)
+add_subdirectory(src)
 add_dependencies(fsweep_generated fsweep_short_hash_check)
 set_target_properties(fsweep_generated
     PROPERTIES
