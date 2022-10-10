@@ -14,22 +14,30 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-add_library(fsweep_model STATIC "")
-add_library(fsweep::model ALIAS fsweep_model)
-target_include_directories(fsweep_model
+target_sources(fsweep_desktop_view
     PRIVATE
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/"
-    PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/"
-)
-add_subdirectory(src)
-target_link_libraries(fsweep_model
-    PUBLIC
-        fsweep::generated
-)
-set_target_properties(fsweep_model
-    PROPERTIES
-    OUTPUT_NAME "fsweepmodel"
-    CXX_STANDARD ${FSWEEP_CXX_STANDARD}
-    CXX_STANDARD_REQUIRED TRUE
+        "AboutDialog.cpp"
+        "ConfigDialog.cpp"
+        "DesktopApp.cpp"
+        "DesktopTimer.cpp"
+        "DesktopView.cpp"
+        "GameFrame.cpp"
+        "GamePanel.cpp"
+        "icon.cpp"
+        "main.cpp"
+        "PixelScaleDialog.cpp"
+        "spritesheet.cpp"
+        "TextDialog.cpp"
+        "AboutDialog.hpp"
+        "DesktopApp.hpp"
+        "DesktopTimer.hpp"
+        "DesktopView.hpp"
+        "GameFrame.hpp"
+        "GamePanel.hpp"
+        "GamePanelState.hpp"
+        "icon.hpp"
+        "PixelScaleDialog.hpp"
+        "spritesheet.hpp"
+        "TextDialog.hpp"
+        "wx_include.hpp"
 )

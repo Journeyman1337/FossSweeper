@@ -14,22 +14,14 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-add_library(fsweep_model STATIC "")
-add_library(fsweep::model ALIAS fsweep_model)
-target_include_directories(fsweep_model
+target_sources(fsweep_test_auto
     PRIVATE
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/"
-    PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/"
-)
-add_subdirectory(src)
-target_link_libraries(fsweep_model
-    PUBLIC
-        fsweep::generated
-)
-set_target_properties(fsweep_model
-    PROPERTIES
-    OUTPUT_NAME "fsweepmodel"
-    CXX_STANDARD ${FSWEEP_CXX_STANDARD}
-    CXX_STANDARD_REQUIRED TRUE
+        "button_position_test.cpp"
+        "button_test.cpp"
+        "desktop_model_test.cpp"
+        "game_configuration_test.cpp"
+        "lcd_number_test.cpp"
+        "game_model_test.cpp"
+        "TestTimer.cpp"
+        "TestTimer.hpp"
 )

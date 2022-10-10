@@ -28,6 +28,7 @@ const int TIMER_INTERVAL = MILLISECONDS_PER_SECOND / 15;
 
 #include <cstddef>
 #include <fsweep/Sprite.hpp>
+#include <fsweep/DesktopModel.hpp>
 #include <functional>
 #include <optional>
 

@@ -26,10 +26,12 @@
 #include <fsweep/Button.hpp>
 #include <fsweep/GameConfiguration.hpp>
 #include <fsweep/GameState.hpp>
+#include <fsweep/ButtonPosition.hpp>
 #include <functional>
 #include <random>
 #include <stack>
 #include <string>
+#include <vector>
 
 namespace fsweep
 {

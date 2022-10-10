@@ -41,43 +41,15 @@ embed_string("FSWEEP_LICENSE_TEXT" "${FSWEEP_CMAKE_SOURCE_DIR}/COPYING" "${CMAKE
 embed_string("FSWEEP_CREDITS_TEXT" "${FSWEEP_CMAKE_SOURCE_DIR}/CREDITS" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp.in" "${CMAKE_CURRENT_SOURCE_DIR}/src/credits.cpp")
 
 # setup library target
-set(FSWEEP_GENERATED_SOURCE_FILES
-    "credits.cpp"
-    "license.cpp"
-)
-list(
-    TRANSFORM FSWEEP_GENERATED_SOURCE_FILES
-    PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/"
-)
-source_group("sources"
-    FILES ${FSWEEP_GENERATED_SOURCE_FILES}
-)
-set(FSWEEP_GENERATED_INCLUDE_FILES
-    "credits.hpp"
-    "license.hpp"
-    "short_hash.hpp"
-    "version.hpp"
-)
-list(
-    TRANSFORM FSWEEP_GENERATED_INCLUDE_FILES
-    PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/include/fsweep/"
-)
-source_group("includes"
-    FILES ${FSWEEP_GENERATED_INCLUDE_FILES}
-)
-add_library(fsweep_generated STATIC
-    ${FSWEEP_GENERATED_SOURCE_FILES}
-    ${FSWEEP_GENERATED_INCLUDE_FILES}
-)
+add_library(fsweep_generated STATIC "")
 add_library(fsweep::generated ALIAS fsweep_generated)
-target_precompile_headers(fsweep_generated
-    PUBLIC
-        ${FSWEEP_GENERATED_INCLUDE_FILES}
-)
 target_include_directories(fsweep_generated
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/"
     PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/include/"
 )
+add_subdirectory(src)
 add_dependencies(fsweep_generated fsweep_short_hash_check)
 set_target_properties(fsweep_generated
     PROPERTIES
