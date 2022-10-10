@@ -20,7 +20,7 @@
  *
  */
 
-#include <cmath>
+#include <algorithm>
 #include <fsweep/GameConfiguration.hpp>
 
 const int fsweep::GameConfiguration::BEGINNER_BUTTONS_WIDE = 8;

@@ -28,6 +28,7 @@
 #include <fsweep/credits.hpp>
 #include <fsweep/license.hpp>
 #include <fsweep/version.hpp>
+#include <fsweep/short_hash.hpp>
 #include <sstream>
 
 #include "TextDialog.hpp"
