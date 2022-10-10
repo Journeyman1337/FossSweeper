@@ -15,7 +15,6 @@
 # 
 
 add_executable(fsweep_desktop_view WIN32 MACOSX_BUNDLE "")
-
 target_include_directories(fsweep_desktop_view
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src/"
