@@ -14,8 +14,20 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
+if(NOT FSWEEP_MONOLITHIC)
+    find_package(wxWidgets CONFIG REQUIRED)
+else()
+    Include(FetchContent)
+    FetchContent_Declare(
+      wxWidgets
+      GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets
+      GIT_TAG        v3.2.1
+    )
+    set(wxBUILD_SHARED FALSE)
+    set(wxBUILD_INSTALL FALSE)
+    FetchContent_MakeAvailable(wxWidgets)
+endif()
 add_executable(fsweep_desktop_view WIN32 MACOSX_BUNDLE "")
-
 target_include_directories(fsweep_desktop_view
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src/"

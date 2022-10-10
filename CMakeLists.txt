@@ -38,8 +38,4 @@ option(FSWEEP_BUILD_DESKTOP "Build the desktop application." ON)
 option(FSWEEP_BUILD_TESTS "Enable the automatic test framework." ON)
 option(FSWEEP_INSTALL_DESKTOP "Install the desktop application using CPack." ON)
 
-if (FSWEEP_MONOLITHIC)
-    add_subdirectory(extern)
-endif()
-
 add_subdirectory(modules)
