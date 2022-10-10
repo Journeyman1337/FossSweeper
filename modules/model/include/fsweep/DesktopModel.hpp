@@ -42,7 +42,6 @@ namespace fsweep
     std::optional<fsweep::ButtonPosition> hover_button_o = std::nullopt;
     bool left_down = false;
     bool right_down = false;
-    bool buttons_locked = false;
     bool hover_face = false;
     int pixel_scale = 1;
 
