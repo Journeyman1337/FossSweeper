@@ -1,5 +1,5 @@
 target_sources(fsweep_desktop_view
-    PUBLIC
+    PRIVATE
         "AboutDialog.cpp"
         "ConfigDialog.cpp"
         "DesktopApp.cpp"
