@@ -20,7 +20,6 @@ if(WIN32)
             "fosssweeper.rc"
     )
 elseif(APPLE)
-    add_executable(fsweep_desktop_view MACOSX_BUNDLE ""  )
     set_source_files_properties("$fosssweeper.icns"
         PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources"
