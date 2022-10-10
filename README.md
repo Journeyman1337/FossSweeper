@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2022 Daniel Valcour <fosssweeper@gmail.com>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
-# FossSweeper
+![#FossSweeper](https://user-images.githubusercontent.com/60055347/194952126-d8ccd2b9-b60e-4564-accc-dbe554255e1c.png)
 
 [![Tests](https://github.com/Journeyman-dev/FossSweeper/actions/workflows/Tests.yaml/badge.svg)](https://github.com/Journeyman-dev/FossSweeper/actions/workflows/Tests.yaml) [![REUSE status](https://api.reuse.software/badge/git.fsfe.org/reuse/api)](https://api.reuse.software/info/git.fsfe.org/reuse/api)
 
