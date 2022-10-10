@@ -12,7 +12,7 @@ FossSweeper is an open source clone of a popular mine avoidance game. The entire
 
 ## How to Download
 
-You can get the latest verison of FossSweeper from the [Releases page](https://github.com/Journeyman-dev/FossSweeper/releases) of this GitHub repostiroy. FossSweeper is currently in beta, and your feedback is greatly appreciated at this time.
+You can get the latest verison of FossSweeper from the [Releases page](https://github.com/Journeyman-dev/FossSweeper/releases) of this GitHub repostiroy. You can also find it on [itch.io](https://journeyman-dev.itch.io/fosssweeper).
 
 ## How to Contribute
 
