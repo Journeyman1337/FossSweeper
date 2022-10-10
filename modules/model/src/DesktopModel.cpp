@@ -99,14 +99,6 @@ void fsweep::DesktopModel::RightRelease()
 {
   auto& game_model = this->game_model.get();
   this->right_down = false;
-  if (this->left_down && game_model.GetGameState() == fsweep::GameState::None || game_model.GetGameState() == fsweep::GameState::Playing)
-  {
-    if (this->hover_button_o.has_value())
-    {
-      auto& hover_button = this->hover_button_o.value();
-      game_model.AreaClickButton(hover_button.x, hover_button.y);
-    }
-  }
 }
 
 void fsweep::DesktopModel::MouseLeave() { this->hover_button_o = std::nullopt; }
