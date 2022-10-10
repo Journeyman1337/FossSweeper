@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.24.1)
 
 project(
     fosssweeper

@@ -14,64 +14,15 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-set(FSWEEP_DESKTOP_SOURCES
-    "AboutDialog.cpp"
-    "AboutDialog.hpp"
-    "ConfigDialog.cpp"
-    "ConfigDialog.hpp"
-    "DesktopApp.cpp"
-    "DesktopApp.hpp"
-    "DesktopTimer.cpp"
-    "DesktopTimer.hpp"
-    "DesktopView.cpp"
-    "DesktopView.hpp"
-    "GameFrame.cpp"
-    "GameFrame.hpp"
-    "GamePanel.cpp"
-    "GamePanel.hpp"
-    "GamePanelState.hpp"
-    "icon.cpp"
-    "icon.hpp"
-    "main.cpp"
-    "PixelScaleDialog.cpp"
-    "PixelScaleDialog.hpp"
-    "spritesheet.cpp"
-    "spritesheet.hpp"
-    "TextDialog.cpp"
-    "TextDialog.hpp"
-    "wx_include.hpp"
-)
-list(
-    TRANSFORM FSWEEP_DESKTOP_SOURCES
-    PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/")
-source_group("sources"
-    FILES ${FSWEEP_DESKTOP_SOURCES}
-)
-if (WIN32)
-    # windows resource file with the file icon for the exe
-    set(FSWEEP_DESKTOP_RESOURCES
-        "fosssweeper.rc"
-    )
-    list(
-        TRANSFORM FSWEEP_DESKTOP_RESOURCES
-        PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/rc/")
-    source_group("resources"
-        FILES ${FSWEEP_DESKTOP_RESOURCES}
-    )
-    # wxWidgets requires main to be WinMain in Win32
-    add_executable(fsweep_desktop_view WIN32
-        ${FSWEEP_DESKTOP_SOURCES}
-        ${FSWEEP_DESKTOP_RESOURCES}
+add_executable(fsweep_desktop_view WIN32 MACOSX_BUNDLE "")
+if(WIN32)
+    target_sources(fsweep_desktop_view
+        PRIVATE
+            "fosssweeper.rc"
     )
 elseif(APPLE)
-    set(FSWEEP_MACOSX_BUNDLE_ICON_FILE "fosssweeper.icns")
-    set(FSWEEP_DESKTOP_OSX_ICON "${CMAKE_CURRENT_SOURCE_DIR}/rc/${FSWEEP_MACOSX_BUNDLE_ICON_FILE}")
-
-    add_executable(fsweep_desktop_view MACOSX_BUNDLE
-        ${FSWEEP_DESKTOP_SOURCES}
-        ${FSWEEP_DESKTOP_OSX_ICON}
-    )
-    set_source_files_properties(FSWEEP_DESKTOP_OSX_ICON 
+    add_executable(fsweep_desktop_view MACOSX_BUNDLE ""  )
+    set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.icns"
         PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources"
     )
@@ -81,16 +32,54 @@ elseif(APPLE)
               MACOSX_BUNDLE_INFO_STRING "An open source clone of a popular mine avoidance game."
               MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
               MACOSX_BUNDLE_LONG_VERSION_STRING ${PROJECT_VERSION}
-              MACOSX_BUNDLE_ICON_FILE "${FSWEEP_MACOSX_BUNDLE_ICON_FILE}"
+              MACOSX_BUNDLE_ICON_FILE "fosssweeper.icns"
               MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/rc/osxbundle.plist.in"
     )
+    target_sources(fsweep_desktop_view
+        PRIVATE
+            "fosssweeper.icns"
+    )
 elseif(UNIX)
-    add_executable(fsweep_desktop_view
-        ${FSWEEP_DESKTOP_SOURCES}
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop.in" "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop")
+        target_sources(fsweep_desktop_view
+        PRIVATE
+            "fosssweeper.desktop"
     )
 else()
     message(FATAL_ERROR "Unsupported platform for fsweep::desktop_view.")
 endif()
+target_include_directories(fsweep_desktop_view
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/"
+        "${FSWEEP_CMAKE_SOURCE_DIR}/extern/wxWidgets/include"
+)
+target_sources(fsweep_desktop_view
+    PUBLIC
+        "AboutDialog.cpp"
+        "ConfigDialog.cpp"
+        "DesktopApp.cpp"
+        "DesktopTimer.cpp"
+        "DesktopView.cpp"
+        "GameFrame.cpp"
+        "GamePanel.cpp"
+        "icon.cpp"
+        "main.cpp"
+        "PixelScaleDialog.cpp"
+        "spritesheet.cpp"
+        "TextDialog.cpp"
+        "AboutDialog.hpp"
+        "DesktopApp.hpp"
+        "DesktopTimer.hpp"
+        "DesktopView.hpp"
+        "GameFrame.hpp"
+        "GamePanel.hpp"
+        "GamePanelState.hpp"
+        "icon.hpp"
+        "PixelScaleDialog.hpp"
+        "spritesheet.hpp"
+        "TextDialog.hpp"
+        "wx_include.hpp"
+)
 target_link_libraries(fsweep_desktop_view
     PUBLIC
         fsweep::generated
@@ -99,10 +88,7 @@ target_link_libraries(fsweep_desktop_view
         wx::core
         wx::base
 )
-target_include_directories(fsweep_desktop_view
-    PUBLIC
-        "${FSWEEP_CMAKE_SOURCE_DIR}/extern/wxWidgets/include"
-)
+
 set_target_properties(fsweep_desktop_view
     PROPERTIES
     OUTPUT_NAME "FossSweeper"
@@ -115,7 +101,6 @@ if(FSWEEP_INSTALL_DESKTOP)
     install(FILES "${FSWEEP_CMAKE_SOURCE_DIR}/COPYING" DESTINATION ${CMAKE_INSTALL_BINDIR})
     if(UNIX AND NOT APPLE)
       install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/16x16/apps")
-      configure_file("${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop.in" "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop")
       install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/rc/fosssweeper.desktop" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
     elseif(APPLE)
         string(APPEND CMAKE_INSTALL_PREFIX "FossSweeper.app/Contents")

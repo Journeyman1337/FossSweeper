@@ -27,38 +27,33 @@ else()
 
     FetchContent_MakeAvailable(Catch2)
 endif()
-
-set(FSWEEP_TEST_SOURCES
-    "button_position_test.cpp"
-    "button_test.cpp"
-    "desktop_model_test.cpp"
-    "game_configuration_test.cpp"
-    "lcd_number_test.cpp"
-    "game_model_test.cpp"
-    "TestTimer.cpp"
-    "TestTimer.hpp"
+add_executable(fsweep_test_auto "")
+target_include_directories(fsweep_test_auto
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
-list(
-    TRANSFORM FSWEEP_TEST_SOURCES
-    PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/"
-)
-source_group("sources"
-    FILES ${MPBP_TEST_SOURCES}
-)
-add_executable(fsweep_test_auto
-    ${FSWEEP_TEST_SOURCES}
-)
-set_target_properties(fsweep_test_auto
-    PROPERTIES
-    OUTPUT_NAME "fsweep tests"
-    CXX_STANDARD ${FSWEEP_CXX_STANDARD}
-    CXX_STANDARD_REQUIRED TRUE
+target_sources(fsweep_test_auto
+    PRIVATE
+        "button_position_test.cpp"
+        "button_test.cpp"
+        "desktop_model_test.cpp"
+        "game_configuration_test.cpp"
+        "lcd_number_test.cpp"
+        "game_model_test.cpp"
+        "TestTimer.cpp"
+        "TestTimer.hpp"
 )
 target_link_libraries(fsweep_test_auto
     PRIVATE
         Catch2::Catch2WithMain
         fsweep::generated
         fsweep::model
+)
+set_target_properties(fsweep_test_auto
+    PROPERTIES
+    OUTPUT_NAME "fsweep tests"
+    CXX_STANDARD ${FSWEEP_CXX_STANDARD}
+    CXX_STANDARD_REQUIRED TRUE
 )
 include(CTest)
 include(Catch)

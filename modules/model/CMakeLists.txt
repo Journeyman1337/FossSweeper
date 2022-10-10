@@ -14,55 +14,35 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-set(FSWEEP_MODEL_SOURCE_FILES
-    "Button.cpp"
-    "DesktopModel.cpp"
-    "GameConfiguration.cpp"
-    "GameModel.cpp"
-    "LcdNumber.cpp"
-    "Sprite.cpp"
-)
-list(
-    TRANSFORM FSWEEP_MODEL_SOURCE_FILES
-    PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/src/"
-)
-source_group("sources"
-    FILES ${FSWEEP_MODEL_SOURCE_FILES}
-)
-set(FSWEEP_MODEL_INCLUDE_FILES
-    "Button.hpp"
-    "ButtonPosition.hpp"
-    "ButtonState.hpp"
-    "DesktopModel.hpp"
-    "GameConfiguration.hpp"
-    "GameDifficulty.hpp"
-    "GameModel.hpp"
-    "GameState.hpp"
-    "LcdDigit.hpp"
-    "LcdNumber.hpp"
-    "Point.hpp"
-    "Sprite.hpp"
-    "Timer.hpp"
-)
-list(
-    TRANSFORM FSWEEP_MODEL_INCLUDE_FILES
-    PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/include/fsweep/"
-)
-source_group("includes"
-    FILES ${FSWEEP_MODEL_INCLUDE_FILES}
-)
-add_library(fsweep_model STATIC
-    ${FSWEEP_MODEL_SOURCE_FILES}
-    ${FSWEEP_MODEL_INCLUDE_FILES}
-)
+add_library(fsweep_model STATIC "")
 add_library(fsweep::model ALIAS fsweep_model)
-target_precompile_headers(fsweep_model
-    PUBLIC
-        ${FSWEEP_MODEL_INCLUDE_FILES}
-)
 target_include_directories(fsweep_model
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/"
     PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/include/"
+)
+target_sources(fsweep_model
+    PRIVATE
+        "Button.cpp"
+        "DesktopModel.cpp"
+        "GameConfiguration.cpp"
+        "GameModel.cpp"
+        "LcdNumber.cpp"
+        "Sprite.cpp"
+        "Button.hpp"
+        "ButtonPosition.hpp"
+        "ButtonState.hpp"
+        "DesktopModel.hpp"
+        "GameConfiguration.hpp"
+        "GameDifficulty.hpp"
+        "GameModel.hpp"
+        "GameState.hpp"
+        "LcdDigit.hpp"
+        "LcdNumber.hpp"
+        "Point.hpp"
+        "Sprite.hpp"
+        "Timer.hpp"
 )
 target_link_libraries(fsweep_model
     PUBLIC
