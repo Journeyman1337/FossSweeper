@@ -106,7 +106,7 @@ void fsweep::DesktopModel::RightRelease()
 {
   auto& game_model = this->game_model.get();
   this->right_down = false;
-  if (this->left_down && game_model.GetGameState() == fsweep::GameState::Playing)
+  if (this->left_down && game_model.GetGameState() == fsweep::GameState::None || game_model.GetGameState() == fsweep::GameState::Playing)
   {
     this->buttons_locked = true;
     if (this->hover_button_o.has_value())
@@ -233,8 +233,7 @@ fsweep::Sprite fsweep::DesktopModel::GetButtonSprite(int x, int y) const noexcep
     {
       const auto& hover_button = this->hover_button_o.value();
       if ((hover_button == button_position) ||
-          (game_model.GetGameState() == fsweep::GameState::Playing && this->right_down &&
-           hover_button.IsNear(button_position)))
+          (this->right_down && hover_button.IsNear(button_position)))
       {
         if (fsweep::ButtonState() == fsweep::ButtonState::Questioned)
         {
