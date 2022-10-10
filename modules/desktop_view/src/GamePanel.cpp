@@ -79,7 +79,10 @@ void fsweep::GamePanel::OnLeftPress(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.LeftPress();
-  this->CaptureMouse(); // prevents issues when mouse leaves the window on Windows platform
+  if (!this->HasCapture())
+  {
+    this->CaptureMouse(); // prevents issues when mouse leaves the window on Windows platform
+  }
   this->DrawChanged();
 }
 
@@ -87,7 +90,10 @@ void fsweep::GamePanel::OnLeftRelease(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.LeftRelease(this->timer);
-  this->ReleaseMouse(); // undo the CaptureMouse() from the press event
+  if (this->HasCapture())
+  {
+    this->ReleaseMouse(); // undo the CaptureMouse() from the press event
+  }
   this->DrawChanged();
 }
 
@@ -95,7 +101,10 @@ void fsweep::GamePanel::OnRightPress(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.RightPress(this->timer);
-  this->CaptureMouse();
+  if (!this->HasCapture())
+  {
+    this->CaptureMouse();
+  }
   this->DrawChanged();
 }
 
@@ -103,7 +112,10 @@ void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.RightRelease();
-  this->ReleaseMouse();
+  if (this->HasCapture())
+  {
+    this->ReleaseMouse();
+  }
   this->DrawChanged();
 }
 
