@@ -50,39 +50,32 @@ void fsweep::DesktopModel::LeftRelease(fsweep::Timer& timer)
   {
     game_model.UpdateTime(timer.GetGameTime());
   }
-  if (!this->buttons_locked)
+  auto initially_playing = game_model.GetGameState() == fsweep::GameState::Playing;
+  if (this->hover_button_o.has_value())
   {
-    auto initially_playing = game_model.GetGameState() == fsweep::GameState::Playing;
-    if (this->hover_button_o.has_value())
+    auto& hover_button = this->hover_button_o.value();
+    if (this->right_down)
     {
-      auto& hover_button = this->hover_button_o.value();
-      if (this->right_down)
-      {
-        game_model.AreaClickButton(hover_button.x, hover_button.y);
-      }
-      else
-      {
-        game_model.ClickButton(hover_button.x, hover_button.y);
-      }
-      if (game_model.GetGameState() == fsweep::GameState::Playing && !initially_playing)
-      {
-        timer.Start();
-      }
-      else if (game_model.GetGameState() == fsweep::GameState::Dead ||
-               game_model.GetGameState() == fsweep::GameState::Cool && initially_playing)
-      {
-        timer.Stop();
-      }
+      game_model.AreaClickButton(hover_button.x, hover_button.y);
     }
-    else if (this->hover_face)
+    else
     {
-      game_model.NewGame();
+      game_model.ClickButton(hover_button.x, hover_button.y);
+    }
+    if (game_model.GetGameState() == fsweep::GameState::Playing && !initially_playing)
+    {
+      timer.Start();
+    }
+    else if (game_model.GetGameState() == fsweep::GameState::Dead ||
+              game_model.GetGameState() == fsweep::GameState::Cool && initially_playing)
+    {
       timer.Stop();
     }
   }
-  else if (!this->right_down)
+  else if (this->hover_face)
   {
-    this->buttons_locked = false;
+    game_model.NewGame();
+    timer.Stop();
   }
   this->left_down = false;
 }
@@ -95,7 +88,7 @@ void fsweep::DesktopModel::RightPress(fsweep::Timer& timer)
   {
     game_model.UpdateTime(timer.GetGameTime());
   }
-  if (!this->left_down && this->hover_button_o.has_value() && !this->buttons_locked)
+  if (!this->left_down && this->hover_button_o.has_value())
   {
     auto& hover_button = this->hover_button_o.value();
     game_model.AltClickButton(hover_button.x, hover_button.y);
@@ -106,19 +99,6 @@ void fsweep::DesktopModel::RightRelease()
 {
   auto& game_model = this->game_model.get();
   this->right_down = false;
-  if (this->left_down && game_model.GetGameState() == fsweep::GameState::Playing)
-  {
-    this->buttons_locked = true;
-    if (this->hover_button_o.has_value())
-    {
-      auto& hover_button = this->hover_button_o.value();
-      game_model.AreaClickButton(hover_button.x, hover_button.y);
-    }
-  }
-  else
-  {
-    this->buttons_locked = false;
-  }
 }
 
 void fsweep::DesktopModel::MouseLeave() { this->hover_button_o = std::nullopt; }
@@ -174,11 +154,11 @@ fsweep::Sprite fsweep::DesktopModel::GetFaceSprite() const noexcept
   if (game_model.GetGameState() == fsweep::GameState::None ||
       game_model.GetGameState() == fsweep::GameState::Playing)
   {
-    if (this->left_down && !this->buttons_locked && this->hover_face)
+    if (this->left_down && this->hover_face)
     {
       return fsweep::Sprite::ButtonSmileDown;
     }
-    else if (this->left_down && !this->buttons_locked && this->hover_button_o.has_value())
+    else if (this->left_down && this->hover_button_o.has_value())
     {
       const auto& hover_button = this->hover_button_o.value();
       const auto& button = game_model.GetButton(hover_button.x, hover_button.y);
@@ -229,12 +209,11 @@ fsweep::Sprite fsweep::DesktopModel::GetButtonSprite(int x, int y) const noexcep
   {
     if (button.GetButtonState() != fsweep::ButtonState::Flagged &&
         button.GetButtonState() != fsweep::ButtonState::Down && this->left_down &&
-        this->hover_button_o.has_value() && !this->buttons_locked)
+        this->hover_button_o.has_value())
     {
       const auto& hover_button = this->hover_button_o.value();
       if ((hover_button == button_position) ||
-          (game_model.GetGameState() == fsweep::GameState::Playing && this->right_down &&
-           hover_button.IsNear(button_position)))
+          (this->right_down && hover_button.IsNear(button_position)))
       {
         if (fsweep::ButtonState() == fsweep::ButtonState::Questioned)
         {

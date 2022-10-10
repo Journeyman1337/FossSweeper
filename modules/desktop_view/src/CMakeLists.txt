@@ -14,9 +14,30 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-# wxWidgets
-if (FSWEEP_BUILD_DESKTOP)
-    set(wxBUILD_SHARED FALSE)
-    set(wxBUILD_INSTALL FALSE)
-    add_subdirectory(wxWidgets)
-endif()
+target_sources(fsweep_desktop_view
+    PRIVATE
+        "AboutDialog.cpp"
+        "ConfigDialog.cpp"
+        "DesktopApp.cpp"
+        "DesktopTimer.cpp"
+        "DesktopView.cpp"
+        "GameFrame.cpp"
+        "GamePanel.cpp"
+        "icon.cpp"
+        "main.cpp"
+        "PixelScaleDialog.cpp"
+        "spritesheet.cpp"
+        "TextDialog.cpp"
+        "AboutDialog.hpp"
+        "DesktopApp.hpp"
+        "DesktopTimer.hpp"
+        "DesktopView.hpp"
+        "GameFrame.hpp"
+        "GamePanel.hpp"
+        "GamePanelState.hpp"
+        "icon.hpp"
+        "PixelScaleDialog.hpp"
+        "spritesheet.hpp"
+        "TextDialog.hpp"
+        "wx_include.hpp"
+)

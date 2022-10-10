@@ -28,6 +28,7 @@ const int TIMER_INTERVAL = MILLISECONDS_PER_SECOND / 15;
 
 #include <cstddef>
 #include <fsweep/Sprite.hpp>
+#include <fsweep/DesktopModel.hpp>
 #include <functional>
 #include <optional>
 
@@ -79,6 +80,10 @@ void fsweep::GamePanel::OnLeftPress(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.LeftPress();
+  if (!this->HasCapture())
+  {
+    this->CaptureMouse(); // prevents issues when mouse leaves the window on Windows platform
+  }
   this->DrawChanged();
 }
 
@@ -86,6 +91,10 @@ void fsweep::GamePanel::OnLeftRelease(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.LeftRelease(this->timer);
+  if (this->HasCapture())
+  {
+    this->ReleaseMouse(); // undo the CaptureMouse() from the press event
+  }
   this->DrawChanged();
 }
 
@@ -93,6 +102,10 @@ void fsweep::GamePanel::OnRightPress(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.RightPress(this->timer);
+  if (!this->HasCapture())
+  {
+    this->CaptureMouse();
+  }
   this->DrawChanged();
 }
 
@@ -100,6 +113,10 @@ void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
   desktop_model.RightRelease();
+  if (this->HasCapture())
+  {
+    this->ReleaseMouse();
+  }
   this->DrawChanged();
 }
 

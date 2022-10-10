@@ -192,11 +192,13 @@ void fsweep::GameModel::placeBombs(int initial_x, int initial_y)
   const auto bomb_count = this->game_configuration.GetBombCount();
   for (auto& button : this->buttons)
   {
-    button = fsweep::Button();
+    button.SetHasBomb(false);
+    button.Unpress();
   }
+  std::vector<bool> bombs(this->game_configuration.GetButtonCount());
   for (std::size_t button_i = 0; button_i < bomb_count; button_i++)
   {
-    this->buttons[button_i].SetHasBomb(true);
+    bombs[button_i] = true;
   }
   if (bomb_count == this->buttons.size())
   {
@@ -211,9 +213,24 @@ void fsweep::GameModel::placeBombs(int initial_x, int initial_y)
   for (std::size_t button_i = 0; button_i <= last_minable_button_i; button_i++)
   {
     const std::size_t swap_i = static_cast<std::size_t>(distributor(this->rng));
-    std::swap(this->buttons[button_i], this->buttons[swap_i]);
+    // vector of bool are weird, std::swap doesn't work.
+    bool temp = bombs[button_i];
+    bombs[button_i] = bombs[swap_i];
+    bombs[swap_i] = temp;
   }
-  std::swap(this->getButton(initial_x, initial_y), this->buttons.back());
+  const fsweep::ButtonPosition initial_position(initial_x, initial_y);
+  const std::size_t initial_i = initial_position.GetIndex(this->game_configuration.GetButtonsWide());
+  const std::size_t swap_i = bombs.size() - 1;
+  bool temp = bombs[initial_i];
+  bombs[initial_i] = bombs[swap_i];
+  bombs[swap_i] = temp;
+  for (std::size_t button_i = 0; button_i < this->buttons.size(); button_i++)
+  {
+    if (bombs[button_i])
+    {
+      this->buttons[button_i].SetHasBomb(true);
+    }
+  }
   this->calculateSurroundingBombs();
 }
 
@@ -250,7 +267,10 @@ void fsweep::GameModel::tryWin() noexcept
 
 void fsweep::GameModel::NewGame()
 {
-  std::fill(this->buttons.begin(), this->buttons.end(), fsweep::Button());
+  if (this->game_state != fsweep::GameState::None)
+  {
+    std::fill(this->buttons.begin(), this->buttons.end(), fsweep::Button());
+  }
   this->game_time = 0;
   this->game_state = fsweep::GameState::None;
   this->flag_count = 0;
@@ -265,11 +285,7 @@ void fsweep::GameModel::NewGame(fsweep::GameConfiguration game_configuration)
     const std::size_t button_count = game_configuration.GetButtonCount();
     this->game_configuration = game_configuration;
     this->buttons.clear();
-    this->buttons.reserve(button_count);
-    for (auto button_i = 0; button_i < button_count; button_i++)
-    {
-      this->buttons.emplace_back();
-    }
+    this->buttons.resize(button_count);
     this->flood_fill_stack.reserve(button_count);
     this->game_time = 0;
     this->game_state = fsweep::GameState::None;
@@ -287,6 +303,8 @@ void fsweep::GameModel::ClickButton(int x, int y)
 {
   if (this->game_state != fsweep::GameState::Playing && this->game_state != fsweep::GameState::None)
     return;
+  const auto& button = this->getButton(x, y);
+  if (button.GetButtonState() == fsweep::ButtonState::Flagged) return;
   if (this->game_state == fsweep::GameState::None)
   {
     this->placeBombs(x, y);
@@ -302,7 +320,7 @@ void fsweep::GameModel::ClickButton(int x, int y)
 
 void fsweep::GameModel::AltClickButton(int x, int y)
 {
-  if (this->game_state != fsweep::GameState::Playing) return;
+  if (this->game_state == fsweep::GameState::Dead || this->game_state == fsweep::GameState::Cool) return;
   auto& button = this->getButton(x, y);
   if (button.GetButtonState() == fsweep::ButtonState::Flagged)
   {
@@ -317,7 +335,7 @@ void fsweep::GameModel::AltClickButton(int x, int y)
 
 void fsweep::GameModel::AreaClickButton(int x, int y)
 {
-  if (this->game_state != fsweep::GameState::Playing) return;
+  if (this->game_state == fsweep::GameState::Dead || this->game_state == fsweep::GameState::Cool) return;
   if (!this->choordingPossible(x, y)) return;
   const auto buttons_wide = this->game_configuration.GetButtonsWide();
   const auto buttons_tall = this->game_configuration.GetButtonsTall();

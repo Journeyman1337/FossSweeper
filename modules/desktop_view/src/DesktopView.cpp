@@ -22,6 +22,7 @@
 
 #include "DesktopView.hpp"
 
+#include <fsweep/GameModel.hpp>
 #include <fsweep/DesktopModel.hpp>
 #include <functional>
 #include <sstream>

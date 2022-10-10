@@ -38,6 +38,7 @@ namespace fsweep
     constexpr Button() noexcept = default;
     Button(char c) noexcept;
 
+    void Unpress() noexcept;
     void Press() noexcept;
     void AltPress(bool questions_enabled) noexcept;
     void RemoveQuestion() noexcept;

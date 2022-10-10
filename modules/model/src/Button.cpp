@@ -54,6 +54,14 @@ fsweep::Button::Button(char c) noexcept
   }
 }
 
+void fsweep::Button::Unpress() noexcept
+{
+  if (this->button_state == fsweep::ButtonState::Down)
+  {
+    this->button_state = fsweep::ButtonState::None;
+  }
+}
+
 void fsweep::Button::Press() noexcept
 {
   if (this->button_state != fsweep::ButtonState::Flagged)

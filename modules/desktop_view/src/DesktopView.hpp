@@ -28,7 +28,8 @@
 namespace fsweep
 {
   class DesktopModel;
-
+  class GameModel;
+  
   class DesktopView
   {
    private:

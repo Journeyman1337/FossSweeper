@@ -14,11 +14,11 @@
 # You should have received a copy of the GNU General Public License along with FossSweeper. If not, see <https://www.gnu.org/licenses/>.
 # 
 
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.24.1)
 
 project(
     fosssweeper
-    VERSION 0.5.0.0
+    VERSION 1.0.0.0
     DESCRIPTION "An open source clone of a popular mine avoidance game"
     LANGUAGES C CXX
 )
@@ -37,9 +37,5 @@ option(FSWEEP_MONOLITHIC "Find wxWidgets in the extern folder and add catch2 via
 option(FSWEEP_BUILD_DESKTOP "Build the desktop application." ON)
 option(FSWEEP_BUILD_TESTS "Enable the automatic test framework." ON)
 option(FSWEEP_INSTALL_DESKTOP "Install the desktop application using CPack." ON)
-
-if (FSWEEP_MONOLITHIC)
-    add_subdirectory(extern)
-endif()
 
 add_subdirectory(modules)
