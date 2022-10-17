@@ -233,7 +233,7 @@ TEST_CASE("Buttons are chorded (area clicked) through the DesktopModel")
           desktop_model.LeftPress();
           desktop_model.RightPress(timer);
           desktop_model.LeftRelease(timer);
-          desktop_model.RightRelease();
+          desktop_model.RightRelease(timer);
 
           THEN("The amount of Buttons left is correct")
           {
@@ -247,7 +247,7 @@ TEST_CASE("Buttons are chorded (area clicked) through the DesktopModel")
           desktop_model.LeftPress();
           desktop_model.RightPress(timer);
           desktop_model.LeftRelease(timer);
-          desktop_model.RightRelease();
+          desktop_model.RightRelease(timer);
 
           THEN("The amount of Buttons left is correct")
           {
@@ -261,7 +261,7 @@ TEST_CASE("Buttons are chorded (area clicked) through the DesktopModel")
           desktop_model.LeftPress();
           desktop_model.RightPress(timer);
           desktop_model.LeftRelease(timer);
-          desktop_model.RightRelease();
+          desktop_model.RightRelease(timer);
 
           THEN("The amount of Buttons left is correct")
           {
