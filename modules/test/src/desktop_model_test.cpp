@@ -269,7 +269,7 @@ TEST_CASE("Buttons are chorded (area clicked) through the DesktopModel")
           }
         }
 
-        WHEN("Two Buttons were chorded without releasing the right mouse button")
+        WHEN("Two Buttons were chorded with left release without releasing the right mouse button")
         {
           desktop_model.MouseMove(81, 41);
           desktop_model.LeftPress();
@@ -278,7 +278,24 @@ TEST_CASE("Buttons are chorded (area clicked) through the DesktopModel")
           desktop_model.MouseMove(89, 113);
           desktop_model.LeftPress();
           desktop_model.LeftRelease(timer);
-          desktop_model.RightRelease();
+          desktop_model.RightRelease(timer);
+
+          THEN("The amount of Buttons left is correct")
+          {
+            CHECK(game_model.GetButtonsLeft() == 29);
+          }
+        }
+
+        WHEN("Two Buttons were chorded with right release without releasing the left mouse button")
+        {
+          desktop_model.MouseMove(81, 41);
+          desktop_model.LeftPress();
+          desktop_model.RightPress(timer);
+          desktop_model.RightRelease(timer);
+          desktop_model.MouseMove(89, 113);
+          desktop_model.LeftPress();
+          desktop_model.RightRelease(timer);
+          desktop_model.LeftRelease(timer);
 
           THEN("The amount of Buttons left is correct")
           {
