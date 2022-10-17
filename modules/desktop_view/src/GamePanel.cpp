@@ -112,7 +112,7 @@ void fsweep::GamePanel::OnRightPress(wxMouseEvent& WXUNUSED(e))
 void fsweep::GamePanel::OnRightRelease(wxMouseEvent& WXUNUSED(e))
 {
   auto& desktop_model = this->desktop_view.get().GetDesktopModel();
-  desktop_model.RightRelease();
+  desktop_model.RightRelease(this->timer);
   if (this->HasCapture())
   {
     this->ReleaseMouse();

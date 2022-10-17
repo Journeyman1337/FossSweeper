@@ -95,9 +95,20 @@ void fsweep::DesktopModel::RightPress(fsweep::Timer& timer)
   }
 }
 
-void fsweep::DesktopModel::RightRelease()
+void fsweep::DesktopModel::RightRelease(fsweep::Timer& timer)
 {
   auto& game_model = this->game_model.get();
+  auto initially_playing = game_model.GetGameState() == fsweep::GameState::Playing;
+  if (this->hover_button_o.has_value() && this->left_down)
+  {
+    auto& hover_button = this->hover_button_o.value();
+    game_model.AreaClickButton(hover_button.x, hover_button.y);
+    if (game_model.GetGameState() == fsweep::GameState::Dead ||
+              game_model.GetGameState() == fsweep::GameState::Cool)
+    {
+      timer.Stop();
+    }
+  }
   this->right_down = false;
 }
 
