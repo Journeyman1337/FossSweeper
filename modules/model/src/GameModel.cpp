@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2022 Daniel Valcour <fosssweeper@gmail.com>
+// SPDX-FileCopyrightText: 2022-2023 Daniel Valcour <fosssweeper@gmail.com>
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 /*
- * Copyright (c) 2022 Daniel Valcour
+ * Copyright (c) 2022-2023 Daniel Valcour
  *model
  * This file is part of FossSweeper.
  *

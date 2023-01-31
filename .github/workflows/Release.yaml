@@ -1,9 +1,9 @@
-# SPDX-FileCopyrightText: 2022 Daniel Valcour <fosssweeper@gmail.com>
+# SPDX-FileCopyrightText: 2022-2023 Daniel Valcour <fosssweeper@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 #
-# Copyright (c) 2022 Daniel Valcour
+# Copyright (c) 2022-2023 Daniel Valcour
 #
 # This file is part of FossSweeper.
 #
@@ -26,8 +26,8 @@ jobs:
       matrix:
         platform:
           - {
-              Name: Windows VS2022 x64,
-              os: windows-2022,
+              Name: Windows VS2022-2023 x64,
+              os: windows-2022-2023,
               cpack_generator: ZIP,
               package_extension: zip,
               cc: cl.exe,
